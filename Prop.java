@@ -135,7 +135,7 @@ public class Prop
   
   public double laplaceFunction (double t, double magnitude)
   {
-    return (1-Math.exp(-t/(this.tau/(1+this.gain*this.kC))))*((1/(1+this.gain*this.kC))*magnitude);//check formula, there's an equals on github
+    return (1-Math.exp(-t/(this.tau/(1+this.gain*this.kC))))*((1/(1+this.gain*this.kC))*magnitude);//check formula
   } // end of Laplace Function method
  
 } //end of class
