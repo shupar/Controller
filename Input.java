@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.*; //i survived :')
 
 public class Input
 {
@@ -15,7 +15,7 @@ public class Input
     
     System.out.println("You will now need to enter the parameters for the first order approximation of your process. Please enter your gain (K value): ");
     double kC=reader.nextDouble();
-    //Emily is testing the app
+    
     System.out.println("Please enter the time constant for your process");
     double tau = reader.nextDouble();
     
