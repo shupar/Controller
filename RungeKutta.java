@@ -25,11 +25,11 @@ public class RungeKutta
           x[i]=x[i]+delx;
           i++;
           
+          return y[i]; //je pense qu'on devrait retourner x[i] egalement
         }
 
         if(i==maxIt) System.out.println("endpoint not reached within maximum specified initerations in RK4 integrate method");
         
-        return y;
     }//end of integrate method
   
 }//end of RK4 class
