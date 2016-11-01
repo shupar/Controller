@@ -1,4 +1,4 @@
-public abstract class ControllerEssay 
+public abstract class ControllerEssay
 {  
   private double kC;
   
