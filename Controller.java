@@ -1,4 +1,4 @@
-public abstract class Controller implements ResponseSolver
+public abstract class Controller
 {  
   private double kC;
   
@@ -22,7 +22,7 @@ public abstract class Controller implements ResponseSolver
     return this.kC;
   }//end of accessor
   
-  public abstract double calculateSignal(double error);
+  public abstract double calculateSignal(step change, kc,taui, taud);
    
 } //end of class
   

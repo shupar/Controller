@@ -1,4 +1,4 @@
-public class Proportional extends Controller implements ResponseSolver
+public class Proportional extends Controller
 {
   public Proportional()
   {
@@ -10,9 +10,10 @@ public class Proportional extends Controller implements ResponseSolver
     super(kC);
   }//end of constructor 
   
-  public double calculateSignal(double error)
+  
+  public double calculateSignal(stepChange, kc,taui, taud, response);
   {
-    return 0.;
-    //fix: get kC value from Controller and multiply by error and return that value to main
+    double error=stepChange-response;
+    return error*Kc;
   }
 }
