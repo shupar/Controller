@@ -1,4 +1,4 @@
-public class Results extends ControllerEssay implements Processes//figure out how to do it because processes is an abstract class
+public class Results extends ControllerEssay implements Processes//figure out how to do it because Processes is an abstract class
   
 {
   ControllerEssay []controller;
@@ -19,11 +19,13 @@ public class Results extends ControllerEssay implements Processes//figure out ho
     double delx=arrayOfParameters[certain i];
     double maxIt=arrayOfParameters[certain i];
     
+    double response[0]=0;
+    
     For(int i=0; i<choose depending on delx; i++)
     {
       double time=fct de i;
-      double fceOUT=this.controller[i].calculateSignal(step change, kc,taui, taud);
-      double response=this.process[i]calculateReponse(x_0, x, y_0, delx, maxIt, Function f, double time, double response, double fceOUT);
+      double fceOUT[i]=this.controller[i].calculateSignal(step change, kc,taui, taud, response);
+      double response[i]=response+this.process[i].calculateReponse(x_0, x, y_0, delx, maxIt, Function f, double time, double response, double fceOUT);
       
       return response;                             
     }

@@ -22,7 +22,7 @@ public abstract class ControllerEssay
     return this.kC;
   }//end of accessor
   
-  public abstract double calculateSignal(double error);
+  public abstract double calculateSignal(step change, kc,taui, taud);
    
 } //end of class
   

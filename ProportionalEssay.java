@@ -10,9 +10,10 @@ public class ProportionalEssay extends ControllerEssay
     super(kC);
   }//end of constructor 
   
-  public double calculateSignal(double [] error)
+  
+  public double calculateSignal(stepChange, kc,taui, taud, response);
   {
-    for (int i=0; i<error.length; i++)
+    double error=stepChange-response;
     return error*Kc;
   }
 }
