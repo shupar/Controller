@@ -1,0 +1,4 @@
+public class MainInput
+{
+  public static void main (String[] args)
+}
