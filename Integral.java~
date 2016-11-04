@@ -1,4 +1,4 @@
-public class Integral extends Controller 
+public class Integral extends Controller implements ResponseSolver
 {
   private double tauI;
   
@@ -24,9 +24,9 @@ public class Integral extends Controller
     return this.tauI;
   }//end of accessor
   
-  public double calculateSignal(double step, int index, double[] error)
+  public double calculateSignal(double error)
   {
-    double integratedError=index*step*error[index];
-    return integratedError*getKC()/this.tauI;
+    return 0.;
+    //fix: get kC value from Controller and use numerical method to solve integral
   }
 }

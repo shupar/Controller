@@ -1,4 +1,4 @@
-public class Derivative extends Controller 
+public class Derivative extends Controller implements ResponseSolver
 {
   private double tauD;
   
@@ -24,9 +24,9 @@ public class Derivative extends Controller
     return this.tauD;
   }//end of accessor
   
-  public double calculateSignal(double step, int index, double[] error)
+  public double calculateSignal(double error)
   {
-    double derivedError=(error[index]-error[index-1])/step;
-    return derivedError*getKC()*this.tauD;
+    return 0.;
+    //fix: get kC value from Controller and use numerical method to solve derivative
   }
 }
