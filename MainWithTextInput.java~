@@ -1,25 +1,34 @@
+import java.util.*;
 import java.io.*;
-
-/*import java.io.PrintWriter;
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;*/
-
 
 public class MainWithTextInput
 {
   public static void main (String[] args)
   {
-    PrintWriter outputStream=null;
+    Scanner inputStream=null;
+   
     try
     {
-      outputStream=new PrintWriter(new FileOutputStream("UserInput.txt"));
+      inputStream=new Scanner(new FileInputStream("UserInput.txt"));
     }//end try
     
-    catch (FileNotFoundException
+    catch (FileNotFoundException e)
     {
-      
-      
+      System.out.println("There was an error accessing the UserInput.txt file! Please check that it does in fact exist and it is not open a the moment.");
+      System.exit(0);
     }//end catch
+    
+    int n1=inputStream.nextInt();
+    int n2=inputStream.nextInt();
+    
+    inputStream.nextLine();//move to next line
+    
+    String line=inputStream.nextLine();//read whole next line
+    
+    System.out.println(n1+", "+n2+", "+line);
+    
+    inputStream.close();
+    
     
   }//end main
   
