@@ -33,7 +33,7 @@ public class CSTRHeatingSystem extends Processes implements Function
 
    public void setHeatCapacity(double cp)
    {
-     this.opCondition[2] = c;
+     this.opCondition[2] = cp;
    } //end of mutator
    
    public void setT_I(double t_I)
@@ -41,9 +41,9 @@ public class CSTRHeatingSystem extends Processes implements Function
      this.opCondition[3] = t_I;
    } //end of mutator
    
-   public void setT_I(double t_I)
+   public void setT_o(double t_o)
    {
-     this.opCondition[3] = t_I;
+     this.opCondition[4] = t_o;
    } //end of mutator
        
 
@@ -60,9 +60,7 @@ public class CSTRHeatingSystem extends Processes implements Function
   
   public double calculateValue(double x, double y);//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
   {
-   double c,w,,v,rho;//normalment dans la table opConditions
-   double To,q; //c'est different pour ces 2 variables pcq To=disturbance et Q=step change
-   return  (w*C*(To-y)+q)/(v*rho*c)
+   return  (this.w*this.cp*(this.To-y)+this.q)/(this.v*this.rho*this.c)
   }//end of method
   
 }//end of concentration model
