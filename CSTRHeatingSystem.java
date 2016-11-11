@@ -1,8 +1,8 @@
 public class CSTRHeatingSystem extends Processes implements Function
   
 {
-   private double[7] opConditions; // Volume, density, heatCapacity, inlet temp, flow rate, heat flow
-   
+   private double[6] opConditions; // Volume, density, heatCapacity, inlet temp, flow rate, heat flow
+   //size here isnt right. i changed it to 6
    
    public CSTRHeatingSystem()
    {
@@ -15,7 +15,7 @@ public class CSTRHeatingSystem extends Processes implements Function
    {
     this.opCondition[0] = v;
     this.opCondition[1] = rho;
-    this.opCondition[2] = heatCapactiy;
+    this.opCondition[2] = cp;//idk why this variable was kept as heatCapacity. i changed it to cp (the variable name that is received
     this.opCondition[3] = t_I;
     this.opCondition[4] = w;
     this.opCondition[5] = q;    
@@ -58,11 +58,11 @@ public class CSTRHeatingSystem extends Processes implements Function
   }
   
   
-  public double calculateValue(double t, double T);
+  public double calculateValue(double x, double y);//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
   {
    double c,w,,v,rho;//normalment dans la table opConditions
    double To,q; //c'est different pour ces 2 variables pcq To=disturbance et Q=step change
-   return  (w*C*(To-T)+q)/(v*rho*c)
+   return  (w*C*(To-y)+q)/(v*rho*c)
   }//end of method
   
 }//end of concentration model

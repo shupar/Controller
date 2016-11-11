@@ -1,21 +1,27 @@
+import java.util.*;
+
 public class MainInput
 {
+  Scanner reader=new Scanner(System.in);
+  
   public static void main (String[] args)
   {
     int systemSelection=0, inputSignal=0;
     double step=0, setPoint=0, tol=0;
-    String controllerSelection=null;
+    int controllerSelection=0;//changed this from string to int for simplicity
     double propSignal=0, intSignal=0, derivSignal=0, finalSignal=0;
     double kC=0, tauI=0, tauD=0;
 
     System.out.println("Please indicate which process you would like to test.");
     System.out.println("Select \'1\' for CSTR Heating System.");
     System.out.println("Select \'2\' for Level System.");
+    systemSelection=reader.nextInt();
     //variable "systemSelection" to save user choice of system (read off txt file)
     
     System.out.println("For this process, please indicate what kind of input signal to send to the system.");
     System.out.println("Select \'1\' for a step change.");
     System.out.println("Select \'2\' for a disturbance.");
+    inputSignal=reader.nextInt();
     //variable "inputSignal" to save user choice of input signal (read off txt file)   
     
     System.out.println("Please enter the time increment between readings.");

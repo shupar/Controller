@@ -1,0 +1,12 @@
+	Insert 1 to simulate the CSTR heating system OR 2 to simulate the level control system.
+	Indicate 1 to simulate a step change OR 2 to simulate a disturbance to your selected process.
+	If you chose a step change, please insert your desired step.
+	If you chose a disturbance, please insert values for gbvkdfbv;jdkzbf;kjsdfnvkj with a space in between each element.
+	Enter your desired time increment in seconds (ex: simulate the control loop every 5 s).
+	Enter your desired runtime.
+	Enter your process output target (i.e. your setpoint).
+	Enter your reponse tolerance (tolerance for the difference between the simulation output and your desired setpoint)
+	Controller preferences: In the order of Proportional, Integral or Derivative controller actions, you will enter 1 if you would like to simulate the action and 0 if not. Enter a space between each binary number. Ex: If you are simulating PD,  enter 1 0 1.
+	Indicate your desired controller gain Kc (if applicable)
+	Indicate your desired controller integral time constant tauI (if applicable)
+	Indicate your desired controlled integral time constant tauD
