@@ -1,7 +1,7 @@
-	Insert 1 to simulate the CSTR heating system OR 2 to simulate the level control system.
+2	Insert 1 to simulate the CSTR heating system OR 2 to simulate the level control system.
 	Enter 1 to simulate a step change OR 2 to simulate a disturbance to your selected process.
-	If you chose a step change, please insert your desired step (For CSTR heating system, the change is on Q and for the level ysstem, the change is on___).
-	If you chose a disturbance, please insert disturbance gain, and between which times (in s) you would like to impose it on the system. Put a space in between each element. Ex: gain of 5 between 30 and 60s would be 5 30 60 (For the CSTR system, you are varying inlet temperature and for level, you are varying _)
+5	If you chose a step change, please insert your desired step (For CSTR heating system, the change is on Q and for the level ysstem, the change is on___).
+7 30 60	If you chose a disturbance, please insert disturbance gain, and between which times (in s) you would like to impose it on the system. Put a space in between each element. Ex: gain of 5 between 30 and 60s would be 5 30 60 (For the CSTR system, you are varying inlet temperature and for level, you are varying _)
 	Enter your desired time increment in seconds (ex: simulate the control loop every 5 s).
 	Enter your desired runtime.
 	Enter your process output target (i.e. your setpoint).
