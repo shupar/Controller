@@ -41,6 +41,10 @@ public class MainWithTextInput
     }
     inputStream.nextLine();
     
+   // System.out.println("systemselection is: "+systemSelection);;
+    
+    
+    /*
     //scanning for type of input signal to impose on selected process
     while(!inputStream.hasNextInt())
     {
@@ -49,8 +53,10 @@ public class MainWithTextInput
     }
     int inputSignal=inputStream.nextInt();
     inputStream.nextLine();
+    //System.out.println(inputSignal);
     
     //if user choses a step change, scan for step
+    int stepChange=0;
     if (inputSignal==1)
     {
       while(!inputStream.hasNextInt())
@@ -58,11 +64,15 @@ public class MainWithTextInput
       System.out.println("You did not enter an rounded (integer) value for your desired step. Plz modify the text file and try again.");
       return;
       }
-      int stepChange=inputStream.nextInt();
+      stepChange=inputStream.nextInt();
     }
     
     //if user selects disturbance, scan for dusturbance magnitude and time
-    else if (inputSignal==2)
+    int disturbanceMag=0;
+    int disturbanceStart=0;
+    int disturbanceEnd=0;
+ 
+    if (inputSignal==2)
     {
       inputStream.nextLine();
       
@@ -71,29 +81,31 @@ public class MainWithTextInput
       System.out.println("You did not enter an rounded (integer) value for your disturbance magnitude. Plz modify the text file and try again.");
       return;
       }
-      int disturbanceMag=inputStream.nextInt();
+      disturbanceMag=inputStream.nextInt();
       
       while(!inputStream.hasNextInt())
       {
       System.out.println("You did not enter an rounded (integer) value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       return;
       }
-      int disturbanceStart=inputStream.nextInt();
+      disturbanceStart=inputStream.nextInt();
+      
+      System.out.println(disturbanceMag);
       
       while(!inputStream.hasNextInt())
       {
       System.out.println("You did not enter an rounded (integer) value for the end time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       return;
       }
-      int disturbanceEnd=inputStream.nextInt();
+      disturbanceEnd=inputStream.nextInt();
     }
     else
     {
       System.out.println("Please enter either 1 or 2 into the text file depending on the type of change you would like to invoke on your process.");
       return;
     }
-    
-    System.out.println(disturbanceMag+disturbanceStart+disturbanceEnd);
+      
+      System.out.println(disturbanceMag+disturbanceStart+disturbanceEnd);
     
    /* inputStream.nextLine();//move to next line
     
@@ -108,7 +120,7 @@ public class MainWithTextInput
       return;
     }
     int num=inputStream.nextInt();
-    System.out.println("You finally entered an integer value of: "+num);*/
+    System.out.println("You finally entered an integer value of: "+num);*/*/
     
   }//end main
   
