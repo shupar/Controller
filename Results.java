@@ -1,5 +1,10 @@
-public class Results extends Controller implements Processes//figure out how to do it because Processes is an abstract class
+public class Results extends Controller//figure out how to do it because Processes is an abstract class
   //n'est ce pas qu'on voulait caller les affaires avec des objets? wait you cant instantiate an abstract class.... fuck
+
+
+
+
+
 {
   Controller []controller;
   Processes []process;
@@ -7,11 +12,12 @@ public class Results extends Controller implements Processes//figure out how to 
   //add constructor
   
   public double calculations(step change, disturbance, controller, process, arrayOfParameters(Kc,TauI,TauD,T,t,V,deltax,etc..))
+  
   {
     this.controller=controller;
     this.process=process;
     this.controller=new Controller[i];
-    this.process=new Processes[i];
+    this.process=new Processes;
     
     double kc=arrayOfParameters[certain i];
     double taui=arrayOfParameters[certain i];
@@ -23,10 +29,10 @@ public class Results extends Controller implements Processes//figure out how to 
     
     For(int i=0; i<choose depending on delx; i++)
     {
-      double time=fct de i;
+      double time=i; //time will be in seconds
       double fceOUT[i]=this.controller[i].calculateSignal(step change, kc,taui, taud, response);
-      double response[i]=response+this.process[i].calculateReponse(x_0, x, y_0, delx, maxIt, Function f, double time, double response, double fceOUT);
-      
+      double response[i]= this.process[i].calculateReponse(i, i+1, y_0);
+       
       return response;                             
     }
   

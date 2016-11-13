@@ -1,7 +1,7 @@
-public class Results extends ControllerEssay implements Processes//figure out how to do it because Processes is an abstract class
-  
+public class Results extends Controller implements Processes//figure out how to do it because Processes is an abstract class
+  //n'est ce pas qu'on voulait caller les affaires avec des objets? wait you cant instantiate an abstract class.... fuck
 {
-  ControllerEssay []controller;
+  Controller []controller;
   Processes []process;
   
   //add constructor

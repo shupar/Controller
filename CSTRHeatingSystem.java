@@ -1,7 +1,7 @@
 public class CSTRHeatingSystem extends Processes implements Function
   
 {
-   private double[6] opConditions; // Volume, density, heatCapacity, inlet temp, flow rate, heat flow
+   private double[] opCondition = new double[6]; // Volume, density, heatCapacity, inlet temp, flow rate, heat flow
    //size here isnt right. i changed it to 6
    
    public CSTRHeatingSystem()
@@ -9,7 +9,7 @@ public class CSTRHeatingSystem extends Processes implements Function
        //force null values for these instance variables,
        //which will be reset each time calculateResponse is called...
      
-       this.opConditions=null;
+       this.opCondition=null;
     }
    public CSTRHeatingSystem(double v, double rho, double cp, double t_I, double w, double q) // will most likely be recieved by file I/O therefore not at array
    {
@@ -41,26 +41,27 @@ public class CSTRHeatingSystem extends Processes implements Function
      this.opCondition[3] = t_I;
    } //end of mutator
    
-   public void setT_o(double t_o)
+   public void setW(double w)
    {
-     this.opCondition[4] = t_o;
+ 
+     this.opCondition[4] = w;
    } //end of mutator
-       
+   
+   public void setQ(double q)
+   {
+ 
+     this.opCondition[5] = q;
+   } //end of mutator
 
-  public double [] calculateReponse(disturbance=To, step change in q, t)//arranger ca apres, on va essayer step change avant
+       
+  public double calculateValue(double x, double y)//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
   {
-    //this.opConditions=opConditions;
-    
-    double delt=t/5000;
-    double maxIt=5001;
-      
-    return RungeKutta.integrate(0, t, 25, delt, maxIt, this);
-  }
-  
-  
-  public double calculateValue(double x, double y);//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
-  {
-   return  (this.w*this.cp*(this.To-y)+this.q)/(this.v*this.rho*this.c)
+   return  (this.opCondition[4]*this.opCondition[2]*(this.opCondition[3]-y)+this.opCondition[5])/(this.opCondition[0]*this.opCondition[1]*this.opCondition[2]);
   }//end of method
+  
+  public double calculateResponse(double t1, double t2, double y0)
+  {
+   RungeKutta.integrate(t1,t2,y0, 0.2/*arbitrary step size*/,1000, this);
+  }
   
 }//end of concentration model
