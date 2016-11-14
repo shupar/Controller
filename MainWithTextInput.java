@@ -45,8 +45,6 @@ public class MainWithTextInput
     
    //System.out.println("systemSelection is: "+systemSelection);;
     
-    
-    
     //scanning for type of input signal to impose on selected process
     while(!inputStream.hasNextInt())
     {
@@ -151,32 +149,34 @@ public class MainWithTextInput
     else 
     {
       Scanner reader=new Scanner(System.in);
+      boolean exit=false;
       double iterations=0;
       int choice=0;
       iterations=runTime/timeInc;
       
       System.out.println("For your set run time and time increment for iterations, the program will compute "+iterations+".");
-      System.out.println("Please enter 1 into the java compile if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
      
-      //MAKE THIS A TRY/CATCH
-      /*while(!reader.hasNextInt())
+      do
+    {
+      exit=false;
+      while(!exit)
       {
-        System.out.println("You did not enter either 1 or 2 (as an integer) for your choice of how to proceed. Plz try again.");
-      }*/ 
-      choice=reader.nextInt();
-      
-      while(choice!=1&&choice!=2)
-      {
-        System.out.println("You did not enter either 1 or 2 (as an integer) for your choice of how to proceed. Plz try again.");
-       
-      //MAKE THIS A TRY/CATCH
-      /*while(!reader.hasNextInt())
-      {
-        System.out.println("You did not enter either 1 or 2 (as an integer) for your choice of how to proceed. Plz try again.");
-      }*/ 
-        choice=reader.nextInt();
-      } 
-      
+        try
+        {
+          System.out.println("Please enter 1 into the java compile if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
+          choice=reader.nextInt();
+          exit=true;
+        }
+        
+        catch(InputMismatchException e)
+        {
+          reader.nextLine();
+          System.out.println("You did not select option 1 or 2 (entered as an integer). Please enter 1 to proceed with the rest of the code or 2 to reevaluate the number of iterations.");
+        }
+      }
+    }while(choice!=1&&choice!=2);
+    //end catch for user's selection of how to proceed
+           
       if(choice==2)
       {
         reader.close();
@@ -189,7 +189,8 @@ public class MainWithTextInput
         reader.close();
       }
     }
-   //code to read process setpoint and tolerance
+   
+    //code to read process setpoint and tolerance
     inputStream.nextLine();
     double setPoint=0;
     while(!inputStream.hasNextDouble())
@@ -211,8 +212,226 @@ public class MainWithTextInput
       }
     tol=inputStream.nextDouble();
     System.out.println("The tolerance is: "+tol);
-   
     
+    //code to read valve details
+    inputStream.nextLine();
+    double kV=0;
+    while(!inputStream.hasNextDouble())
+      {
+      System.out.println("You did not enter an integer or a double value for the gain of the valve you are using. Plz modify the text file and try again.");
+      inputStream.close();
+      return;
+      }
+    kV=inputStream.nextDouble();
+    System.out.println("The gain of the valve is: "+kV);
+    
+    inputStream.nextLine();
+    double tauV=0;
+    while(!inputStream.hasNextDouble())
+      {
+      System.out.println("You did not enter an integer or a double value for the time constant of your valve. Plz modify the text file and try again.");
+      inputStream.close();
+      return;
+      }
+    tauV=inputStream.nextDouble();
+    System.out.println("The time constant of your valve is: "+tauV);
+
+    //code to read what type of controller to simulate
+    inputStream.nextLine();
+    String controller=inputStream.next();
+    //System.out.println("The controller type you have chosen is: "+controller);
+    
+    while(!controller.equals("P")&&!controller.equals("I")&&!controller.equals("D")&&!controller.equals("PI")&&!controller.equals("PD")&&!controller.equals("ID")&&!controller.equals("PID"))
+    {
+      System.out.println("You did enter a valid type of controller. Please go back into the text file and modify your choice.");
+      inputStream.close();
+      return;      
+    }
+    
+      //what to do next as a function of user controller choice
+    double kC=0;
+    double tauI=0;
+    double tauD=0;
+    
+    if (controller.equals("P"))
+      {
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        
+        System.out.println("The gain of your controller is: "+kC);
+        
+        //CALL RESULTS  
+      }
+      else if(controller.equals("I"))
+      {
+        inputStream.nextLine();
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        System.out.println("The integral time constant of your controller is: "+tauI);
+        
+        //CALL RESULTS  
+      }
+      else if(controller.equals("D"))
+      {
+        inputStream.nextLine();
+        inputStream.nextLine();
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        
+        System.out.println("The derivative time constant of your controller is: "+tauD);
+        
+        //CALL RESULTS  
+      }
+      else if(controller.equals("PI"))
+      {
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        
+        System.out.println("The gain of your controller is: "+kC);
+        
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        System.out.println("The integral time constant of your controller is: "+tauI);
+        
+        //CALL RESULTS  
+      }
+      else if(controller.equals("PD"))
+      {
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        
+        System.out.println("The gain of your controller is: "+kC);
+        
+        inputStream.nextLine();
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        
+        System.out.println("The derivative time constant of your controller is: "+tauD);
+
+       //CALL RESULTS  
+      }
+      else if(controller.equals("ID"))
+      {
+        inputStream.nextLine();
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        System.out.println("The integral time constant of your controller is: "+tauI); 
+        
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        
+        System.out.println("The derivative time constant of your controller is: "+tauD);
+        
+        //CALL RESULTS
+        
+      }
+      else if(controller.equals("PID"))
+      {
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        
+        System.out.println("The gain of your controller is: "+kC);
+        
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        System.out.println("The integral time constant of your controller is: "+tauI);
+        
+        inputStream.nextLine();
+        
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        
+        System.out.println("The derivative time constant of your controller is: "+tauD);
+        
+        //CALL RESULTS
+      }    
+   
     inputStream.close();
     
   }//end main

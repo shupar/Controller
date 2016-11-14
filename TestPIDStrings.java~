@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class TestPIDStrings
+{
+  public static void main (String[]args)
+  {    
+    System.out.println("Plz enter the controller type");
+    controller=reader.next();
+    
+    while(controller!="P"||controller!="I"||controller!="D"||controller!="PI"||controller!="PD"||controller!="ID"||controller!="PID")//it won't properly compare my strings :(
+    {
+      System.out.println("You did enter a valid type of controller. Please try again.");
+      controller=reader.next();      
+    }
+      
+    reader.close();
+  }//end main
+  
+}//end class
