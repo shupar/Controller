@@ -10,7 +10,14 @@ public abstract class Controller
   public Controller(double kC)
   {
     this.kC=kC;
-  }//end of constructor 
+  }//end of constructor
+  
+  public Controller(Controller copy)
+  {
+    this.kC=copy.kC;
+  }//end of copy constructor
+  
+  public abstract Controller clone();
   
   public void setKC (double kC)
   {
@@ -22,7 +29,6 @@ public abstract class Controller
     return this.kC;
   }//end of accessor
   
-  public abstract double calculateSignal(double step, int index, double[] error);
-   
+  public abstract double calculateSignal(double step, int index, double[] error);   
 } //end of class
   

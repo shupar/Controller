@@ -26,6 +26,8 @@ public class Derivative extends Controller
   
   public double calculateSignal(double step, int index, double[] error)
   {
+    if (index == 0)
+      derivedError = 0;
     double derivedError=(error[index]-error[index-1])/step;
     return derivedError*getKC()*this.tauD;
   }

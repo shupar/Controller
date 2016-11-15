@@ -14,6 +14,17 @@ public class Derivative extends Controller
     this.tauD=tauD;
   }//end of constructor 
   
+  public Derivative(Derivative copy)
+  {
+    super(copy);
+    this.tauD=copy.tauD;
+  }//end of copy constructor
+  
+  public Derivative clone()
+  {
+    return new Derivative(this);
+  }//end of clone method
+  
   public void setTauD(double tauD)
   {
     this.tauD=tauD;
@@ -26,9 +37,11 @@ public class Derivative extends Controller
   
   public double calculateSignal(double step, int index, double[] error)
   {
+    double derivedError;
     if (index == 0)
       derivedError = 0;
-    double derivedError=(error[index]-error[index-1])/step;
+    else
+      derivedError=(error[index]-error[index-1])/step;
     return derivedError*getKC()*this.tauD;
   }
 }
