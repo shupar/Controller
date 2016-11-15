@@ -435,13 +435,13 @@ public class MainWithTextInput
       //create object P, I and D and send the approporiate instance variables 
       //create either CSTR or level object depending on user
       
-      double[] results=calculate value,fbvxkbjkv
+     /* double[] results=calculate value,fbvxkbjkv
         
         for (i=0; i<runTime; i++)
       {
         (print results(i) vs i)//qui correspond à f(t) vs t
         
-      }
+      }*/
    
     inputStream.close();
     

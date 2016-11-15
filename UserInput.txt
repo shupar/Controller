@@ -8,7 +8,7 @@
 0.001		:Enter your reponse tolerance (tolerance for the difference between the simulation output and your desired setpoint).
 5		:Please enter the gain of the valve you are using.
 3		:Please enter the time constant of that valve.
-PD		:In the order of Proportional (P), Integral (I) and Derivative (D) controller actions, enter (in letters) which actions you would like to simulate. Ex: Enter PD for a proportional derivative controller.
+ID		:In the order of Proportional (P), Integral (I) and Derivative (D) controller actions, enter (in letters) which actions you would like to simulate. Ex: Enter PD for a proportional derivative controller.
 5		:Indicate your desired controller gain Kc (if applicable).
 6		:Indicate your desired controller integral time constant tauI (if applicable).
 7		:Indicate your desired controlled derivative time constant tauD (if applicable).
