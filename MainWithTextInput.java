@@ -250,7 +250,7 @@ public class MainWithTextInput
     
       //what to do next as a function of user controller choice
     double kC=0;
-    double tauI=0;
+    double tauI=1000000000;//large number to cancel out term
     double tauD=0;
     
     if (controller.equals("P"))
@@ -430,7 +430,18 @@ public class MainWithTextInput
         System.out.println("The derivative time constant of your controller is: "+tauD);
         
         //CALL RESULTS
-      }    
+      }
+      
+      //create object P, I and D and send the approporiate instance variables 
+      //create either CSTR or level object depending on user
+      
+      double[] results=calculate value,fbvxkbjkv
+        
+        for (i=0; i<runTime; i++)
+      {
+        (print results(i) vs i)//qui correspond à f(t) vs t
+        
+      }
    
     inputStream.close();
     

@@ -7,7 +7,7 @@ public class Results extends Controller implements Processes
   CSTRHeatingSystem []cstrHeatingSystem;//for the moment just for this process without disturbance
  
   
-  public double calculations(step change, disturbance, controller1, controller2, controller3, process contains arrayOfParameters(T,t,V,deltax,etc..))
+  public double calculations(step change, disturbance, controller1, controller2, controller3 process, arrayOfParameters(T,t,V,deltax,etc..))
   {
     this.proportional=controller1;
     this.integral=controller2;
@@ -15,7 +15,7 @@ public class Results extends Controller implements Processes
     this.cstrHeatingSystem=process;
     this.proportional=new Controller[i];
     this.integral=new Controller[i];
-    this.derivative=new Controller[i];//check names
+    this.derivative=new Controller[i];
     
     double w=arrayOfParameters[certain i];
     double c=arrayOfParameters[certain i];
@@ -47,8 +47,8 @@ public class Results extends Controller implements Processes
     propError[0]=0;
     intError[0]=0;
     derError[0]=0;
-    signal[0]=1;
-    setPoint[0]=0;//verify this
+    signal[0]=1+(propError[0]+intError[0]+derError[0]);
+    setPoint[0]=(w*c*(Ti-320(T))+q)/(v*rho*c);//verify this
     
     if (tauv=0)
       double fceOut[0]=kv*signal[0];
@@ -66,7 +66,7 @@ public class Results extends Controller implements Processes
       error[i]=response[i]-setPoint[i];
       propError[i]=this.proportional[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
       intError[i]=this.integral[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
-      derError[i]=this.derivative[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
+      derError[i]=this.proportional[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
       signal[i]=1+(propError[i]+intError[i]+derError[i]);
       
       if (tauv=0)
@@ -79,10 +79,9 @@ public class Results extends Controller implements Processes
       else 
         response[i]=response[i-1]+this.cstrHeatingSystem[i].calculateReponse(x_0, x, y_0, delx, maxIt, Function f,
                                                                              double time, double response[i-i], double fceOUT[i]);
-                          
+   
+      return response;                             
     }
-  
-    return response; 
   
   }
 
