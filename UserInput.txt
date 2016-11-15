@@ -12,3 +12,8 @@ PD		:In the order of Proportional (P), Integral (I) and Derivative (D) controlle
 5		:Indicate your desired controller gain Kc (if applicable).
 6		:Indicate your desired controller integral time constant tauI (if applicable).
 7		:Indicate your desired controlled derivative time constant tauD (if applicable).
+
+
+
+
+

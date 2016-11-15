@@ -10,18 +10,8 @@ public class Proportional extends Controller
     super(kC);
   }//end of constructor 
   
-  public Proportional(Proportional copy)
+  public double calculateSignal(double step, double[] error)
   {
-    super(copy);
-  }//end of copy constructor
-  
-  public Proportional clone()
-  {
-    return new Proportional(this);
-  }//end of clone method
-  
-  public double calculateSignal(double step, int index, double[] error)
-  {
-    return error[index]*getKC();
+    return error[i]*super.getKC();
   }
 }
