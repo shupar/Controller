@@ -48,20 +48,48 @@ public class CSTRHeatingSystem extends Processes implements Function
    } //end of mutator
    
    public void setQ(double q)
-   {
- 
+   { 
      this.opCondition[5] = q;
    } //end of mutator
+////////////////////
+    public double getV()
+   {
+     this.opCondition[0] = v;
+   } //end of mutator
+   
+   public double getRho()
+   {
+     this.opCondition[1] = rho;
+   } //end of mutator
 
+   public double getHeatCapacity()
+   {
+     this.opCondition[2] = cp;
+   } //end of mutator
+   
+   public double getT_I()
+   {
+     this.opCondition[3] = t_I;
+   } //end of mutator
+   
+   public double getW()
+   {
+ 
+     this.opCondition[4] = w;
+   } //end of mutator
+   
+   public double getQ()
+   { 
+     this.opCondition[5] = q;
        
-  public double calculateValue(double x, double y)//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
-  {
+   public double calculateValue(double x, double y)//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
+   {
    return  (this.opCondition[4]*this.opCondition[2]*(this.opCondition[3]-y)+this.opCondition[5])/(this.opCondition[0]*this.opCondition[1]*this.opCondition[2]);
-  }//end of method
+   }//end of method
   
-  public double calculateResponse(double t1, double t2, double y0)
-  {
+   public double calculateResponse(double t1, double t2, double y0)
+   {
    RungeKutta.integrate(t1,t2,y0, 0.2/*arbitrary step size*/,1000, this);
-  }
+   } //using the static method in RK function to solve it
   
 }//end of concentration model
