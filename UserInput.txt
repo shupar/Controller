@@ -1,17 +1,19 @@
 1		:Insert 1 to simulate the CSTR heating system OR 2 to simulate the level control system.
-2		:Enter 1 to simulate a step change OR 2 to simulate a disturbance to your selected process.
-5		:If you chose a step change, please insert your desired step as an integer value (For CSTR heating system, the change is on Q and for the level ysstem, the change is on___).
-5 15 30		:If you chose a disturbance, please insert disturbance gain, and between which times (in s) you would like to impose it on the system. All number have to be integers. Put a space in between each element. Ex: gain of 5 between 30 and 60s would be 5 30 60 (For the CSTR system, you are varying inlet temperature and for level, you are varying _)
+2		:Enter 1 to simulate a change in set point OR 2 to simulate a disturbance to your selected process.
+0		:If you chose a setpoint, please insert your desired setpoint (For CSTR heating system, the change is on Q and for the level system, the change is on___). Enter 0 here if you chose a disturbance.
+0		:Please enter the time you would like to start your change in setpoint in s. Enter 0 here if you chose a disturbance.
+0 		:If you chose a disturbance, please insert disturbance gain.(For the CSTR system, you are varying inlet temperature and for level, you are varying _).Enter 0 here if you chose a change in setpoint.
+0 		:Please enter the start time of your disturbance in s. Enter 0 here if you chose a change in setpoint.
+0		:Please enter the end time of your disturbance in s. Enter 0 here if you chose a change in setpoint.
 10		:Enter your desired time increment in seconds (ex: simulate the control loop every 5 s).
 60		:Enter your desired runtime in seconds.
-5.55		:Enter your process output target (i.e. your setpoint).
 0.001		:Enter your reponse tolerance (tolerance for the difference between the simulation output and your desired setpoint).
 5		:Please enter the gain of the valve you are using.
 3		:Please enter the time constant of that valve.
-ID		:In the order of Proportional (P), Integral (I) and Derivative (D) controller actions, enter (in letters) which actions you would like to simulate. Ex: Enter PD for a proportional derivative controller.
-5		:Indicate your desired controller gain Kc (if applicable).
-6		:Indicate your desired controller integral time constant tauI (if applicable).
-7		:Indicate your desired controlled derivative time constant tauD (if applicable).
+I		:In the order of Proportional (P), Integral (I) and Derivative (D) controller actions, enter (in capital letters) which actions you would like to simulate. Ex: Enter PD for a proportional derivative controller.
+1		:Indicate your desired controller gain Kc.
+6		:Indicate your desired controller integral time constant tauI (applicable if you would like to ).
+0		:Indicate your desired controlled derivative time constant tauD (if applicable).
 
 
 
