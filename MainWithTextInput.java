@@ -836,7 +836,7 @@ public class MainWithTextInput
       heat=inputStream.nextDouble();
       System.out.println("The heat input rate of your process is: "+heat+"kJ/s.");
       
-      //volume of the tank
+      //volume of the tank [m3]
       inputStream.nextLine();
       double vol=0;
       while(!inputStream.hasNextDouble())
@@ -984,12 +984,31 @@ public class MainWithTextInput
     reader2.close();
     //end catch for user's selection of how to proceed
 
+    //creating controller objects
+    Proportional proportional=new Proportional(kC);
+    Integral integral=new Integral(kC, tauI);
+    Derivative derivative=new Derivative(kC, tauD);
     
+    //creating process objects
+    CSTRHeatingSystem cstr=new CSTRHeatingSystem(vol, rho, cP, initialT, flow, heat);
+    LevelControlSystem level=new LevelControlSystem(d, h, cvStar, initialH, blank, flow);//dont actually need to send blank cuz dont need to recieve hstar
+        
+    //call results depending on program
+    Results results=new Results();
+    double [] resultsArray=new double[runTime];
     
+     //IS THIS A SECURITY LEAK
     
-//create object P, I and D and send the approporiate instance variables 
-      //create either CSTR or level object depending on user
+    if(systemSelection==1)
+    {    
+      resultsArray=results.calculations(setPoint, disturbanceMag, proportional, integral, derivative, cstr, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance
+    }
+    else if (systemSelection==2)
+    {
+      resultsArray=results.calculations(setPoint, disturbanceMag, proportional, integral, derivative, level, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance 
+    }
       
+    
      /* double[] results=calculate value,fbvxkbjkv
         
         for (i=0; i<runTime; i++)

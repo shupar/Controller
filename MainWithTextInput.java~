@@ -243,8 +243,6 @@ public class MainWithTextInput
       return;
       }
       disturbanceEnd=inputStream.nextDouble();
-      
-      System.out.println("The disturbance magnitude you have chosen is "+disturbanceMag+"and will commence at t = "+disturbanceStart+"s and will end at t = "+disturbanceEnd+"s.");
     }
     //if user enters an int but not one of the choices
     else
@@ -260,7 +258,7 @@ public class MainWithTextInput
      inputStream.close();
      return;
     }
-    System.out.println("Disturbance magnitude is: "+disturbanceMag+" \nDisturbance start time is: "+disturbanceStart+"\nDisturbance end is: "+disturbanceEnd);
+    System.out.println("The disturbance magnitude you have chosen is "+disturbanceMag+"and will commence at t = "+disturbanceStart+"s and will end at t = "+disturbanceEnd+"s.");
     
     
     //input time increment and runtime
@@ -313,7 +311,7 @@ public class MainWithTextInput
         catch(InputMismatchException e)
         {
           reader.nextLine();
-          System.out.println("You did not select option 1 or 2 (entered as an integer). Please enter 1 to proceed with the rest of the code or 2 to reevaluate the number of iterations.");
+          System.out.println("You did not select option 1 or 2 (entered as an integer).");
         }
       }
     }while(choice!=1&&choice!=2);
@@ -783,8 +781,213 @@ public class MainWithTextInput
         
         System.out.println("The derivative time constant of your controller is: "+tauD);
       }
+            
+      //ARE THERE ANY CONSTRAINTS ON PROCESS INPUT PARAMS?????????????????????????????????????????????
+      //CHECK UNITS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     
+      //input process parameters for CSTR heating
+     if(systemSelection==1)
+     {      
+      //T initial [K]
+      inputStream.nextLine();
+      double initialT=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the initial temperature or your process. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      initialT=inputStream.nextDouble();
+      System.out.println("The initial temperature of your process is: "+initialT+"K.");
       
-      //create object P, I and D and send the approporiate instance variables 
+      //flow rate [kg/s]
+      inputStream.nextLine();
+      double flow=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the mass flow rate or your process. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      flow=inputStream.nextDouble();
+      System.out.println("The mass flow rate of your process is: "+flow+ "kg/s.");
+      
+      //heat capacity [kJ/kg*K]
+      inputStream.nextLine();
+      double cP=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the heat capacity or your process. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      cP=inputStream.nextDouble();
+      System.out.println("The heat capacity of your process is: "+cP+"kJ/kg*K.");
+      
+      //heat input rate [kJ/s]
+      inputStream.nextLine();
+      double heat=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the heat input rate or your process. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      heat=inputStream.nextDouble();
+      System.out.println("The heat input rate of your process is: "+heat+"kJ/s.");
+      
+      //volume of the tank
+      inputStream.nextLine();
+      double vol=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the volume of your process' tank. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      vol=inputStream.nextDouble();
+      System.out.println("The volume of your process' tank is: "+vol+"m3.");
+      
+      //density of the fluid in the system
+      inputStream.nextLine();
+      double rho=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the density of your process fluid. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      rho=inputStream.nextDouble();
+      System.out.println("The density of your process fluid is: "+rho+"kg/m3.");
+     }
+     
+     //input variables for the level control system
+     else if(systemSelection==2)
+   {  
+      //tank diameter
+      inputStream.nextLine();
+      double d=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for your process' tank diameter. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      d=inputStream.nextDouble();
+      System.out.println("The diameter of your tank is: "+d+"m.");
+      
+      //tank height
+      inputStream.nextLine();
+      double h=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for your process' tank height. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      h=inputStream.nextDouble();
+           
+      //initial level height
+      inputStream.nextLine();
+      double initialH=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for your process' initial level height. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      initialH=inputStream.nextDouble();
+      
+      if (initialH>h)
+      {
+        System.out.println("Your tank is overflowing!! Go clean up the mess then please modify the text file and try the simulation again."); 
+        inputStream.close();
+        return;
+      }
+      System.out.println("The height of your tank is: "+h+"m.");
+      System.out.println("The initial height of the fluid in your tank is: "+initialH+"m.");
+          
+      //volumetric flow rate [m3/s]
+      inputStream.nextLine();
+      double flow=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the volumetric flow rate or your process. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      flow=inputStream.nextDouble();
+      System.out.println("The volumetric flow rate of your process is: "+flow+ "m3/s.");
+      
+      //Cv star, valve characteristic
+      inputStream.nextLine();
+      double cvStar=0;
+      while(!inputStream.hasNextDouble())
+      {
+        System.out.println("You did not enter an integer or a double value for the Cv* characteristic of your valve. Plz modify the text file and try again.");
+        inputStream.close();
+        return;
+      }
+      cvStar=inputStream.nextDouble();
+      System.out.println("The Cv* valve characteristic is: "+cvStar+".");
+       
+      double blank=0;//there is only 5 necessary params in the level control therefore we will force user to enter 0 in the last parameter slot
+      inputStream.nextLine();
+      Boolean passing=false;
+      while(!passing)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for the last parameter in the level system. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        blank=inputStream.nextDouble();
+        if (blank!=0)
+        {
+          passing=false;
+          System.out.println("You didnt input 0 for the last parameter in the level system. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(blank==0)
+        {
+          passing=true;
+        }
+      }
+     }
+
+     
+      Scanner reader2=new Scanner(System.in);
+      boolean exit=false;
+      int choice2=0;
+      
+    do
+    {
+      exit=false;
+      while(!exit)
+      {
+        try
+        {
+          System.out.println("All of your text file entries are listed above. If you are ready to proceed with the simulation using the displayed values, enter 1, if not enter 2 to change your input values.");
+          choice2=reader2.nextInt();
+          exit=true;
+        }
+        
+        catch(InputMismatchException e)
+        {
+          reader2.nextLine();
+          System.out.println("You did not select option 1 or 2 (entered as an integer).");
+        }
+      }
+    }while(choice2!=1&&choice2!=2);
+    reader2.close();
+    //end catch for user's selection of how to proceed
+
+    
+    
+    
+//create object P, I and D and send the approporiate instance variables 
       //create either CSTR or level object depending on user
       
      /* double[] results=calculate value,fbvxkbjkv
