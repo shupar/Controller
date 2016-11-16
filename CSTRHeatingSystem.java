@@ -70,7 +70,7 @@ public class CSTRHeatingSystem extends Processes implements Function
     this.q = q;
    } //end of mutator
 ////////////////////
-    public doubl getV()
+    public double getV()
    {
     return this.v;
    } //end of mutator
@@ -100,14 +100,17 @@ public class CSTRHeatingSystem extends Processes implements Function
     return this.q;
    } //end of accessor
        
-   public double calculateValue(double x, double y)//needs same signature as the interface!!!! i changed (double t, double T) to double x, double y)
+   public double calculateValueOfODE(double x, double y)//(double t, double T) 
    {
-    return  (this.w/(this.v*this.rho))*(this.t_I-y)+(this.q/(this.rho*this.cp*this.v));
+    return  (this.w/(this.v*this.rho))*((this.t_I-y)+(this.q/(this.rho*this.cp*this.v)));
    }//end of method
   
-   public double calculateResponse(double t1, double t2, double y0)
+   public double calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
    {
-    RungeKutta.integrate(t1,t2,y0, 0.2/*arbitrary step size*/,1000, this);
+    RungeKutta.integrate(t1,response, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER DEFINES IT
+    this.setQ(fceOUT);
+    this.setT_I(disturbance + this.t_I);
+    
    } //using the static method in RK function to solve it
    
    public CSTRHeatingSystem clone()

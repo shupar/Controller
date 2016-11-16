@@ -68,8 +68,5 @@ public class LevelControlSystem extends Process implements Function
     double cV = this.cvStar * Math.sqrt(GRAV);
     double area = 0.25 * Math.pi * Math.pow(d,2);
     return ((this.q - cV * Math.sqrt(x)) / area);
-  } //end of method
-  
-  
-  
+  } //end of method  
 } //end of class

@@ -2,7 +2,5 @@
 public abstract class Processes
   
 {
-  public double calculateReponse(disturbance, step change, t);//arranger ca apres, on va essayer step change avant
+  public abstract double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance);
 }
-
-//i'm assuming here we will make use of an abstract method haha

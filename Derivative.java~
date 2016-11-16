@@ -24,9 +24,9 @@ public class Derivative extends Controller
     return this.tauD;
   }//end of accessor
   
-  public double calculateSignal(double step, double[] error)
+  public double calculateSignal(double step, double error, double previousError)
   {
-    double derivedError=(error[i]-error[i-1])/step;
+    double derivedError=(error-previousError)/step;
     return derivedError*super.getKC()*this.tauD;
   }
 }

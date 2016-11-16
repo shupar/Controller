@@ -24,9 +24,9 @@ public class Integral extends Controller
     return this.tauI;
   }//end of accessor
   
-  public double calculateSignal(double step, double error, double previousError)
+  public double calculateSignal(double delx, double error, double previousError)
   {
-    double integratedError=step*error;
+    double integratedError=delx*error;
     return integratedError*super.getKC()/this.tauI;
   }
 }

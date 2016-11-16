@@ -10,7 +10,7 @@ public class Proportional extends Controller
     super(kC);
   }//end of constructor 
   
-  public double calculateSignal(double step, double error, double previousError)
+  public double calculateSignal(double delx, double error, double previousError)
   {
     return error*super.getKC();
   }

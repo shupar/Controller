@@ -1,23 +1,24 @@
-public class Results extends Controller implements Processes
+public class Results 
 {
-  Proportional []proportional;
-  Integral []integral;
-  Derivative []derivative;
-  
-  CSTRHeatingSystem []cstrHeatingSystem;//for the moment just for this process without disturbance
+  /*Proportional proportional;
+  Integral integral;
+  Derivative derivative;
+  //Obecjt disturbance
+ ¨Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
  
   
-  public double calculations(step change, disturbance, controller1, controller2, controller3, process contains arrayOfParameters(T,t,V,deltax,etc..))
+  public double calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,
+                             Process process, double tChangeSP, double timeOfSimulation, double delx, double tauv, double kv)
   {
-    this.proportional=controller1;
+    
+   // array (contient les parametres du disturbance)
+   //
+   /* this.proportional=controller1;
     this.integral=controller2;
     this.derivative=controller3;
-    this.cstrHeatingSystem=process;
-    this.proportional=new Controller[i];
-    this.integral=new Controller[i];
-    this.derivative=new Controller[i];//check names
+    this.process=process;*/
     
-    double w=arrayOfParameters[certain i];
+    /*double w=arrayOfParameters[certain i];
     double c=arrayOfParameters[certain i];
     double q=arrayOfParameters[certain i];
     double v=arrayOfParameters[certain i];
@@ -26,10 +27,9 @@ public class Results extends Controller implements Processes
     double delx=arrayOfParameters[certain i];
     double tauv=arrayOfParameters[certain i];
     double kv=arrayOfParameters[certain i];
-    double tChangeSP=arrayOfParameters[certain i];
-    double setPointIn=arrayOfParameters[certain i];
-    double timeOfSimulation=arrayOfParameters[certain i];
-    double maxIt=arrayOfParameters[certain i];
+    double tChangeSP=tChangeSP;*/
+    //double setPointIn=arrayOfParameters[certain i];
+   
     
     double [] time=new double [timeOfSimulation];
     double [] response=new double [timeOfSimulation];
@@ -42,20 +42,20 @@ public class Results extends Controller implements Processes
     double [] fceOut=new double [timeOfSimulation];
     
     time[0]=-delx;
-    response[0]=(w*c*(Ti-T)+q)/(v*rho*c);
+    response[0]=0;
     error[0]=0;
     propError[0]=0;
     intError[0]=0;
     derError[0]=0;
     signal[0]=1;
-    setPoint[0]=0;//verify this
+    setPoint[0]=0;
     
-    if (tauv=0)
-      double fceOut[0]=kv*signal[0];
+    if (tauv==0)
+      fceOut[0]=kv*signal[0];
     else 
-      double fceOut[0]=kv*signal[0]/tauv;
+      fceOut[0]=kv*signal[0]/tauv;
       
-    For(int i=1; i<choose depending on delx; i++)
+    for(int i=1; i<timeOfSimulation; i++)
     {
       if (time[i]<tChangeSP)
         setPoint[i]=setPoint[0];
@@ -63,23 +63,23 @@ public class Results extends Controller implements Processes
         setPoint[i]=setPointIn;  
           
       time[i]=time[i]+delx;
-      error[i]=response[i]-setPoint[i];
-      propError[i]=this.proportional[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
-      intError[i]=this.integral[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
-      derError[i]=this.derivative[i].calculateSignal(step, error[i], error[i-1]);//see how to send the 2 values of error
+      error[i]=response[i-1]-setPoint[i];
+      propError[i]=proportional.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
+      intError[i]=integral.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
+      derError[i]=derivative.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
       signal[i]=1+(propError[i]+intError[i]+derError[i]);
       
-      if (tauv=0)
+      if (tauv==0)
         fceOut[i]=kv*signal[i];
       else 
          fceOut[i]=fceOut[i-1]+delx(kv*signal[i]-fceOut[i-1])/tauv;
+     
       
       if (error[i]=0)
-        response[i]=(w*c*(Ti-320(T))+q)/(v*rho*c);//verify this!!
+        response[i]=response[0];//verify this!!
       else 
-        response[i]=response[i-1]+this.cstrHeatingSystem[i].calculateReponse(x_0, x, y_0, delx, maxIt, Function f,
-                                                                             double time, double response[i-i], double fceOUT[i]);
-                          
+        response[i]=response[i-1]+process.calculateReponseOfProcess(x_0, response[i-1], delx, fceOUT[i], disturbanceChange); 
+                                                                                        
     }
   
     return response; 
