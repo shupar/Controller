@@ -1,11 +1,11 @@
-1		:Insert 1 to simulate the CSTR heating system OR 2 to simulate the level control system.
-2		:Enter 1 to simulate a change in set point OR 2 to simulate a disturbance to your selected process.
-0		:If you chose a setpoint, please insert your desired setpoint (For CSTR heating system, the change is on Q and for the level system, the change is on___). Enter 0 here if you chose a disturbance.
-0		:Please enter the time you would like to start your change in setpoint in s. Enter 0 here if you chose a disturbance.
-0 		:If you chose a disturbance, please insert disturbance gain.(For the CSTR system, you are varying inlet temperature and for level, you are varying _).Enter 0 here if you chose a change in setpoint.
-0 		:Please enter the start time of your disturbance in s. Enter 0 here if you chose a change in setpoint.
-0		:Please enter the end time of your disturbance in s. Enter 0 here if you chose a change in setpoint.
-10		:Enter your desired time increment in seconds (ex: simulate the control loop every 5 s).
+2		:Insert the number one to simulate the CSTR heating system OR the number two to simulate the level control system.
+2		:Enter the number one to simulate a change in set point OR the number two to simulate a disturbance to your selected process.
+0		:If you chose a setpoint, please insert your desired setpoint (For CSTR heating system, the change is on Q and for the level system, the change is on___). Enter the number zero here if you chose a disturbance.
+0		:Please enter the time you would like to start your change in setpoint in s. Enter the number zero here if you chose a disturbance.
+0 		:If you chose a disturbance, please insert disturbance gain.(For the CSTR system, you are varying inlet temperature and for level, you are varying _).Enter the number zero here if you chose a change in setpoint.
+0 		:Please enter the start time of your disturbance in s. Enter the number zero here if you chose a change in setpoint.
+0		:Please enter the end time of your disturbance in s. Enter the number zero here if you chose a change in setpoint.
+10		:Enter your desired time increment in seconds.
 60		:Enter your desired runtime in seconds.
 0.001		:Enter your reponse tolerance (tolerance for the difference between the simulation output and your desired setpoint).
 5		:Please enter the gain of the valve you are using.
@@ -14,6 +14,14 @@ I		:In the order of Proportional (P), Integral (I) and Derivative (D) controller
 1		:Indicate your desired controller gain Kc.
 6		:Indicate your desired controller integral time constant tauI (applicable if you would like to ).
 0		:Indicate your desired controlled derivative time constant tauD (if applicable).
+5		:For process one, enter the initial temperature [K]. For process two, enter the height of your tank [m].
+74		:For process one, enter the mass flow rate of the fluid entering the system [kg/s]. For process two, enter the diameter of your tank [m].
+4		:For process one, enter the heat capacity of the fluid in the system [kJ/kg*K]. For process two, enter the initial the level of the fluid in your tank [m]. 
+888		:For process one, enter the heat input rate [kJ/s]. For process two, enter the volumetric flow of your process [m3/s].
+4		:For process one, enter the volume of the tank [m3]. For process two, enter the Cv* valve characteristic.
+0		:For process one, enter the density of the fluid you are using [kg/m3]. For process two, enter the number zero.
+
+
 
 
 

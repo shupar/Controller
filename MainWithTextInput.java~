@@ -26,26 +26,24 @@ public class MainWithTextInput
       return;
     }
     int systemSelection=inputStream.nextInt();
-    
+        
     if (systemSelection==1)
     {
-      
-    }//add code for CSTR heating
+      System.out.println("The system you have selected is the CSTR heating system.");
+    }
     else if(systemSelection==2)
     {
-      
-    }//add code for level system
+      System.out.println("The system you have selected is the level control system.");
+    }
     else 
     {
       System.out.println("Please enter either 1 or 2 into the text file depending on the process you would like to simulate.");
       inputStream.close();
       return;
     }
-    inputStream.nextLine();
-    
-   //System.out.println("systemSelection is: "+systemSelection);;
-    
+  
     //scanning for type of input signal to impose on selected process
+   inputStream.nextLine();
     while(!inputStream.hasNextInt())
     {
       System.out.println("You did not enter an integer that suited the options for input signal. Plz modify the text file and try again.");
@@ -53,30 +51,173 @@ public class MainWithTextInput
       return;
     }
     int inputSignal=inputStream.nextInt();
+    
     inputStream.nextLine();
         
-    double stepChange=0;
+    double setPoint=0;
+    double startSetPoint=0;
     double disturbanceMag=0;
     double disturbanceStart=0;
     double disturbanceEnd=0;
     
-    //if user choses a step change, scan for step
+    //if user choses a step change, scan for step and start time of step
     if (inputSignal==1)
     {
+      System.out.println("You have chosen to invoke a change in setpoint on your selected process.");
+      
       while(!inputStream.hasNextDouble())
       {
-      System.out.println("You did not enter an interger or double type value for your desired step. Plz modify the text file and try again.");
+      System.out.println("You did not enter an interger or double type value for your desired setpoint. Plz modify the text file and try again.");
       inputStream.close();
       return;
       }
-      stepChange=inputStream.nextDouble();
+      setPoint=inputStream.nextDouble();
+      
+      inputStream.nextLine();
+      while(!inputStream.hasNextDouble())
+      {
+      System.out.println("You did not enter an interger or double type value for your desired step start time. Plz modify the text file and try again.");
+      inputStream.close();
+      return;
+      }
+      startSetPoint=inputStream.nextDouble();
+      
+      System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
+      
+      //ensure user does not enter a disturbance since they have selected a change in step point
+      inputStream.nextLine();
+      Boolean pass=false;
+      while(!pass)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your disturbance magnitude. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        disturbanceMag=inputStream.nextDouble();
+        if (disturbanceMag!=0)
+        {
+          pass=false;
+          System.out.println("You didnt input 0 for your disturbance magnitude. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(disturbanceMag==0)
+        {
+          System.out.println("Your disturbance magnitude value is 0.");
+          pass=true;  
+        }
+      }
+      
+      inputStream.nextLine();
+      Boolean pass1=false;
+      while(!pass1)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your disturbance start time. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        disturbanceStart=inputStream.nextDouble();
+        if (disturbanceStart!=0)
+        {
+          pass1=false;
+          System.out.println("You didnt input 0 for your disturbance start time. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(disturbanceStart==0)
+        {
+          System.out.println("Your disturbance start time is "+disturbanceStart+"s.");
+          pass1=true;
+        }
+      }
+      
+      inputStream.nextLine();
+      Boolean pass2=false;
+      while(!pass2)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your disturbance end time. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        disturbanceEnd=inputStream.nextDouble();
+        if (disturbanceEnd!=0)
+        {
+          pass2=false;
+          System.out.println("You didnt input 0 for your disturbance end time. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(disturbanceEnd==0)
+        {
+          System.out.println("Your disturbance end time is "+disturbanceEnd+"s.");
+          pass2=true;
+        }
+      }
     }
     
-    //if user selects disturbance, scan for dusturbance magnitude and time 
+   
+    //if user selects disturbance, ensure they did not set values for setPoint change
     else if (inputSignal==2)
     {
-      inputStream.nextLine();
+      System.out.println("You have chosen to invoke a disturbance on your selected process.");
+     
+      Boolean pass3=false;
+      while(!pass3)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your change in set point. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        setPoint=inputStream.nextDouble();
+        if (setPoint!=0)
+        {
+          pass3=false;
+          System.out.println("You didnt input 0 for your change in set point. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(setPoint==0)
+        {
+          System.out.println("Your setPoint value is 0.");
+          pass3=true;  
+        }
+      }
       
+      inputStream.nextLine();
+      Boolean pass4=false;
+      while(!pass4)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your change in setpoint start time. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        startSetPoint=inputStream.nextDouble();
+        if (startSetPoint!=0)
+        {
+          pass4=false;
+          System.out.println("You didnt input 0 for your change in setpoint start time. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(startSetPoint==0)
+        {
+          System.out.println("Your change in setpoint start time is "+startSetPoint+"s.");
+          pass4=true;
+        }
+      }
+      
+      //input disturbance values
+      inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an integer or a double type value for your disturbance magnitude. Plz modify the text file and try again.");
@@ -85,6 +226,7 @@ public class MainWithTextInput
       }
       disturbanceMag=inputStream.nextDouble();
       
+      inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an integer or double type value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
@@ -93,6 +235,7 @@ public class MainWithTextInput
       }
       disturbanceStart=inputStream.nextDouble();
       
+      inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an integer or double type value for the end time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
@@ -100,6 +243,8 @@ public class MainWithTextInput
       return;
       }
       disturbanceEnd=inputStream.nextDouble();
+      
+      System.out.println("The disturbance magnitude you have chosen is "+disturbanceMag+"and will commence at t = "+disturbanceStart+"s and will end at t = "+disturbanceEnd+"s.");
     }
     //if user enters an int but not one of the choices
     else
@@ -115,9 +260,6 @@ public class MainWithTextInput
      inputStream.close();
      return;
     }
-    
-    System.out.println("inputSignal is: "+inputSignal);
-    System.out.println("stepChange is: "+stepChange);
     System.out.println("Disturbance magnitude is: "+disturbanceMag+" \nDisturbance start time is: "+disturbanceStart+"\nDisturbance end is: "+disturbanceEnd);
     
     
@@ -154,7 +296,7 @@ public class MainWithTextInput
       int choice=0;
       iterations=runTime/timeInc;
       
-      System.out.println("For your set run time and time increment for iterations, the program will compute "+iterations+".");
+      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iterations, the program will compute "+iterations+".");
      
       do
     {
@@ -190,18 +332,7 @@ public class MainWithTextInput
       }
     }
    
-    //code to read process setpoint and tolerance
-    inputStream.nextLine();
-    double setPoint=0;
-    while(!inputStream.hasNextDouble())
-      {
-      System.out.println("You did not enter an integer or a double value for your desired setpoint. Plz modify the text file and try again.");
-      inputStream.close();
-      return;
-      }
-    setPoint=inputStream.nextDouble();
-    System.out.println("The setpoint is: "+setPoint);
-    
+    //code to read tolerance
     inputStream.nextLine();
     double tol=0;
     while(!inputStream.hasNextDouble())
@@ -253,11 +384,11 @@ public class MainWithTextInput
     double tauI=1000000000;//large number to cancel out term
     double tauD=0;
     
+    //for P only type controller
     if (controller.equals("P"))
       {
         inputStream.nextLine();
-        
-        while(!inputStream.hasNextDouble())
+       while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
           inputStream.close();
@@ -267,11 +398,87 @@ public class MainWithTextInput
         
         System.out.println("The gain of your controller is: "+kC);
         
-        //CALL RESULTS  
+       inputStream.nextLine();
+      Boolean pass1=false;
+      while(!pass1)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your integral time constant. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        if (tauI!=0)
+        {
+          pass1=false;
+          System.out.println("You didnt input 0 for your integral time constant. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(tauI==0)
+        {
+          tauI=10000000;
+          System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
+          pass1=true;
+        }
       }
+      
+      inputStream.nextLine();
+      Boolean pass2=false;
+      while(!pass2)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your derivative time constant. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        if (tauD!=0)
+        {
+          pass2=false;
+          System.out.println("You didnt input 0 for your derivative time constant. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(tauD==0)
+        {
+          System.out.println("Your change in setpoint start time is "+tauD+".");
+          pass2=true;
+        }
+      }
+    }
+    
+     //for I only type controller    
       else if(controller.equals("I"))
       {
         inputStream.nextLine();
+      Boolean pass3=false;
+      while(!pass3)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 1 for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        if (kC!=1)
+        {
+          pass3=false;
+          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(kC==1)
+        {
+          System.out.println("Your controller gain is "+kC+".");
+          pass3=true;
+        }
+      }
+        
         inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
@@ -284,13 +491,88 @@ public class MainWithTextInput
         
         System.out.println("The integral time constant of your controller is: "+tauI);
         
-        //CALL RESULTS  
-      }
+        inputStream.nextLine();
+      Boolean pass4=false;
+      while(!pass4)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your derivative time constant. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        if (tauD!=0)
+        {
+          pass4=false;
+          System.out.println("You didnt input 0 for your derivative time constant. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(tauD==0)
+        {
+          System.out.println("Your change in setpoint start time is "+tauD+".");
+          pass4=true;
+        }
+      }  
+     }
+      
+     //for D only type controller
       else if(controller.equals("D"))
       {
-        inputStream.nextLine();
-        inputStream.nextLine();
-        inputStream.nextLine();
+         inputStream.nextLine();
+      Boolean pass5=false;
+      while(!pass5)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 1 for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        if (kC!=1)
+        {
+          pass5=false;
+          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(kC==1)
+        {
+          System.out.println("Your controller gain is "+kC+".");
+          pass5=true;
+        }
+      }
+       
+      inputStream.nextLine();
+      Boolean pass6=false;
+      while(!pass6)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your integral time constant. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        if (tauI!=0)
+        {
+          pass6=false;
+          System.out.println("You didnt input 0 for your integral time constant. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(tauI==0)
+        {
+          tauI=10000000;
+          System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
+          pass6=true;
+        }
+      }
+        
+      inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
         {
@@ -302,8 +584,9 @@ public class MainWithTextInput
         
         System.out.println("The derivative time constant of your controller is: "+tauD);
         
-        //CALL RESULTS  
       }
+      
+      //for PI controller type
       else if(controller.equals("PI"))
       {
         inputStream.nextLine();
@@ -330,8 +613,32 @@ public class MainWithTextInput
         
         System.out.println("The integral time constant of your controller is: "+tauI);
         
-        //CALL RESULTS  
-      }
+      inputStream.nextLine();
+      Boolean pass7=false;
+      while(!pass7)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your derivative time constant. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauD=inputStream.nextDouble();
+        if (tauD!=0)
+        {
+          pass7=false;
+          System.out.println("You didnt input 0 for your derivative time constant. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(tauD==0)
+        {
+          System.out.println("Your change in setpoint start time is "+tauD+".");
+          pass7=true;
+        }
+      } 
+    }
+      //for PD type controller
       else if(controller.equals("PD"))
       {
         inputStream.nextLine();
@@ -346,7 +653,33 @@ public class MainWithTextInput
         
         System.out.println("The gain of your controller is: "+kC);
         
-        inputStream.nextLine();
+      inputStream.nextLine();
+      Boolean pass8=false;
+      while(!pass8)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 0 for your integral time constant. Please modify the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        tauI=inputStream.nextDouble();
+        
+        if (tauI!=0)
+        {
+          pass8=false;
+          System.out.println("You didnt input 0 for your integral time constant. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(tauI==0)
+        {
+          tauI=10000000;
+          System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
+          pass8=true;
+        }
+      }
+      
         inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
@@ -357,13 +690,36 @@ public class MainWithTextInput
         }
         tauD=inputStream.nextDouble();
         
-        System.out.println("The derivative time constant of your controller is: "+tauD);
-
-       //CALL RESULTS  
+        System.out.println("The derivative time constant of your controller is: "+tauD); 
       }
+      
+      //for ID controller type
       else if(controller.equals("ID"))
       {
-        inputStream.nextLine();
+         inputStream.nextLine();
+      Boolean pass9=false;
+      while(!pass9)
+      {
+        while(!inputStream.hasNextDouble())
+        {
+          System.out.println("You did not enter 1 for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          inputStream.close();
+          return;
+        }
+        kC=inputStream.nextDouble();
+        if (kC!=1)
+        {
+          pass9=false;
+          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
+          inputStream.close();
+          return;
+        }
+        else if(kC==1)
+        {
+          System.out.println("Your controller gain is "+kC+".");
+          pass9=true;
+        }
+      }      
         inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
@@ -387,8 +743,6 @@ public class MainWithTextInput
         tauD=inputStream.nextDouble();
         
         System.out.println("The derivative time constant of your controller is: "+tauD);
-        
-        //CALL RESULTS
         
       }
       else if(controller.equals("PID"))
@@ -428,8 +782,6 @@ public class MainWithTextInput
         tauD=inputStream.nextDouble();
         
         System.out.println("The derivative time constant of your controller is: "+tauD);
-        
-        //CALL RESULTS
       }
       
       //create object P, I and D and send the approporiate instance variables 
