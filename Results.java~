@@ -4,7 +4,7 @@ public class Results
   Integral integral;
   Derivative derivative;
   //Obecjt disturbance
- Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
+ ¨Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
  
   
   public double calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,

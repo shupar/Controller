@@ -105,10 +105,11 @@ public class CSTRHeatingSystem extends Processes implements Function
   
    public double calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
    {
-    RungeKutta.integrate(t1,response, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER DEFINES IT
+    double responseOfProcess=RungeKutta.integrate(t1,response, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER DEFINES IT
     this.setQ(fceOUT);
     this.setT_I(disturbance + this.t_I);
     
+    return responseOfProcess;
    } //using the static method in RK function to solve it
    
    public CSTRHeatingSystem clone()

@@ -10,8 +10,6 @@ public class CSTRHeatingSystem extends Processes implements Function
    
    public CSTRHeatingSystem()
    {
-       //force null values for these instance variables,
-       //which will be reset each time calculateResponse is called...
     this.v = 0;
     this.rho = 0;
     this.cp = 0;
