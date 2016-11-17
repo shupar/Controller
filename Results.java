@@ -4,8 +4,13 @@ public class Results
   Integral integral;
   Derivative derivative;
   //Obecjt disturbance
+<<<<<<< HEAD
+ ¨Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
+ //Emily can you see my changes?
+=======
  Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
  
+>>>>>>> origin/master
   
   public double calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,
                              Process process, double tChangeSP, double timeOfSimulation, double delx, double tauv, double kv)
@@ -40,6 +45,7 @@ public class Results
     double [] signal=new double [timeOfSimulation];
     double [] setPoint=new double [timeOfSimulation];
     double [] fceOut=new double [timeOfSimulation];
+    double tempDisturbance = 0;
     
     time[0]=-delx;
     response[0]=0;
@@ -83,6 +89,12 @@ public class Results
     }
   
     return response; 
+    //I'm a little worried about returning this array, security leak
+    //Gonna deep copy this array just in case
+    /*double[] responseArray = new double[response.length];
+     * for(int i=0;i<response.length;i++)
+     * responseArray[i] = response[i];
+     * return responseArray;
   
   }
 
