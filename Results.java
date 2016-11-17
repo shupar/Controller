@@ -63,7 +63,7 @@ public class Results
       if (time[i]<tChangeSP)
         setPoint[i]=setPoint[0];
       else 
-        setPoint[i]=setPointIn;  
+        setPoint[i]=setPointChange;  
           
       time[i]=time[i]+delx;
       error[i]=response[i-1]-setPoint[i];
@@ -82,11 +82,8 @@ public class Results
         response[i]=response[0];//verify this!!
       else
       {
-        
-        
-        
+        response[i]=response[i-1]+process.calculateReponseOfProcess(time[0], response[i-1], delx, fceOut[i], disturbanceChange);
       }
-        response[i]=response[i-1]+process.calculateReponseOfProcess(x_0, response[i-1], delx, fceOUT[i], disturbanceChange);
                                                                                         
     }
   

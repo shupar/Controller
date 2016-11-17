@@ -59,6 +59,11 @@ public class LevelControlSystem extends Processes implements Function
    this.q = q; 
   } //end of mutator
   
+  public void setHInit(double hInit )
+  {
+   this.hInit= hInit; 
+  } //end of mutator
+  
   public LevelControlSystem clone()
   {
    return new LevelControlSystem(this); 
@@ -74,10 +79,11 @@ public class LevelControlSystem extends Processes implements Function
   
   public double calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
   {
-   /*double responseOfProcess=RungeKutta.integrate(t1,response, delx, this);
+   double responseOfProcess=RungeKutta.integrate(t1,response, delx, this);
     this.setQ(fceOUT);
     this.setHInit(disturbance + this.hInit);
-    return responseOfProcess;*/
-  }//make this specific to level!!!!!!!!!!!!!!using the static method in RK function to solve it*/
+    
+    return responseOfProcess;
+  }//make this specific to level!!!!!!!!!!!!!!using the static method in RK function to solve it
 
 } //end of class
