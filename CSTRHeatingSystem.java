@@ -10,7 +10,6 @@ public class CSTRHeatingSystem extends Processes implements Function
    
    public CSTRHeatingSystem()
    {
-    super();//right??????????????????????????????????????
     this.v = 0;
     this.rho = 0;
     this.cp = 0;
@@ -68,7 +67,7 @@ public class CSTRHeatingSystem extends Processes implements Function
    { 
     this.q = q;
    } //end of mutator
-////////////////////
+
     public double getV()
    {
     return this.v;
@@ -117,5 +116,4 @@ public class CSTRHeatingSystem extends Processes implements Function
    {
     return new CSTRHeatingSystem(this);
    }
-  
-}//end of concentration model
+}//end of class

@@ -12,6 +12,13 @@ public abstract class Controller
     this.kC=kC;
   }//end of constructor 
   
+  public Controller(Controller copy)
+  {
+    this.kC=copy.kC;
+  }//end of copy constructor
+  
+  public abstract Controller clone(); //end of clone method
+
   public void setKC (double kC)
   {
     this.kC=kC;

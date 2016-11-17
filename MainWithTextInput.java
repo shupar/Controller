@@ -14,14 +14,14 @@ public class MainWithTextInput
     
     catch (FileNotFoundException e)
     {
-      System.out.println("There was an error accessing the UserInput.txt file! Please check that it does in fact exist and it is not open a the moment.");
+      System.out.println("There was an error accessing the UserInput.txt file! Please check that it does in fact exist and it is not open at the moment.");
       System.exit(0);
     }//end catch
     
     //Scanning for process to simulate
     while(!inputStream.hasNextInt())
     {
-      System.out.println("You did not enter an integer that suited the options for system selection. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer that suited the options for system selection. Please modify the text file and try again.");
       inputStream.close();
       return;
     }
@@ -46,7 +46,7 @@ public class MainWithTextInput
    inputStream.nextLine();
     while(!inputStream.hasNextInt())
     {
-      System.out.println("You did not enter an integer that suited the options for input signal. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer that suited the options for input signal. Please modify the text file and try again.");
       inputStream.close();
       return;
     }
@@ -67,7 +67,7 @@ public class MainWithTextInput
       
       while(!inputStream.hasNextDouble())
       {
-      System.out.println("You did not enter an interger or double type value for your desired setpoint. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer or double type value for your desired setpoint. Please modify the text file and try again.");
       inputStream.close();
       return;
       }
@@ -76,7 +76,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an interger type value for your desired step start time. Plz modify the text file and try again.");
+      System.out.println("You did not enter an interger type value for your desired step start time. Please modify the text file and try again.");
       inputStream.close();
       return;
       }
@@ -99,7 +99,7 @@ public class MainWithTextInput
         if (disturbanceMag!=0)
         {
           pass=false;
-          System.out.println("You didnt input 0 for your disturbance magnitude. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your disturbance magnitude. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -124,7 +124,7 @@ public class MainWithTextInput
         if (disturbanceStart!=0)
         {
           pass1=false;
-          System.out.println("You didnt input 0 for your disturbance start time. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your disturbance start time. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -149,7 +149,7 @@ public class MainWithTextInput
         if (disturbanceEnd!=0)
         {
           pass2=false;
-          System.out.println("You didnt input 0 for your disturbance end time. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your disturbance end time. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -180,7 +180,7 @@ public class MainWithTextInput
         if (setPoint!=0)
         {
           pass3=false;
-          System.out.println("You didnt input 0 for your change in set point. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your change in set point. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -205,7 +205,7 @@ public class MainWithTextInput
         if (startSetPoint!=0)
         {
           pass4=false;
-          System.out.println("You didnt input 0 for your change in setpoint start time. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your change in setpoint start time. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -220,7 +220,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-      System.out.println("You did not enter an integer or a double type value for your disturbance magnitude. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer or a double type value for your disturbance magnitude. Please modify the text file and try again.");
       inputStream.close();
       return;
       }
@@ -229,7 +229,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer type value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer type value for the start time of your disturbance. Please modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
@@ -238,7 +238,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer type value for the end time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer type value for the end time of your disturbance. Please modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
@@ -254,7 +254,7 @@ public class MainWithTextInput
     
     if (disturbanceStart>disturbanceEnd)
     {
-     System.out.println("Your disturbance start time must come before your disturbance end time!! Plz modify the text file and try again."); 
+     System.out.println("Your disturbance start time must come before your disturbance end time!! Please modify the text file and try again."); 
      inputStream.close();
      return;
     }
@@ -265,7 +265,7 @@ public class MainWithTextInput
     inputStream.nextLine();
     while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer value for the time increment. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer value for the time increment. Please modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
@@ -274,7 +274,7 @@ public class MainWithTextInput
     inputStream.nextLine();
     while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer type value for the run time of your simulation. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer type value for the run time of your simulation. Please modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
@@ -282,7 +282,7 @@ public class MainWithTextInput
     
     if(timeInc>=runTime)
     {
-      System.out.println("Your time increment is larger or equal that your simulation runtime. You should reconsider how often you would like to iterate.");
+      System.out.println("Your time increment is larger than or equal to your simulation runtime. You should reconsider how often you would like to iterate.");
       inputStream.close();
       return;
     }
@@ -294,7 +294,7 @@ public class MainWithTextInput
       int choice=0;
       iterations=runTime/timeInc;
       
-      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iterations, the program will compute "+iterations+".");
+      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+".");
      
       do
     {
@@ -303,7 +303,7 @@ public class MainWithTextInput
       {
         try
         {
-          System.out.println("Please enter 1 into the java compile if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
+          System.out.println("Please enter 1 into the java compiler if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
           choice=reader.nextInt();
           exit=true;
         }
@@ -335,7 +335,7 @@ public class MainWithTextInput
     double tol=0;
     while(!inputStream.hasNextDouble())
       {
-      System.out.println("You did not enter an integer or a double value for your desired tolerance. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer or a double value for your desired tolerance. Please modify the text file and try again.");
       inputStream.close();
       return;
       }
@@ -347,7 +347,7 @@ public class MainWithTextInput
     double kV=0;
     while(!inputStream.hasNextDouble())
       {
-      System.out.println("You did not enter an integer or a double value for the gain of the valve you are using. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer or a double value for the gain of the valve you are using. Please modify the text file and try again.");
       inputStream.close();
       return;
       }
@@ -358,7 +358,7 @@ public class MainWithTextInput
     double tauV=0;
     while(!inputStream.hasNextDouble())
       {
-      System.out.println("You did not enter an integer or a double value for the time constant of your valve. Plz modify the text file and try again.");
+      System.out.println("You did not enter an integer or a double value for the time constant of your valve. Please modify the text file and try again.");
       inputStream.close();
       return;
       }
@@ -388,7 +388,7 @@ public class MainWithTextInput
         inputStream.nextLine();
        while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -411,7 +411,7 @@ public class MainWithTextInput
         if (tauI!=0)
         {
           pass1=false;
-          System.out.println("You didnt input 0 for your integral time constant. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your integral time constant. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -437,7 +437,7 @@ public class MainWithTextInput
         if (tauD!=0)
         {
           pass2=false;
-          System.out.println("You didnt input 0 for your derivative time constant. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your derivative time constant. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -466,7 +466,7 @@ public class MainWithTextInput
         if (kC!=1)
         {
           pass3=false;
-          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
+          System.out.println("You did not input 1 for your controller gain. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -481,7 +481,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -503,7 +503,7 @@ public class MainWithTextInput
         if (tauD!=0)
         {
           pass4=false;
-          System.out.println("You didnt input 0 for your derivative time constant. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your derivative time constant. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -532,7 +532,7 @@ public class MainWithTextInput
         if (kC!=1)
         {
           pass5=false;
-          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
+          System.out.println("You did not input 1 for your controller gain. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -558,7 +558,7 @@ public class MainWithTextInput
         if (tauI!=0)
         {
           pass6=false;
-          System.out.println("You didnt input 0 for your integral time constant. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your integral time constant. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -574,7 +574,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -591,7 +591,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -603,7 +603,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -625,7 +625,7 @@ public class MainWithTextInput
         if (tauD!=0)
         {
           pass7=false;
-          System.out.println("You didnt input 0 for your derivative time constant. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your derivative time constant. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -643,7 +643,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -666,7 +666,7 @@ public class MainWithTextInput
         if (tauI!=0)
         {
           pass8=false;
-          System.out.println("You didnt input 0 for your integral time constant. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for your integral time constant. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -682,7 +682,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -708,7 +708,7 @@ public class MainWithTextInput
         if (kC!=1)
         {
           pass9=false;
-          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
+          System.out.println("You did not input 1 for your controller gain. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -722,7 +722,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -734,7 +734,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -749,7 +749,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the gain of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -761,7 +761,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -773,7 +773,7 @@ public class MainWithTextInput
         
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
+          System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -808,7 +808,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the initial temperature or your process. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the initial temperature or your process. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -819,7 +819,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the mass flow rate or your process. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the mass flow rate or your process. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -830,7 +830,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the heat capacity or your process. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the heat capacity or your process. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -841,7 +841,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the heat input rate or your process. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the heat input rate or your process. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -852,7 +852,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the volume of your process' tank. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the volume of your process' tank. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -863,7 +863,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the density of your process fluid. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the density of your process fluid. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -878,7 +878,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for your process' tank diameter. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for your process' tank diameter. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -889,7 +889,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for your process' tank height. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for your process' tank height. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -899,7 +899,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for your process' initial level height. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for your process' initial level height. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -918,7 +918,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the volumetric flow rate or your process. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the volumetric flow rate or your process. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -929,7 +929,7 @@ public class MainWithTextInput
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
-        System.out.println("You did not enter an integer or a double value for the Cv* characteristic of your valve. Plz modify the text file and try again.");
+        System.out.println("You did not enter an integer or a double value for the Cv* characteristic of your valve. Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -950,7 +950,7 @@ public class MainWithTextInput
         if (blank!=0)
         {
           passing=false;
-          System.out.println("You didnt input 0 for the last parameter in the level system. Please fix the text file and try again.");
+          System.out.println("You did not input 0 for the last parameter in the level system. Please fix the text file and try again.");
           inputStream.close();
           return;
         }
@@ -1012,7 +1012,7 @@ public class MainWithTextInput
       resultsArray=results.calculations(setPoint, disturbanceMag, proportional, integral, derivative, level, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance 
     }
     
-    System.out.println("Your results will be output into an excel file called FileOutput. Please ensure that when you open the file, you say YES to do I trust where it is coming from and YES to the use of delimiters to separate columns( with the use of tabs) and rows (with the use of the next line function.");
+    System.out.println("Your results will be output into an excel file called FileOutput. Please ensure that when you open the file, you say YES to do I trust where it is coming from and YES to the use of delimiters to separate columns (with the use of tabs) and rows (with the use of the next line function).");
     
     //code for excel file output
     PrintWriter outputStream=null;
@@ -1023,7 +1023,7 @@ public class MainWithTextInput
     }//end try
     catch (FileNotFoundException e)
     {
-      System.out.println("There was error opening the output excel file! Please make sure that it is not in use.");
+      System.out.println("There was an error opening the output excel file! Please make sure that it is not in use.");
       System.exit(0);      
     }//end catch
     

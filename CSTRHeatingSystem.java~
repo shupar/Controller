@@ -1,5 +1,5 @@
 public class CSTRHeatingSystem extends Processes implements Function
-  
+
 {
    private double v;
    private double rho;

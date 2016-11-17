@@ -5,7 +5,7 @@ public class TestPIDStrings
   public static void main (String[]args)
   {    
     Scanner reader=new Scanner(System.in);
-    System.out.println("Plz enter the controller type");
+    System.out.println("Please enter the controller type");
     String controller=reader.next();
     
     while(!controller.equals("P")&&!controller.equals("I")&&!controller.equals("D")&&!controller.equals("PI")&&!controller.equals("PD")&&!controller.equals("ID")&&!controller.equals("PID"))

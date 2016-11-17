@@ -7,7 +7,7 @@ public class Results
 <<<<<<< HEAD
  ¨Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
  //Emily can you see my changes?
- Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
+  Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
   
   public double[] calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,
                              Processes process, int tChangeSP, int timeOfSimulation, int delx, double tauv, double kv)

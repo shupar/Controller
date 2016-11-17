@@ -1,7 +1,6 @@
 public class RungeKutta
-
 { 
-public static double integrate(double x_0, double y_0, double delx, Function f)// initial time, 
+  public static double integrate(double x_0, double y_0, double delx, Function f)// initial time, 
   {
     double x=x_0;
     double y=y_0;

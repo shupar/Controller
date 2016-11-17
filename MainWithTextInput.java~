@@ -55,10 +55,10 @@ public class MainWithTextInput
     inputStream.nextLine();
         
     double setPoint=0;
-    double startSetPoint=0;
+    int startSetPoint=0;
     double disturbanceMag=0;
-    double disturbanceStart=0;
-    double disturbanceEnd=0;
+    int disturbanceStart=0;
+    int disturbanceEnd=0;
     
     //if user choses a step change, scan for step and start time of step
     if (inputSignal==1)
@@ -74,13 +74,13 @@ public class MainWithTextInput
       setPoint=inputStream.nextDouble();
       
       inputStream.nextLine();
-      while(!inputStream.hasNextDouble())
+      while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an interger or double type value for your desired step start time. Plz modify the text file and try again.");
+      System.out.println("You did not enter an interger type value for your desired step start time. Plz modify the text file and try again.");
       inputStream.close();
       return;
       }
-      startSetPoint=inputStream.nextDouble();
+      startSetPoint=inputStream.nextInt();
       
       System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
       
@@ -114,13 +114,13 @@ public class MainWithTextInput
       Boolean pass1=false;
       while(!pass1)
       {
-        while(!inputStream.hasNextDouble())
+        while(!inputStream.hasNextInt())
         {
           System.out.println("You did not enter 0 for your disturbance start time. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
-        disturbanceStart=inputStream.nextDouble();
+        disturbanceStart=inputStream.nextInt();
         if (disturbanceStart!=0)
         {
           pass1=false;
@@ -139,13 +139,13 @@ public class MainWithTextInput
       Boolean pass2=false;
       while(!pass2)
       {
-        while(!inputStream.hasNextDouble())
+        while(!inputStream.hasNextInt())
         {
           System.out.println("You did not enter 0 for your disturbance end time. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
-        disturbanceEnd=inputStream.nextDouble();
+        disturbanceEnd=inputStream.nextInt();
         if (disturbanceEnd!=0)
         {
           pass2=false;
@@ -195,13 +195,13 @@ public class MainWithTextInput
       Boolean pass4=false;
       while(!pass4)
       {
-        while(!inputStream.hasNextDouble())
+        while(!inputStream.hasNextInt())
         {
           System.out.println("You did not enter 0 for your change in setpoint start time. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
-        startSetPoint=inputStream.nextDouble();
+        startSetPoint=inputStream.nextInt();
         if (startSetPoint!=0)
         {
           pass4=false;
@@ -227,22 +227,22 @@ public class MainWithTextInput
       disturbanceMag=inputStream.nextDouble();
       
       inputStream.nextLine();
-      while(!inputStream.hasNextDouble())
+      while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer or double type value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer type value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
-      disturbanceStart=inputStream.nextDouble();
+      disturbanceStart=inputStream.nextInt();
       
       inputStream.nextLine();
-      while(!inputStream.hasNextDouble())
+      while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer or double type value for the end time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer type value for the end time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
-      disturbanceEnd=inputStream.nextDouble();
+      disturbanceEnd=inputStream.nextInt();
     }
     //if user enters an int but not one of the choices
     else
@@ -263,22 +263,22 @@ public class MainWithTextInput
     
     //input time increment and runtime
     inputStream.nextLine();
-    while(!inputStream.hasNextDouble())
+    while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer or double type value for the time increment. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer value for the time increment. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
-    double timeInc=inputStream.nextDouble();
+    int timeInc=inputStream.nextInt();
       
     inputStream.nextLine();
-    while(!inputStream.hasNextDouble())
+    while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an integer or double type value for the run time of your simulation. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
+      System.out.println("You did not enter an integer type value for the run time of your simulation. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
-    double runTime=inputStream.nextDouble();
+    int runTime=inputStream.nextInt();
     
     if(timeInc>=runTime)
     {
@@ -998,7 +998,8 @@ public class MainWithTextInput
         
     //call results depending on program
     Results results=new Results();
-    double [] resultsArray=new double[runTime];
+    
+    double[] resultsArray=new double[runTime];
     
      //IS THIS A SECURITY LEAK??????????????????????????????????????????????????????????????????????????????????
     

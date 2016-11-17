@@ -83,9 +83,7 @@ public class Results
       else
       {
         response[i]=response[i-1]+process.calculateReponseOfProcess(time[0], response[i-1], delx, fceOut[i], disturbanceChange);
-      //                                  calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
       }
-        
                                                                                         
     }
   
