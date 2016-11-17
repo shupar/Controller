@@ -6,9 +6,9 @@ public class LevelControlSystem extends Process implements Function
   private double hInit;
   private double hStar;
   private double q;
-  public static final GRAV = 9.807;
+  public static final double GRAV = 9.807;
   
-  public LevelControl()
+  public LevelControlSystem()
   {
     this.d = 0;
     this.tankHeight = 0;
@@ -63,10 +63,28 @@ public class LevelControlSystem extends Process implements Function
    return new LevelControlSystem(this); 
   } //end of clone method
   
-  public double calculateValue(double x, double y)
+  public double calculateValueOfODE(double x, double y)//(double t, double H)
   {
     double cV = this.cvStar * Math.sqrt(GRAV);
+    double area = 0.25 * Math.pi * Math.pow(this.d,2);
+    return ((this.q - cV * Math.sqrt(y)) / area);
+  } //end of method
+  
+  
+  public double calculateResponseOfProcess(//double t1, double y1, delx)
+  {
+    RungeKutta.integrate(t1,y1, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER CHOSE one
+  } //using the static method in RK function to solve it
+   
+  public CSTRHeatingSystem clone()
+  {
+    return new CSTRHeatingSystem(this);
+  }
+  
+  
+
     double area = 0.25 * Math.pi * Math.pow(d,2);
     return ((this.q - cV * Math.sqrt(x)) / area);
   } //end of method  
+
 } //end of class

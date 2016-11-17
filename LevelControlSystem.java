@@ -1,20 +1,21 @@
-public class LevelControlSystem extends Process implements Function
+public class LevelControlSystem extends Processes implements Function
 {
+  public static final double GRAV = 9.807;  
   private double d;
   private double tankHeight;
   private double cvStar;
   private double hInit;
   private double hStar;
   private double q;
-  public static final double GRAV = 9.807;
   
   public LevelControlSystem()
   {
+    super();//right?????????????????????????????????????????
     this.d = 0;
     this.tankHeight = 0;
     this.cvStar = 0;
     this.hInit = 0;
-    this.hStar = 0;
+    this.hStar = 0;//not sure about this variable. I think it is the same as if user choses to change setpoint
     this.q = 0;
   }//end of default constructor
   
@@ -66,25 +67,17 @@ public class LevelControlSystem extends Process implements Function
   public double calculateValueOfODE(double x, double y)//(double t, double H)
   {
     double cV = this.cvStar * Math.sqrt(GRAV);
-    double area = 0.25 * Math.pi * Math.pow(this.d,2);
+    double area = 0.25 * Math.PI * Math.pow(this.d,2);
     return ((this.q - cV * Math.sqrt(y)) / area);
-  } //end of method
+  }//end of method
   
   
-  public double calculateResponseOfProcess(//double t1, double y1, delx)
+  public double calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
   {
-    RungeKutta.integrate(t1,y1, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER CHOSE one
-  } //using the static method in RK function to solve it
-   
-  public CSTRHeatingSystem clone()
-  {
-    return new CSTRHeatingSystem(this);
-  }
-  
-  
-
-    double area = 0.25 * Math.pi * Math.pow(d,2);
-    return ((this.q - cV * Math.sqrt(x)) / area);
-  } //end of method  
+   /*double responseOfProcess=RungeKutta.integrate(t1,response, delx, this);
+    this.setQ(fceOUT);
+    this.setHInit(disturbance + this.hInit);
+    return responseOfProcess;*/
+  }//make this specific to level!!!!!!!!!!!!!!using the static method in RK function to solve it*/
 
 } //end of class

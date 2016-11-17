@@ -836,7 +836,7 @@ public class MainWithTextInput
       heat=inputStream.nextDouble();
       System.out.println("The heat input rate of your process is: "+heat+"kJ/s.");
       
-      //volume of the tank
+      //volume of the tank [m3]
       inputStream.nextLine();
       double vol=0;
       while(!inputStream.hasNextDouble())
@@ -957,7 +957,6 @@ public class MainWithTextInput
       }
      }
 
-     
       Scanner reader2=new Scanner(System.in);
       boolean exit=false;
       int choice2=0;
@@ -984,20 +983,61 @@ public class MainWithTextInput
     reader2.close();
     //end catch for user's selection of how to proceed
 
+    //creating controller objects
+    Proportional proportional=new Proportional(kC);
+    Integral integral=new Integral(kC, tauI);
+    Derivative derivative=new Derivative(kC, tauD);
     
-    
-    
-//create object P, I and D and send the approporiate instance variables 
-      //create either CSTR or level object depending on user
-      
-     /* double[] results=calculate value,fbvxkbjkv
+    //creating process objects
+    CSTRHeatingSystem cstr=new CSTRHeatingSystem(vol, rho, cP, initialT, flow, heat);
+    LevelControlSystem level=new LevelControlSystem(d, h, cvStar, initialH, blank, flow);//dont actually need to send blank cuz dont need to recieve hstar
         
-        for (i=0; i<runTime; i++)
-      {
-        (print results(i) vs i)//qui correspond à f(t) vs t
-        
-      }*/
-   
+    //call results depending on program
+    Results results=new Results();
+    double [] resultsArray=new double[runTime];
+    
+     //IS THIS A SECURITY LEAK??????????????????????????????????????????????????????????????????????????????????
+    
+    if(systemSelection==1)
+    {    
+      resultsArray=results.calculations(setPoint, disturbanceMag, proportional, integral, derivative, cstr, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance
+    }
+    else if (systemSelection==2)
+    {
+      resultsArray=results.calculations(setPoint, disturbanceMag, proportional, integral, derivative, level, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance 
+    }
+    
+    System.out.println("Your results will be output into an excel file called FileOutput. Please ensure that when you open the file, you say YES to do I trust where it is coming from and YES to the use of delimiters to separate columns( with the use of tabs) and rows (with the use of the next line function.");
+    
+    //code for excel file output
+    PrintWriter outputStream=nul;
+    
+    try
+    {
+      outputStream=new PrintWriter (new FileOutputStream("FileOutput.xls"));      
+    }//end try
+    catch (FileNotFoundException e)
+    {
+      System.out.println("There was error opening the output excel file! Please make sure that it is not in use.");
+      System.exit(0);      
+    }//end catch
+    
+    //define output columns
+    if (systemSelection==1)
+    {
+      outputStream.println("t [s]\tT(t) [K]\n");
+    }
+    else if(systemSelection==2)
+    {
+      outputStream.println("t [s]\tH(t) [m]\n");
+    }
+    
+    for (int i=0; i<resultsArray.length; i++)//start at second 0 or second 1??????????
+    {
+      outputStream.println(i+"\t"+resultsArray[i]+"\n");      
+    }
+    
+    outputStream.close();
     inputStream.close();
     
   }//end main
