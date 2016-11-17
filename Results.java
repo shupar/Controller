@@ -10,7 +10,7 @@ public class Results
  Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
   
   public double[] calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,
-                             Process process, double tChangeSP, double timeOfSimulation, double delx, double tauv, double kv)
+                             Processes process, int tChangeSP, int timeOfSimulation, int delx, double tauv, double kv)
   {
     
    // array (contient les parametres du disturbance)
@@ -80,7 +80,12 @@ public class Results
       
       if (error[i]==0)
         response[i]=response[0];//verify this!!
-      else 
+      else
+      {
+        
+        
+        
+      }
         response[i]=response[i-1]+process.calculateReponseOfProcess(x_0, response[i-1], delx, fceOUT[i], disturbanceChange);
                                                                                         
     }

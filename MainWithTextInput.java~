@@ -785,12 +785,27 @@ public class MainWithTextInput
       //ARE THERE ANY CONSTRAINTS ON PROCESS INPUT PARAMS?????????????????????????????????????????????
       //CHECK UNITS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      
-      //input process parameters for CSTR heating
+      //CSTRHeating variable declarations
+      double initialT=0;
+      double flow=0;
+      double cP=0;
+      double heat=0;
+      double vol=0;
+      double rho=0;
+      
+      //level variable declarations
+      double d=0;
+      double h=0;
+      double initialH=0;
+      double flow2=0;
+      double cvStar=0;
+      double blank=0;//there is only 5 necessary params in the level control therefore we will force user to enter 0 in the last parameter slot
+     
+     //input process parameters for CSTR heating
      if(systemSelection==1)
      {      
       //T initial [K]
       inputStream.nextLine();
-      double initialT=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the initial temperature or your process. Plz modify the text file and try again.");
@@ -802,7 +817,6 @@ public class MainWithTextInput
       
       //flow rate [kg/s]
       inputStream.nextLine();
-      double flow=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the mass flow rate or your process. Plz modify the text file and try again.");
@@ -814,7 +828,6 @@ public class MainWithTextInput
       
       //heat capacity [kJ/kg*K]
       inputStream.nextLine();
-      double cP=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the heat capacity or your process. Plz modify the text file and try again.");
@@ -826,7 +839,6 @@ public class MainWithTextInput
       
       //heat input rate [kJ/s]
       inputStream.nextLine();
-      double heat=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the heat input rate or your process. Plz modify the text file and try again.");
@@ -838,7 +850,6 @@ public class MainWithTextInput
       
       //volume of the tank [m3]
       inputStream.nextLine();
-      double vol=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the volume of your process' tank. Plz modify the text file and try again.");
@@ -850,7 +861,6 @@ public class MainWithTextInput
       
       //density of the fluid in the system
       inputStream.nextLine();
-      double rho=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the density of your process fluid. Plz modify the text file and try again.");
@@ -866,7 +876,6 @@ public class MainWithTextInput
    {  
       //tank diameter
       inputStream.nextLine();
-      double d=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for your process' tank diameter. Plz modify the text file and try again.");
@@ -878,7 +887,6 @@ public class MainWithTextInput
       
       //tank height
       inputStream.nextLine();
-      double h=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for your process' tank height. Plz modify the text file and try again.");
@@ -889,7 +897,6 @@ public class MainWithTextInput
            
       //initial level height
       inputStream.nextLine();
-      double initialH=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for your process' initial level height. Plz modify the text file and try again.");
@@ -909,19 +916,17 @@ public class MainWithTextInput
           
       //volumetric flow rate [m3/s]
       inputStream.nextLine();
-      double flow=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the volumetric flow rate or your process. Plz modify the text file and try again.");
         inputStream.close();
         return;
       }
-      flow=inputStream.nextDouble();
-      System.out.println("The volumetric flow rate of your process is: "+flow+ "m3/s.");
+      flow2=inputStream.nextDouble();
+      System.out.println("The volumetric flow rate of your process is: "+flow2+ "m3/s.");
       
       //Cv star, valve characteristic
       inputStream.nextLine();
-      double cvStar=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the Cv* characteristic of your valve. Plz modify the text file and try again.");
@@ -930,8 +935,7 @@ public class MainWithTextInput
       }
       cvStar=inputStream.nextDouble();
       System.out.println("The Cv* valve characteristic is: "+cvStar+".");
-       
-      double blank=0;//there is only 5 necessary params in the level control therefore we will force user to enter 0 in the last parameter slot
+      
       inputStream.nextLine();
       Boolean passing=false;
       while(!passing)
@@ -990,7 +994,7 @@ public class MainWithTextInput
     
     //creating process objects
     CSTRHeatingSystem cstr=new CSTRHeatingSystem(vol, rho, cP, initialT, flow, heat);
-    LevelControlSystem level=new LevelControlSystem(d, h, cvStar, initialH, blank, flow);//dont actually need to send blank cuz dont need to recieve hstar
+    LevelControlSystem level=new LevelControlSystem(d, h, cvStar, initialH, blank, flow2);//dont actually need to send blank cuz dont need to recieve hstar
         
     //call results depending on program
     Results results=new Results();
@@ -1010,7 +1014,7 @@ public class MainWithTextInput
     System.out.println("Your results will be output into an excel file called FileOutput. Please ensure that when you open the file, you say YES to do I trust where it is coming from and YES to the use of delimiters to separate columns( with the use of tabs) and rows (with the use of the next line function.");
     
     //code for excel file output
-    PrintWriter outputStream=nul;
+    PrintWriter outputStream=null;
     
     try
     {
