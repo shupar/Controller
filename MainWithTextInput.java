@@ -1037,9 +1037,10 @@ public class MainWithTextInput
       outputStream.println("t [s]\tH(t) [m]\n");
     }
     
-    for (int i=0; i<resultsArray.length; i++)//start at second 0 or second 1??????????
+    for (int i=0; i<resultsArray.length; i++)//start at second 0 or second 1?????????? THIS MAY NEED TO BE AN EQUATION FCT OF DELX
     {
-      outputStream.println(i+"\t"+resultsArray[i]+"\n");      
+      outputStream.println(timeInc+"\t"+resultsArray[i]+"\n");
+      timeInc+=timeInc;
     }
     
     outputStream.close();
