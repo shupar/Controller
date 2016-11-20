@@ -7,13 +7,10 @@ public class Results
 <<<<<<< HEAD
  ¨Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
  //Emily can you see my changes?
-=======
- Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
- 
->>>>>>> origin/master
+  Process cstrHeatingSystem;//for the moment just for this process without disturbance*/
   
-  public double calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,
-                             Process process, double tChangeSP, double timeOfSimulation, double delx, double tauv, double kv)
+  public double[] calculations(double setPointChange, double disturbanceChange, Proportional proportional, Integral integral, Derivative derivative,
+                             Processes process, int tChangeSP, int timeOfSimulation, int delx, double tauv, double kv)
   {
     
    // array (contient les parametres du disturbance)
@@ -66,7 +63,7 @@ public class Results
       if (time[i]<tChangeSP)
         setPoint[i]=setPoint[0];
       else 
-        setPoint[i]=setPointIn;  
+        setPoint[i]=setPointChange;  
           
       time[i]=time[i]+delx;
       error[i]=response[i-1]-setPoint[i];
@@ -78,23 +75,19 @@ public class Results
       if (tauv==0)
         fceOut[i]=kv*signal[i];
       else 
-         fceOut[i]=fceOut[i-1]+delx(kv*signal[i]-fceOut[i-1])/tauv;
+         fceOut[i]=fceOut[i-1]+delx*(kv*signal[i]-fceOut[i-1])/tauv;//j'ai ajouté * apres  +delx ici
      
       
-      if (error[i]=0)
+      if (error[i]==0)
         response[i]=response[0];//verify this!!
-      else 
-        response[i]=response[i-1]+process.calculateReponseOfProcess(x_0, response[i-1], delx, fceOUT[i], disturbanceChange); 
+      else
+      {
+        response[i]=response[i-1]+process.calculateReponseOfProcess(time[0], response[i-1], delx, fceOut[i], disturbanceChange);
+      }
                                                                                         
     }
   
     return response; 
-    //I'm a little worried about returning this array, security leak
-    //Gonna deep copy this array just in case
-    /*double[] responseArray = new double[response.length];
-     * for(int i=0;i<response.length;i++)
-     * responseArray[i] = response[i];
-     * return responseArray;
   
   }
 

@@ -5,7 +5,7 @@
 0 		:If you chose a disturbance, please insert disturbance gain.(For the CSTR system, you are varying inlet temperature and for level, you are varying _).Enter the number zero here if you chose a change in setpoint.
 0 		:Please enter the start time of your disturbance in s. Enter the number zero here if you chose a change in setpoint.
 0		:Please enter the end time of your disturbance in s. Enter the number zero here if you chose a change in setpoint.
-10		:Enter your desired time increment in seconds.
+10.55		:Enter your desired time increment in seconds.
 60		:Enter your desired runtime in seconds.
 0.001		:Enter your reponse tolerance (tolerance for the difference between the simulation output and your desired setpoint).
 5		:Please enter the gain of the valve you are using.

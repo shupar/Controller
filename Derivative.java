@@ -13,6 +13,17 @@ public class Derivative extends Controller
     super(kC);
     this.tauD=tauD;
   }//end of constructor 
+
+  public Derivative(Derivative copy)
+  {
+    super(copy);
+    this.tauD=copy.tauD;
+  }//end of copy constructor
+  
+  public Derivative clone()
+  {
+    return new Derivative(this);
+  }//end of clone method
   
   public void setTauD(double tauD)
   {
