@@ -17,3 +17,6 @@
 15 Nov 2016 17:54:49 GMT: Log 'EclipseCompiler.txt' opened: 15 Nov 2016 17:54:49 GMT with name C:\Users\Evan\OneDrive\CHG4343 - Project\Controller\EclipseCompiler.txt
 15 Nov 2016 17:55:50 GMT: Log 'EclipseCompiler.txt' opened: 15 Nov 2016 17:55:50 GMT with name C:\Users\Evan\OneDrive\CHG4343 - Project\Controller\EclipseCompiler.txt
 15 Nov 2016 22:00:25 GMT: Log 'EclipseCompiler.txt' opened: 15 Nov 2016 22:00:25 GMT with name C:\Users\Evan\OneDrive\CHG4343 - Project\Controller\EclipseCompiler.txt
+20 Nov 2016 3:11:52 GMT: Log 'EclipseCompiler.txt' opened: 20 Nov 2016 3:11:52 GMT with name C:\Users\Evan\Desktop\Controller\EclipseCompiler.txt
+21 Nov 2016 2:18:04 GMT: Log 'EclipseCompiler.txt' opened: 21 Nov 2016 2:18:04 GMT with name C:\Users\Evan\Desktop\Controller\EclipseCompiler.txt
+21 Nov 2016 3:49:48 GMT: Log 'EclipseCompiler.txt' opened: 21 Nov 2016 3:49:48 GMT with name C:\Users\Evan\Desktop\Controller\EclipseCompiler.txt
