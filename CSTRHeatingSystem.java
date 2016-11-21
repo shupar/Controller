@@ -1,5 +1,5 @@
 public class CSTRHeatingSystem extends Processes implements Function
-
+  
 {
    private double v;
    private double rho;
@@ -67,7 +67,7 @@ public class CSTRHeatingSystem extends Processes implements Function
    { 
     this.q = q;
    } //end of mutator
-
+////////////////////
     public double getV()
    {
     return this.v;
@@ -110,10 +110,11 @@ public class CSTRHeatingSystem extends Processes implements Function
     this.setT_I(disturbance + this.t_I);
     
     return responseOfProcess;
-   }//using the static method in RK function to solve it
-  
+   } //using the static method in RK function to solve it
+   
    public CSTRHeatingSystem clone()
    {
     return new CSTRHeatingSystem(this);
    }
-}//end of class
+  
+}//end of concentration model

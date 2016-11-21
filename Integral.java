@@ -13,17 +13,6 @@ public class Integral extends Controller
     super(kC);
     this.tauI=tauI;
   }//end of constructor 
-
-  public Integral(Integral copy)
-  {
-    super(copy);
-    this.tauI=copy.tauI;
-  }//end of copy constructor
-  
-  public Integral clone()
-  {
-    return new Integral(this);
-  }//end of clone method
   
   public void setTauI(double tauI)
   {
