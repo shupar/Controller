@@ -1,8 +1,17 @@
+import java.util.*;
+
 public class Test
 {
   public static void main (String[]args)
   {    
-    while(!exit)
+    Scanner reader=new Scanner(System.in);
+    boolean exit=false;
+    int choice=0;
+    
+    do
+    {
+      exit=false;
+      while(!exit)
       {
         try
         {
@@ -18,7 +27,9 @@ public class Test
         }
           
       }//end catch for user's selection
-    
+    }while(choice!=1&&choice!=2);
+      
+    reader.close();
   }//end main
   
 }//end class

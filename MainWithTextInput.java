@@ -5,6 +5,7 @@ public class MainWithTextInput
 {
   public static void main (String[] args)
   {
+    //creating a scanner object that will communicate with the text input file
     Scanner inputStream=null;
    
     try
@@ -26,7 +27,8 @@ public class MainWithTextInput
       return;
     }
     int systemSelection=inputStream.nextInt();
-        
+    
+    //confirm process or ask user to pick from given options
     if (systemSelection==1)
     {
       System.out.println("The system you have selected is the CSTR heating system.");
@@ -42,6 +44,93 @@ public class MainWithTextInput
       return;
     }
   
+     //input time increment and runtime
+    inputStream.nextLine();
+    while(!inputStream.hasNextInt())
+      {
+      System.out.println("You did not enter an integer value for the time increment. Please modify the text file and try again. Note: Ensure your time is in seconds.");
+      inputStream.close();
+      return;
+      }
+    int timeInc=inputStream.nextInt();
+    
+    if (timeInc<0)
+    {
+      System.out.println("You did not enter a valid time (bigger than 0s). Please modify the text file and try again. Note: Ensure your time is in seconds.");
+      inputStream.close();
+      return;
+    }
+    System.out.println("Your chosen time increment is: "+timeInc);
+      
+    inputStream.nextLine();
+    while(!inputStream.hasNextInt())
+      {
+      System.out.println("You did not enter an integer type value for the run time of your simulation. Please modify the text file and try again. Note: Ensure your time is in seconds.");
+      inputStream.close();
+      return;
+      }
+    int runTime=inputStream.nextInt();
+    if (runTime<0)
+    {
+      System.out.println("You did not enter a valid run time (bigger than 0s). Please modify the text file and try again. Note: Ensure your time is in seconds.");
+      inputStream.close();
+      return;
+    }
+    
+    System.out.println("Your chosen run time increment is: "+runTime);
+    
+    //ENSURE RUNTIME IS HIGHER THAN 0
+    
+    if(timeInc>=runTime)
+    {
+      System.out.println("Your time increment is larger than or equal to your simulation runtime. You should reconsider how often you would like to iterate.");
+      inputStream.close();
+      return;
+    }
+    else 
+    {
+      Scanner reader=new Scanner(System.in);
+      boolean exit=false;
+      double iterations=0;
+      int choice=0;
+      iterations=runTime/timeInc;
+      
+      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+".");
+     
+      do
+    {
+      exit=false;
+      while(!exit)
+      {
+        try
+        {
+          System.out.println("Please enter 1 into the java compiler if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
+          choice=reader.nextInt();
+          exit=true;
+        }
+        
+        catch(InputMismatchException e)
+        {
+          reader.nextLine();
+          System.out.println("You did not select option 1 or 2 (entered as an integer).");
+        }
+      }
+    }while(choice!=1&&choice!=2);
+    //end catch for user's selection of how to proceed
+           
+      if(choice==2)
+      {
+        reader.close();
+        System.out.println("Proceed to the text file to change your time specifications then come back to compile and run once more.");
+        inputStream.close();
+        return;
+      }
+      else
+      {
+        reader.close();
+      }
+    }
+ 
     //scanning for type of input signal to impose on selected process
    inputStream.nextLine();
     while(!inputStream.hasNextInt())
@@ -82,6 +171,26 @@ public class MainWithTextInput
       }
       startSetPoint=inputStream.nextInt();
       
+      //ask user to try again is set point start is after the runtime and is setpoint start is not a multiple of timeInc
+      if(startSetPoint>runTime)
+      {
+        System.out.println("Your start of set point change is after your process run time...  Please reconsider the timing of your input signal and try again.");
+        inputStream.close();
+        return;
+      }
+      else if(startSetPoint<0)////////////////////////////////////////////////////////////////////////////////
+     {
+        System.out.println("Your stat of set point change is below 0...  Please modify the text file and try again.");
+        inputStream.close();
+        return;
+     }
+      else if(startSetPoint%timeInc!=0)
+     {
+       System.out.println("Your start of set point change is not a multiple of your time increment...  Please modify the text file and try again.");
+        inputStream.close();
+        return;
+     }
+          
       System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
       
       //ensure user does not enter a disturbance since they have selected a change in step point
@@ -235,6 +344,13 @@ public class MainWithTextInput
       }
       disturbanceStart=inputStream.nextInt();
       
+      if(disturbanceStart%timeInc!=0)
+     {
+        System.out.println("Your start of disturbance is not a multiple of your time increment...  Please modify the text file and try again.");
+        inputStream.close();
+        return;
+     } 
+      
       inputStream.nextLine();
       while(!inputStream.hasNextInt())
       {
@@ -243,6 +359,14 @@ public class MainWithTextInput
       return;
       }
       disturbanceEnd=inputStream.nextInt();
+      
+      if(disturbanceEnd%timeInc!=0)
+     {
+        System.out.println("Your end of disturbance is not a multiple of your time increment...  Please modify the text file and try again.");
+        inputStream.close();
+        return;
+     } 
+      
     }
     //if user enters an int but not one of the choices
     else
@@ -260,76 +384,6 @@ public class MainWithTextInput
     }
     System.out.println("The disturbance magnitude you have chosen is "+disturbanceMag+"and will commence at t = "+disturbanceStart+"s and will end at t = "+disturbanceEnd+"s.");
     
-    
-    //input time increment and runtime
-    inputStream.nextLine();
-    while(!inputStream.hasNextInt())
-      {
-      System.out.println("You did not enter an integer value for the time increment. Please modify the text file and try again. Note: Ensure your time is in seconds.");
-      inputStream.close();
-      return;
-      }
-    int timeInc=inputStream.nextInt();
-      
-    inputStream.nextLine();
-    while(!inputStream.hasNextInt())
-      {
-      System.out.println("You did not enter an integer type value for the run time of your simulation. Please modify the text file and try again. Note: Ensure your time is in seconds.");
-      inputStream.close();
-      return;
-      }
-    int runTime=inputStream.nextInt();
-    
-    if(timeInc>=runTime)
-    {
-      System.out.println("Your time increment is larger than or equal to your simulation runtime. You should reconsider how often you would like to iterate.");
-      inputStream.close();
-      return;
-    }
-    else 
-    {
-      Scanner reader=new Scanner(System.in);
-      boolean exit=false;
-      double iterations=0;
-      int choice=0;
-      iterations=runTime/timeInc;
-      
-      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+".");
-     
-      do
-    {
-      exit=false;
-      while(!exit)
-      {
-        try
-        {
-          System.out.println("Please enter 1 into the java compiler if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
-          choice=reader.nextInt();
-          exit=true;
-        }
-        
-        catch(InputMismatchException e)
-        {
-          reader.nextLine();
-          System.out.println("You did not select option 1 or 2 (entered as an integer).");
-        }
-      }
-    }while(choice!=1&&choice!=2);
-    //end catch for user's selection of how to proceed
-           
-      if(choice==2)
-      {
-        reader.close();
-        System.out.println("Proceed to the text file to change your time specifications then come back to compile and run once more.");
-        inputStream.close();
-        return;
-      }
-      else
-      {
-        reader.close();
-      }
-    }
-   
     //code to read tolerance
     inputStream.nextLine();
     double tol=0;
@@ -379,6 +433,7 @@ public class MainWithTextInput
     
       //what to do next as a function of user controller choice
     double kC=0;
+    double kCP=0;
     double tauI=1000000000;//large number to cancel out term
     double tauD=0;
     
@@ -452,30 +507,15 @@ public class MainWithTextInput
      //for I only type controller    
       else if(controller.equals("I"))
       {
-        inputStream.nextLine();
-      Boolean pass3=false;
-      while(!pass3)
-      {
-        while(!inputStream.hasNextDouble())
+      inputStream.nextLine();
+       while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter 1 for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
           inputStream.close();
           return;
         }
         kC=inputStream.nextDouble();
-        if (kC!=1)
-        {
-          pass3=false;
-          System.out.println("You did not input 1 for your controller gain. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(kC==1)
-        {
-          System.out.println("Your controller gain is "+kC+".");
-          pass3=true;
-        }
-      }
+        System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain.");
         
         inputStream.nextLine();
         
@@ -489,7 +529,7 @@ public class MainWithTextInput
         
         System.out.println("The integral time constant of your controller is: "+tauI);
         
-        inputStream.nextLine();
+      inputStream.nextLine();
       Boolean pass4=false;
       while(!pass4)
       {
@@ -519,30 +559,15 @@ public class MainWithTextInput
       else if(controller.equals("D"))
       {
          inputStream.nextLine();
-      Boolean pass5=false;
-      while(!pass5)
-      {
-        while(!inputStream.hasNextDouble())
+         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter 1 for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
           inputStream.close();
           return;
         }
         kC=inputStream.nextDouble();
-        if (kC!=1)
-        {
-          pass5=false;
-          System.out.println("You did not input 1 for your controller gain. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(kC==1)
-        {
-          System.out.println("Your controller gain is "+kC+".");
-          pass5=true;
-        }
-      }
-       
+        System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain.");
+           
       inputStream.nextLine();
       Boolean pass6=false;
       while(!pass6)
@@ -695,29 +720,15 @@ public class MainWithTextInput
       else if(controller.equals("ID"))
       {
          inputStream.nextLine();
-      Boolean pass9=false;
-      while(!pass9)
-      {
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter 1 for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
           inputStream.close();
           return;
         }
         kC=inputStream.nextDouble();
-        if (kC!=1)
-        {
-          pass9=false;
-          System.out.println("You did not input 1 for your controller gain. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(kC==1)
-        {
-          System.out.println("Your controller gain is "+kC+".");
-          pass9=true;
-        }
-      }      
+        System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain."); 
+        
         inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
@@ -987,8 +998,19 @@ public class MainWithTextInput
     reader2.close();
     //end catch for user's selection of how to proceed
 
+    
+    
+    
+    
+    /*
     //creating controller objects
-    Proportional proportional=new Proportional(kC);
+    
+    //AND OR OR HERE?????????????????????????????
+    if(controller.equals("I")&&controller.equals("D")&&controller.equals("ID"))//to cancel out the proportional error action send a value of Kc=0 (stored in kCP)
+    {Proportional proportional=new Proportional(kCP);}
+    else
+    {Proportional proportional=new Proportional(kC);}
+    
     Integral integral=new Integral(kC, tauI);
     Derivative derivative=new Derivative(kC, tauD);
     
@@ -1044,6 +1066,9 @@ public class MainWithTextInput
     }
     
     outputStream.close();
+    
+    
+    */
     inputStream.close();
     
   }//end main
