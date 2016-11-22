@@ -1,10 +1,10 @@
 public class DistillationColumn extends Process implements Function
 {
-  private double l;
-  private double v;
+  private double l;//will be kept constant
+  private double v; //will used for the disturbance
   private double rho;
   private double d; //for the area
-  private double b;
+  private double b; //manipulated variable
   
   public DistillationColumn()
   {
@@ -98,7 +98,7 @@ public class DistillationColumn extends Process implements Function
   {
     double responseOfProcess = RungeKutta.integrate(t1, response, delx, this.clone()); //consider returning clone or passing original object
     this.setB(fceOUT);
-    this.setV(disturbance.Method+);
+    return responseOfProcess;
   } //end of method required to make class concrete 
   
 //  public double disturbanceMethod(double disturbanceMagnitude)

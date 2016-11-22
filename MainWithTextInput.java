@@ -144,10 +144,10 @@ public class MainWithTextInput
     inputStream.nextLine();
         
     double setPoint=0;
-    double startSetPoint=0;
+    int startSetPoint=0;
     double disturbanceMag=0;
-    double disturbanceStart=0;
-    double disturbanceEnd=0;
+    int disturbanceStart=0;
+    int disturbanceEnd=0;
     
     //if user choses a step change, scan for step and start time of step
     if (inputSignal==1)
@@ -163,13 +163,13 @@ public class MainWithTextInput
       setPoint=inputStream.nextDouble();
       
       inputStream.nextLine();
-      while(!inputStream.hasNextDouble())
+      while(!inputStream.hasNextInt())
       {
-      System.out.println("You did not enter an interger or double type value for your desired step start time. Plz modify the text file and try again.");
+      System.out.println("You did not enter an interger value for your desired step start time. Plz modify the text file and try again.");
       inputStream.close();
       return;
       }
-      startSetPoint=inputStream.nextDouble();
+      startSetPoint=inputStream.nextInt();
       
       //ask user to try again is set point start is after the runtime and is setpoint start is not a multiple of timeInc
       if(startSetPoint>runTime)
@@ -223,13 +223,13 @@ public class MainWithTextInput
       Boolean pass1=false;
       while(!pass1)
       {
-        while(!inputStream.hasNextDouble())
+        while(!inputStream.hasNextInt())
         {
           System.out.println("You did not enter 0 for your disturbance start time. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
-        disturbanceStart=inputStream.nextDouble();
+        disturbanceStart=inputStream.nextInt();
         if (disturbanceStart!=0)
         {
           pass1=false;
@@ -248,13 +248,13 @@ public class MainWithTextInput
       Boolean pass2=false;
       while(!pass2)
       {
-        while(!inputStream.hasNextDouble())
+        while(!inputStream.hasNextInt())
         {
           System.out.println("You did not enter 0 for your disturbance end time. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
-        disturbanceEnd=inputStream.nextDouble();
+        disturbanceEnd=inputStream.nextInt();
         if (disturbanceEnd!=0)
         {
           pass2=false;
@@ -304,13 +304,13 @@ public class MainWithTextInput
       Boolean pass4=false;
       while(!pass4)
       {
-        while(!inputStream.hasNextDouble())
+        while(!inputStream.hasNextInt())
         {
           System.out.println("You did not enter 0 for your change in setpoint start time. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
-        startSetPoint=inputStream.nextDouble();
+        startSetPoint=inputStream.nextInt();
         if (startSetPoint!=0)
         {
           pass4=false;
@@ -336,13 +336,13 @@ public class MainWithTextInput
       disturbanceMag=inputStream.nextDouble();
       
       inputStream.nextLine();
-      while(!inputStream.hasNextDouble())
+      while(!inputStream.hasNext())
       {
       System.out.println("You did not enter an integer or double type value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
-      disturbanceStart=inputStream.nextDouble();
+      disturbanceStart=inputStream.nextInt();
       
       if(disturbanceStart%timeInc!=0)
      {
@@ -352,13 +352,12 @@ public class MainWithTextInput
      } 
       
       inputStream.nextLine();
-      while(!inputStream.hasNextDouble())
+      while(!inputStream.hasNextInt())
       {
       System.out.println("You did not enter an integer or double type value for the end time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
       return;
       }
-<<<<<<< HEAD
       disturbanceEnd=inputStream.nextInt();
       
       if(disturbanceEnd%timeInc!=0)
@@ -367,10 +366,7 @@ public class MainWithTextInput
         inputStream.close();
         return;
      } 
-      
-=======
-      disturbanceEnd=inputStream.nextDouble();
->>>>>>> parent of f4e33c6... Merge branch 'master' of https://github.com/shupar/Controller
+      disturbanceEnd=inputStream.nextInt();
     }
     //if user enters an int but not one of the choices
     else
@@ -387,92 +383,7 @@ public class MainWithTextInput
      return;
     }
     System.out.println("The disturbance magnitude you have chosen is "+disturbanceMag+"and will commence at t = "+disturbanceStart+"s and will end at t = "+disturbanceEnd+"s.");
-    
-<<<<<<< HEAD
-=======
-    
-    //input time increment and runtime
-    inputStream.nextLine();
-    while(!inputStream.hasNextDouble())
-      {
-      System.out.println("You did not enter an integer or double type value for the time increment. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
-      inputStream.close();
-      return;
-      }
-    double timeInc=inputStream.nextDouble();
-      
-    inputStream.nextLine();
-    while(!inputStream.hasNextDouble())
-      {
-      System.out.println("You did not enter an integer or double type value for the run time of your simulation. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
-      inputStream.close();
-      return;
-      }
-    double runTime=inputStream.nextDouble();
-    
-    if(timeInc>=runTime)
-    {
-      System.out.println("Your time increment is larger or equal that your simulation runtime. You should reconsider how often you would like to iterate.");
-      inputStream.close();
-      return;
-    }
-    else 
-    {
-      Scanner reader=new Scanner(System.in);
-      boolean exit=false;
-      double iterations=0;
-      int choice=0;
-      iterations=runTime/timeInc;
-      
-      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iterations, the program will compute "+iterations+".");
-     
-      do
-    {
-      exit=false;
-      while(!exit)
-      {
-        try
-        {
-          System.out.println("Please enter 1 into the java compile if you would like to proceed or 2 if you would like to reevaluate the amount of iterations to simulate.");
-          choice=reader.nextInt();
-          exit=true;
-        }
-        
-        catch(InputMismatchException e)
-        {
-          reader.nextLine();
-          System.out.println("You did not select option 1 or 2 (entered as an integer).");
-        }
-      }
-    }while(choice!=1&&choice!=2);
-    //end catch for user's selection of how to proceed
-           
-      if(choice==2)
-      {
-        reader.close();
-        System.out.println("Proceed to the text file to change your time specifications then come back to compile and run once more.");
-        inputStream.close();
-        return;
-      }
-      else
-      {
-        reader.close();
-      }
-    }
-   
->>>>>>> parent of f4e33c6... Merge branch 'master' of https://github.com/shupar/Controller
-    //code to read tolerance
-    inputStream.nextLine();
-    double tol=0;
-    while(!inputStream.hasNextDouble())
-      {
-      System.out.println("You did not enter an integer or a double value for your desired tolerance. Plz modify the text file and try again.");
-      inputStream.close();
-      return;
-      }
-    tol=inputStream.nextDouble();
-    System.out.println("The tolerance is: "+tol);
-    
+
     //code to read valve details
     inputStream.nextLine();
     double kV=0;
@@ -549,7 +460,7 @@ public class MainWithTextInput
         }
         else if(tauI==0)
         {
-          tauI=10000000;
+          tauI=Math.pow(10, 100);
           System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
           pass1=true;
         }
@@ -592,25 +503,9 @@ public class MainWithTextInput
           return;
         }
         kC=inputStream.nextDouble();
-<<<<<<< HEAD
         System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain.");
-=======
-        if (kC!=1)
-        {
-          pass3=false;
-          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(kC==1)
-        {
-          System.out.println("Your controller gain is "+kC+".");
-          pass3=true;
-        }
-      }
->>>>>>> parent of f4e33c6... Merge branch 'master' of https://github.com/shupar/Controller
         
-        inputStream.nextLine();
+      inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
         {
@@ -659,25 +554,9 @@ public class MainWithTextInput
           return;
         }
         kC=inputStream.nextDouble();
-<<<<<<< HEAD
+
         System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain.");
            
-=======
-        if (kC!=1)
-        {
-          pass5=false;
-          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(kC==1)
-        {
-          System.out.println("Your controller gain is "+kC+".");
-          pass5=true;
-        }
-      }
-       
->>>>>>> parent of f4e33c6... Merge branch 'master' of https://github.com/shupar/Controller
       inputStream.nextLine();
       Boolean pass6=false;
       while(!pass6)
@@ -699,7 +578,7 @@ public class MainWithTextInput
         }
         else if(tauI==0)
         {
-          tauI=10000000;
+          tauI=Math.pow(10, 100);
           System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
           pass6=true;
         }
@@ -807,7 +686,7 @@ public class MainWithTextInput
         }
         else if(tauI==0)
         {
-          tauI=10000000;
+          tauI=Math.pow(10, 100);
           System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
           pass8=true;
         }
@@ -837,24 +716,9 @@ public class MainWithTextInput
           return;
         }
         kC=inputStream.nextDouble();
-<<<<<<< HEAD
+
         System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain."); 
         
-=======
-        if (kC!=1)
-        {
-          pass9=false;
-          System.out.println("You didnt input 1 for your controller gain. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(kC==1)
-        {
-          System.out.println("Your controller gain is "+kC+".");
-          pass9=true;
-        }
-      }      
->>>>>>> parent of f4e33c6... Merge branch 'master' of https://github.com/shupar/Controller
         inputStream.nextLine();
         
         while(!inputStream.hasNextDouble())
@@ -1129,7 +993,7 @@ public class MainWithTextInput
     //creating controller objects
     
     //AND OR OR HERE?????????????????????????????
-    if(controller.equals("I")&&controller.equals("D")&&controller.equals("ID"))//to cancel out the proportional error action send a value of Kc=0 (stored in kCP)
+    if(controller.equals("I")||controller.equals("D")||controller.equals("ID"))//to cancel out the proportional error action send a value of Kc=0 (stored in kCP)
     {Proportional proportional=new Proportional(kCP);}
     else
     {Proportional proportional=new Proportional(kC);}
@@ -1157,7 +1021,6 @@ public class MainWithTextInput
     }
       
     
-<<<<<<< HEAD
     System.out.println("Your results will be output into an excel file called FileOutput. Please ensure that when you open the file, you say YES to do I trust where it is coming from and YES to the use of delimiters to separate columns (with the use of tabs) and rows (with the use of the next line function).");
     
     //code for excel file output
@@ -1192,17 +1055,7 @@ public class MainWithTextInput
     outputStream.close();
     
     
-    */
-=======
-     /* double[] results=calculate value,fbvxkbjkv
-        
-        for (i=0; i<runTime; i++)
-      {
-        (print results(i) vs i)//qui correspond à f(t) vs t
-        
-      }*/
-   
->>>>>>> parent of f4e33c6... Merge branch 'master' of https://github.com/shupar/Controller
+    */   
     inputStream.close();
     
   }//end main

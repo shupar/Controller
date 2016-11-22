@@ -10,6 +10,7 @@ public class CSTRHeatingSystem extends Processes implements Function
    
    public CSTRHeatingSystem()
    {
+    super();
     this.v = 0;
     this.rho = 0;
     this.cp = 0;
@@ -103,14 +104,14 @@ public class CSTRHeatingSystem extends Processes implements Function
     return  (this.w/(this.v*this.rho))*((this.t_I-y)+(this.q/(this.rho*this.cp*this.v)));
    }//end of method
   
-   public double calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
+   public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
    {
-    double responseOfProcess=RungeKutta.integrate(t1,response, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER DEFINES IT
+   double responseOfProcess=RungeKutta.integrate(t1,response, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER DEFINES IT
     this.setQ(fceOUT);
     this.setT_I(disturbance + this.t_I);
     
-    return responseOfProcess;
-   } //using the static method in RK function to solve it
+    return responseOfProcess; 
+   }//using the static method in RK function to solve it
    
    public CSTRHeatingSystem clone()
    {
