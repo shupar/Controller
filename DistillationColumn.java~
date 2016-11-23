@@ -1,4 +1,4 @@
-public class DistillationColumn extends Process implements Function
+public class DistillationColumn extends Processes implements Function
 {
   private double l;//will be kept constant
   private double v; //will used for the disturbance
@@ -90,16 +90,16 @@ public class DistillationColumn extends Process implements Function
   
   public double calculateValueOfODE(double x, double y)
   {
-    double area = Math.pi()*Math.pow(this.d, 2)*0.25;
-    return ((this.l - this.v)/(this.rho*area) - this.b/(this.rho*area))
+    double area = Math.PI*Math.pow(this.d, 2)*0.25;
+    return ((this.l - this.v)/(this.rho*area) - this.b/(this.rho*area));
   } //end of method required for interface
   
-  public double calculateResponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
+  public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
   {
     double responseOfProcess = RungeKutta.integrate(t1, response, delx, this.clone()); //consider returning clone or passing original object
     this.setB(fceOUT);
-    return responseOfProcess;
-  } //end of method required to make class concrete 
+    return responseOfProcess;    
+  }//end of method required to make class concrete 
   
 //  public double disturbanceMethod(double disturbanceMagnitude)
 //  {

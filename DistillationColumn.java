@@ -1,10 +1,11 @@
 public class DistillationColumn extends Processes implements Function
 {
-  private double l;//will be kept constant
-  private double v; //will used for the disturbance
+  private double l;//disturbance
+  private double v; //kept constant
   private double rho;
   private double d; //for the area
   private double b; //manipulated variable
+  private final double MINIMUM = 0; //In results if the height of the water is less than MINIMUM then we need to only give 0!!!
   
   public DistillationColumn()
   {
@@ -97,13 +98,25 @@ public class DistillationColumn extends Processes implements Function
   public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
   {
     double responseOfProcess = RungeKutta.integrate(t1, response, delx, this.clone()); //consider returning clone or passing original object
-    this.setB(fceOUT);
+    this.setB(fceOUT); //verify order of lines 99 and 100
+    //need to figure out how to make sure we don't get a negative height
     return responseOfProcess;    
   }//end of method required to make class concrete 
   
-//  public double disturbanceMethod(double disturbanceMagnitude)
-//  {
-//    this.v = this.v + disturbanceMagnitude;
-//  } //end of method
-  
+  public void distMethod(int choice, double distMag, double time, double distStart, double distEnd)
+   {
+    if(choice == 1) //choice of 1 signifies step change of controlled value
+      this.setL(this.l + distMag); //does it right off the bat
+    else if (choice == 2) //choice of 2 means a ramp function
+    {
+      double slope = distMag / (distEnd - distStart);
+      double distCalc = slope * (time - distStart); //need to use how long the disturbance is and not the time of simulation
+      this.setL(this.l + distCalc); //slow addition of ramp to temperature
+    } //end of ramp if/else
+    else if (choice == 3) //choice of 3 means a ramp function
+    {
+      double distCalc = distMag * Math.sin(time - distStart); //need to use how long the disturbance is and not the time of simulation
+      this.setL(this.l + distCalc);      
+    }
+   } //end of disturbance method  
 } //end of class
