@@ -1,6 +1,6 @@
 public abstract class Controller
 {  
-  private double kC;
+  /*private double kC;
   
   public Controller()
   {
@@ -20,7 +20,7 @@ public abstract class Controller
   public double getKC()
   {
     return this.kC;
-  }//end of accessor
+  }//end of accessor*/
   
   public abstract double calculateSignal(double delx, double error, double previousError);//(response)
    

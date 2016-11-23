@@ -45,6 +45,7 @@ public class MainWithTextInput
     }
   
      //input time increment
+    int iterations=0;
     inputStream.nextLine();
     while(!inputStream.hasNextDouble())
       {
@@ -78,12 +79,12 @@ public class MainWithTextInput
       inputStream.close();
       return;
     }
-    else if(runTime%timeInc!=0)
+   /* else if(runTime%timeInc!=0)
      {
        System.out.println("Your run time is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
-     }
+     }*/
     System.out.println("Your chosen run time increment is: "+runTime);
     
     if(timeInc>=runTime)
@@ -96,9 +97,8 @@ public class MainWithTextInput
     {
       Scanner reader=new Scanner(System.in);
       boolean exit=false;
-      double iterations=0;
       int choice=0;
-      iterations=runTime/timeInc;
+      iterations=(int)(runTime/timeInc);
       
       System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+".");
      
@@ -153,7 +153,6 @@ public class MainWithTextInput
     double disturbanceMag=0;
     double disturbanceStart=0;
     double disturbanceEnd=0;
-    double distType=0;
     String disturbanceType=null;
     
     //if user choses a step change, scan for step and start time of step
@@ -198,40 +197,25 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-      else if(startSetPoint%timeInc!=0)
+     /* else if(startSetPoint%timeInc!=0)
      {
        System.out.println("Your start of set point change is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
      }
-          
+         */ 
       System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
       
       //ensure user does not enter a disturbance since they have selected a change in step point
-      inputStream.nextLine();
-      Boolean pass0=false;
-      while(!pass0)
+      //inputStream.nextLine();
+      
+      /*while(!disturbanceType.equals("none"))
       {
-        while(!inputStream.hasNextDouble())
-        {
-          System.out.println("You did not enter 0 for your disturbance type. Please modify the text file and try again.");
+          System.out.println("You did not enter \"none\" for your disturbance type. Please modify the text file and try again.");
           inputStream.close();
           return;
-        }
-        distType=inputStream.nextDouble();
-        if (distType!=0)
-        {
-          pass0=false;
-          System.out.println("You didnt input 0 for your disturbance choice. Please fix the text file and try again.");
-          inputStream.close();
-          return;
-        }
-        else if(distType==0)
-        {
-          System.out.println("Your disturbance choice is set to 0.");
-          pass0=true;  
-        }
-      }
+      }*/
+      disturbanceType=null;///////////////////////////////////////////////////////
       
       inputStream.nextLine();
       Boolean pass=false;
@@ -384,7 +368,7 @@ public class MainWithTextInput
       disturbanceMag=inputStream.nextDouble();
       
       inputStream.nextLine();
-      while(!inputStream.hasDouble())
+      while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an integer or double type value for the start time of your disturbance. Plz modify the text file and try again. Note: Ensure your time is in seconds.");
       inputStream.close();
@@ -398,14 +382,14 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-      
+     /* 
       else if(disturbanceStart%timeInc!=0)
      {
         System.out.println("Your start of disturbance is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
      } 
-      
+      */
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
@@ -421,12 +405,12 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-     else if(disturbanceEnd%timeInc!=0)
+   /*  else if(disturbanceEnd%timeInc!=0)
      {
         System.out.println("Your end of disturbance is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
-     } 
+     } */
     }
     //if user enters an int but not one of the choices for input signal
     else
@@ -844,11 +828,24 @@ public class MainWithTextInput
       }
      
       //input process parameters for CSTR heating
+      double initialT=0;
+      double rho=0;
+      double vol=0;
+      double flow=0;
+      double cP=0;
+      
+      //input parameters for the distillation column
+     double d=0;
+     double rho2=0;
+     double lFlow=0;
+     double vFlow=0;
+     double blank=0;//there is only 5 necessary params in the level control therefore we will force user to enter 0 in the last parameter slot
+     
+      
      if(systemSelection==1)
      {      
       //T initial [K]
-      inputStream.nextLine();
-      double initialT=0;
+      inputStream.nextLine();     
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the initial temperature or your process. Plz modify the text file and try again.");
@@ -871,7 +868,6 @@ public class MainWithTextInput
      
       //density of the fluid in the system [kh/m3]
       inputStream.nextLine();
-      double rho=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the density of your process fluid. Plz modify the text file and try again.");
@@ -890,7 +886,6 @@ public class MainWithTextInput
       
       //volume of the tank [m3]
       inputStream.nextLine();
-      double vol=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the volume of your process' tank. Plz modify the text file and try again.");
@@ -910,7 +905,6 @@ public class MainWithTextInput
       
       //flow rate [kg/s]
       inputStream.nextLine();
-      double flow=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the mass flow rate or your process. Plz modify the text file and try again.");
@@ -936,7 +930,6 @@ public class MainWithTextInput
       
       //heat capacity [kJ/kg*K]
       inputStream.nextLine();
-      double cP=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the heat capacity or your process. Plz modify the text file and try again.");
@@ -968,11 +961,11 @@ public class MainWithTextInput
      }
      
      //input variables for the distillation column
+    
      else if(systemSelection==2)
-   {  
+     {  
       //column diameter [m]
       inputStream.nextLine();
-      double d=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for your process' tank diameter. Plz modify the text file and try again.");
@@ -990,33 +983,31 @@ public class MainWithTextInput
       
       //density of the fluid in the system {kg/m3}
       inputStream.nextLine();
-      double rho=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the density of your process fluid. Plz modify the text file and try again.");
         inputStream.close();
         return;
       }
-      rho=inputStream.nextDouble();
+      rho2=inputStream.nextDouble();
       
-      if(rho<0)
+      if(rho2<0)
      {
         System.out.println("Your fluid density is below 0... Please modify the text file and try again.");
         inputStream.close();
         return;
      }
-      System.out.println("The density of your process fluid is: "+rho+"kg/m3.");
+      System.out.println("The density of your process fluid is: "+rho2+"kg/m3.");
            
       //liquid flow {kg/s}
       inputStream.nextLine();
-      double lFlow=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for your process' liquid. Plz modify the text file and try again.");
         inputStream.close();
         return;
       }
-      lflow=inputStream.nextDouble();
+      lFlow=inputStream.nextDouble();
       if(lFlow<0)
      {
         System.out.println("Your liquid flow is below 0...  Please modify the text file and try again.");
@@ -1027,14 +1018,13 @@ public class MainWithTextInput
           
       //vapour flow rate [kg/s]
       inputStream.nextLine();
-      double vflow=0;
       while(!inputStream.hasNextDouble())
       {
         System.out.println("You did not enter an integer or a double value for the vapour flow rate or your process. Plz modify the text file and try again.");
         inputStream.close();
         return;
       }
-      vflow=inputStream.nextDouble();
+      vFlow=inputStream.nextDouble();
       
       if(vFlow<0)
      {
@@ -1042,10 +1032,9 @@ public class MainWithTextInput
         inputStream.close();
         return;
      } 
-      System.out.println("The vapour flow rate of your process is: "+vflow+ "kg/s.");
+      System.out.println("The vapour flow rate of your process is: "+vFlow+ "kg/s.");
       ////////////////////////////////////////////////////////vflow vs lflow??????????????????????????????????????????????????
        
-      double blank=0;//there is only 5 necessary params in the level control therefore we will force user to enter 0 in the last parameter slot
       inputStream.nextLine();
       Boolean passing=false;
       while(!passing)
@@ -1105,69 +1094,36 @@ public class MainWithTextInput
     //end catch for user's selection of how to proceed
 
     //creating controller objects
-    
-    //AND OR OR HERE?????????????????????????????
+    Proportional proportional;
     if(controller.equals("I")||controller.equals("D")||controller.equals("ID"))//to cancel out the proportional error action send a value of Kc=0 (stored in kCP)
-    {Proportional proportional=new Proportional(kCP);}
+    {proportional=new Proportional(kCP);}
     else
-    {Proportional proportional=new Proportional(kC);}
+    {proportional=new Proportional(kC);}
     
     Integral integral=new Integral(kC, tauI);
     Derivative derivative=new Derivative(kC, tauD);
     
     //creating process objects
-    CSTRHeatingSystem cstr=new CSTRHeatingSystem(vol, rho, cP, initialT, flow, heat);
-    DistillationColumn column=new DistillationColumn(d, h, cvStar, initialH, blank, flow);//dont actually need to send blank cuz dont need to recieve hstar
-        
-    //call results depending on program
-    Results results=new Results();
-    double [] resultsArray=new double[runTime];
-    
+    CSTRHeatingSystem cstr=new CSTRHeatingSystem(initialT, rho, vol, flow, cP);
+    DistillationColumn column=new DistillationColumn(d, rho, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve hstar
+   
+        //call results depending on program
+    Results results=new Results();    
     if(systemSelection==1)
     {    
-      resultsArray=results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, cstr, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance
+      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, cstr, startSetPoint, iterations, timeInc, tauV, kV, disturbanceType, systemSelection);//disturbance start and end and tolerance
     }
     else if (systemSelection==2)
     {
-      resultsArray=results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, level, startSetPoint, runTime, timeInc, tauV, kV);//disturbance start and end and tolerance 
+      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, column, startSetPoint, iterations, timeInc, tauV, kV, disturbanceType, systemSelection);//disturbance start and end and tolerance 
     }
       
     
     System.out.println("Your results will be output into an excel file called FileOutput. Please ensure that when you open the file, you say YES to do I trust where it is coming from and YES to the use of delimiters to separate columns (with the use of tabs) and rows (with the use of the next line function).");
     
-    //code for excel file output
-    PrintWriter outputStream=null;
-    
-    try
-    {
-      outputStream=new PrintWriter (new FileOutputStream("FileOutput.xls"));      
-    }//end try
-    catch (FileNotFoundException e)
-    {
-      System.out.println("There was an error opening the output excel file! Please make sure that it is not in use.");
-      System.exit(0);      
-    }//end catch
-    
-    //define output columns
-    if (systemSelection==1)
-    {
-      outputStream.println("t [s]\tT(t) [K]\n");
-    }
-    else if(systemSelection==2)
-    {
-      outputStream.println("t [s]\tH(t) [m]\n");
-    }
-    
-    for (int i=0; i<resultsArray.length; i++)//start at second 0 or second 1?????????? THIS MAY NEED TO BE AN EQUATION FCT OF DELX
-    {
-      outputStream.println(timeInc+"\t"+resultsArray[i]+"\n");
-      timeInc+=timeInc;
-    }
-    
-    outputStream.close();
-   
     inputStream.close();
     
+   
   }//end main
   
 }//end text input class

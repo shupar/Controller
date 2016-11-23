@@ -22,11 +22,11 @@ public class TestOutput
     double[] resultsArray={1,2,3,4,5,6,7,8,9};
     
     
-    outputStream.println("t [s]\tH(t) [m]\n");
+    outputStream.println("t [s]\tH(t) [m]");
        
     for (int i=0; i<resultsArray.length; i++)
     {
-      outputStream.println(i+"\t"+resultsArray[i]+"\n");      
+      outputStream.println(i+"\t"+resultsArray[i]);      
     }
     
     outputStream.println("Hello \tmy \n\tname \ris \r\nemily");

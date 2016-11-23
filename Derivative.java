@@ -1,18 +1,30 @@
 public class Derivative extends Controller 
 {
+  private double kC;
   private double tauD;
   
   public Derivative()
   {
-    super();
+    //super();
+    this.kC=0;
     this.tauD=0.;
   }//end of default constructor  
    
   public Derivative(double kC, double tauD)
   {
-    super(kC);
+    this.kC=kC;
     this.tauD=tauD;
   }//end of constructor 
+  
+  public void setKC (double kC)
+  {
+    this.kC=kC;
+  }//end of mutator 
+ 
+  public double getKC()
+  {
+    return this.kC;
+  }//end of accessor
   
   public void setTauD(double tauD)
   {
@@ -27,6 +39,6 @@ public class Derivative extends Controller
   public double calculateSignal(double delx, double error, double previousError)
   {
     double derivedError=(error-previousError)/delx;
-    return derivedError*super.getKC()*this.tauD;
+    return derivedError*this.kC*this.tauD;
   }
 }

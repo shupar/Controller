@@ -1,18 +1,30 @@
 public class Integral extends Controller 
 {
+  private double kC;
   private double tauI;
   
   public Integral()
   {
-    super();
+    //super();
+    this.kC=0;
     this.tauI=0.;
   }//end of default constructor  
    
   public Integral(double kC, double tauI)
   {
-    super(kC);
+    this.kC=kC;
     this.tauI=tauI;
   }//end of constructor 
+  
+  public void setKC (double kC)
+  {
+    this.kC=kC;
+  }//end of mutator 
+ 
+  public double getKC()
+  {
+    return this.kC;
+  }//end of accessor
   
   public void setTauI(double tauI)
   {
@@ -27,6 +39,6 @@ public class Integral extends Controller
   public double calculateSignal(double delx, double error, double previousError)
   {
     double integratedError=delx*error;
-    return integratedError*super.getKC()/this.tauI;
+    return integratedError*this.kC/this.tauI;
   }
 }
