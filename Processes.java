@@ -2,7 +2,7 @@
 public abstract class Processes
   
 {
-  public abstract double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance, String choice, double tDistStart);
- 
+  public abstract double calculateReponseOfProcessDisturbance(double t1, double responseDisturbance, double delx, double fceOUT, double disturbance);
+  public abstract double calculateReponseOfProcessManipulated(double t1, double responseManipulated, double delx, double fceOUT, double disturbance);
 
 }

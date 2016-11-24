@@ -3,11 +3,13 @@ import java.io.*;
 public class Results 
 {
   public void calculations(double setPointChange, double disturbanceChange, double tDistStart, double tDistEnd, Proportional proportional, Integral integral, Derivative derivative,
-                             Processes process, double tChangeSP, int iterations, double delx, double tauv, double kv, String choice, int systemSelection)
+                             Processes process, double tChangeSP, int iterations, double delx, double tauv, double kv, int systemSelection)
   {
     int size=iterations+2;
     double [] time=new double [size];
-    double [] response=new double [size];
+    double [] responseDisturbance=new double [size];
+    double [] responseManipulated=new double [size];
+    double [] responseFinal=new double [size];
     double [] error=new double [size];
     double [] propError=new double [size];
     double [] intError=new double [size];
@@ -18,7 +20,9 @@ public class Results
     double tempDisturbance = 0;
     
     time[0]=-delx;
-    response[0]=0;
+    responseDisturbance[0]=0;
+    responseManipulated[0]=0;
+    responseFinal[0]=0;
     error[0]=0;
     propError[0]=0;
     intError[0]=0;
@@ -36,12 +40,12 @@ public class Results
       if (time[i]<tChangeSP)
         setPoint[i]=setPoint[0];
       else 
-        setPoint[i]=tChangeSP;  
+        setPoint[i]=setPointChange;  
           
       time[i]=time[i-1]+delx;
-      error[i]=response[i-1]-setPoint[i];
+      error[i]=setPoint[i]-responseFinal[i-1];
       propError[i]=proportional.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
-      intError[i]=integral.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
+      intError[i]=intError[i-1]+integral.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
       derError[i]=derivative.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
       signal[i]=1+(propError[i]+intError[i]+derError[i]);
       
@@ -52,11 +56,22 @@ public class Results
      
       
       if (error[i]==0)
-        response[i]=response[0];//verify this!!
-      else 
-        response[i]=process.calculateReponseOfProcess(time[i], response[i-1], delx, fceOut[i], disturbanceChange, choice, tDistStart); //////////////////
-                                    //public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance, 
-                                                                                                                           
+        responseFinal[i]=responseFinal[0];//verify this!!
+      
+  //Le probleme ici c'est que le disturbance part de 0 genre
+      if ((tDistStart<=0)&&(error[i]==0))
+        responseDisturbance[i]=responseDisturbance[0];
+       else if (time[i]<tDistStart||time[i]>tDistEnd)
+       {
+         double disturbance=0;
+         responseDisturbance[i]=process.calculateReponseOfProcessDisturbance(time[i], responseDisturbance[i-1], delx, fceOut[i], disturbance);
+       }
+       else
+          responseDisturbance[i]=process.calculateReponseOfProcessDisturbance(time[i], responseDisturbance[i-1], delx, fceOut[i], disturbanceChange);
+          
+          responseManipulated[i]=process.calculateReponseOfProcessManipulated(time[i], responseManipulated[i-1], delx, fceOut[i], disturbanceChange);
+          
+          responseFinal[i]=responseDisturbance[i]+responseManipulated[i];
     }
   
     //code for excel file output
@@ -75,16 +90,16 @@ public class Results
     //define output columns
     if (systemSelection==1)
     {
-      outputStream.println("t [s]\tT(t) [K]");
+      outputStream.println("t [s]\tSet point\t Error \t intError \tderError \tsignal \t Tout (K)");
     }
     else if(systemSelection==2)
     {
       outputStream.println("t [s]\tH(t) [m]");
     }
     
-    for (int i=0; i<response.length; i++)
+    for (int i=0; i<responseFinal.length; i++)
     {
-      outputStream.println(time[i]+"\t"+response[i]);
+      outputStream.println(time[i]+"\t"+setPoint[i]+"\t"+error[i]+"\t"+intError[i]+"\t"+derError[i]+"\t"+signal[i]+"\t"+responseFinal[i]);
     }
     
     outputStream.close();   

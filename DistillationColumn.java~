@@ -4,8 +4,9 @@ public class DistillationColumn extends Processes implements Function
   private double v; //kept constant
   private double rho;
   private double d; //for the area
-  private double b; //manipulated variable
-  private final double MINIMUM = 0; //In results if the height of the water is less than MINIMUM then we need to only give 0!!!
+
+  public double b;
+  //private final double MINIMUM = 0; //In results if the height of the water is less than MINIMUM then we need to only give 0!!!
   
   public DistillationColumn()
   {
@@ -13,16 +14,14 @@ public class DistillationColumn extends Processes implements Function
     this.v = 0;
     this.rho = 0;
     this.d = 0;
-    this.b = 0;
   } //end of default constructor
   
-  public DistillationColumn(double l, double v, double rho, double d, double b)
+  public DistillationColumn(double d, double rho, double l, double v)
   {
     this.l = l;
     this.v = v;
     this.rho = rho;
     this.d = d; 
-    this.b = b;
   } //end of constructor
   
   public DistillationColumn(DistillationColumn copy)
@@ -31,7 +30,7 @@ public class DistillationColumn extends Processes implements Function
     this.v = copy.v;
     this.rho = copy.rho;
     this.d = copy.d; 
-    this.b = copy.b;
+    
   } //end of copy constructor
   
   public DistillationColumn clone()
@@ -58,15 +57,10 @@ public class DistillationColumn extends Processes implements Function
   {
     return this.d;
   } //end of accessor
-   
-  public double getB()
-  {
-    return this.b;
-  } //end of accessor
   
   public void setL(double l)
   {
-    this.v = l;
+    this.l = l;
   } //end of mutator
   
   public void setV(double v)
@@ -84,39 +78,37 @@ public class DistillationColumn extends Processes implements Function
     this.d = d;
   } //end of mutator
   
-  public void setB(double b)
-  {
-    this.b = b;
-  } //end of mutator
-  
   public double calculateValueOfODE(double x, double y)
   {
     double area = Math.PI*Math.pow(this.d, 2)*0.25;
     return ((this.l - this.v)/(this.rho*area) - this.b/(this.rho*area));
   } //end of method required for interface
   
-  public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance)
+  public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance, double tDistStart)
   {
     double responseOfProcess = RungeKutta.integrate(t1, response, delx, this.clone()); //consider returning clone or passing original object
-    this.setB(fceOUT); //verify order of lines 99 and 100
-    //need to figure out how to make sure we don't get a negative height
+    
+    b=fceOUT;                              //need to figure out how to make sure we don't get a negative height
+  //  this.distMethod(disturbance, t1, tDistStart);
     return responseOfProcess;    
   }//end of method required to make class concrete 
   
-  public void distMethod(int choice, double distMag, double time, double distStart, double distEnd)
+   /*public void distMethod(double distMag, double t1, double tDistStart) //ensure start > stop and disturbance will not give strange values
    {
-    if(choice == 1) //choice of 1 signifies step change of controlled value
-      this.setL(this.l + distMag); //does it right off the bat
-    else if (choice == 2) //choice of 2 means a ramp function
+    if(choice.equals("step")) //step change of manipulated value
+      this.setL(this.l + distMag); 
+    
+    else if (choice.equals("ramp")) //ramp
     {
-      double slope = distMag / (distEnd - distStart);
-      double distCalc = slope * (time - distStart); //need to use how long the disturbance is and not the time of simulation
-      this.setL(this.l + distCalc); //slow addition of ramp to temperature
+      double distCalc = distMag *(t1-tDistStart); 
+      this.setL(this.l + distCalc); //
     } //end of ramp if/else
-    else if (choice == 3) //choice of 3 means a ramp function
+    else if(choice.equals("wave")) //wave function
     {
-      double distCalc = distMag * Math.sin(time - distStart); //need to use how long the disturbance is and not the time of simulation
+      double distCalc = distMag * Math.sin(t1-tDistStart); 
       this.setL(this.l + distCalc);      
-    }
-   } //end of disturbance method  
+    } //end of wave if/else    
+    else{}
+   } //end of disturbance method  */
+   
 } //end of class

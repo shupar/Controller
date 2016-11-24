@@ -1,4 +1,4 @@
-public class RungeKutta
+public class RungeKutta2
 
 { 
 public static double integrate(double x_0, double y_0, double delx, Function f)// initial time, 
@@ -11,8 +11,8 @@ public static double integrate(double x_0, double y_0, double delx, Function f)/
        
     double k1, k2, k3, k4;
           
-     k1 = f.calculateValueOfODEDisturbance(x,y);
-    
+     k1 = f.calculateValueOfODEManipulated(x,y);
+
     /* k2 = f.calculateValueOfODE(x+(delx/2), y+(delx*k1/2));
      k3 = f.calculateValueOfODE(x+(delx/2), y+(delx*k2/2));
      k4 = f.calculateValueOfODE(x+delx,y+(delx*k3));

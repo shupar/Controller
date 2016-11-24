@@ -94,36 +94,32 @@ public class CSTRHeatingSystem extends Processes implements Function
     return this.w;
    } //end of accessor
        
-   public double calculateValueOfODE(double x, double y)//(double t, double T) 
+   public double calculateValueOfODEDisturbance(double x, double y)//(double t, double T) 
    {
-    return  (this.w/(this.v*this.rho))*((this.t_I-y)+(q/(this.rho*this.cp*this.v)));
+    return  ((this.w*this.cp*(this.t_I-y))/(this.rho*this.cp*this.v));
    }//end of method
-  
-   public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance, String choice, double tDistStart)
+ 
+   public double calculateValueOfODEManipulated(double x, double y)
    {
-   double responseOfProcess=RungeKutta.integrate(t1,response, delx/*arbitrary step size*/, this);//NOT ARBITRARY, USER DEFINES IT, address this and consider passing a clone
-    q=fceOUT;
-    this.distMethod(choice, disturbance, t1, tDistStart);
-    return responseOfProcess; 
+    return  (q/(this.rho*this.cp*this.v));
+   }//end of method
+     
+   public double calculateReponseOfProcessDisturbance(double t1, double responseTi, double delx, double fceOUT, double disturbance)
+   {
+     this.setT_I(disturbance + this.t_I);
+     
+     double responseinTi=RungeKutta.integrate(t1,responseTi, delx, this);
+   
+     return responseinTi;
    }//using the static method in RK function to solve it   
    
-   public void distMethod(String choice, double distMag, double t1, double tDistStart) //ensure start > stop and disturbance will not give strange values
+   public double calculateReponseOfProcessManipulated(double t1, double responseQ, double delx, double fceOUT, double disturbance)
    {
-    if(choice.equals("step")) //step change of manipulated value
-      this.setT_I(this.t_I + distMag); 
+     q=fceOUT;
+     
+     double responseinQ=RungeKutta2.integrate(t1,responseQ, delx, this);
     
-    else if (choice.equals("ramp")) //ramp
-    {
-      double distCalc = distMag *(t1-tDistStart); 
-      this.setT_I(this.t_I + distCalc);
-    } //end of ramp if/else
-    
-    else if(choice.equals("wave")) //wave function
-    {
-      double distCalc = distMag * Math.sin(t1-tDistStart); //need to use how long the disturbance is and not the time of simulation
-      this.setT_I(this.t_I + distCalc);      
-    } //end of wave if/else    
-    else{}
-   } //end of disturbance method  
+     return responseinQ;
+   }//using the static method in RK function to solve it   
    
 }//end of heating model

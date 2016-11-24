@@ -1,5 +1,6 @@
 
 public interface Function
 {
-   public double calculateValueOfODE(double x, double y);
+   public double calculateValueOfODEDisturbance(double x, double y);
+   public double calculateValueOfODEManipulated(double x, double y);
 }

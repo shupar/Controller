@@ -79,12 +79,18 @@ public class MainWithTextInput
       inputStream.close();
       return;
     }
-   /* else if(runTime%timeInc!=0)
+     
+    double x = runTime / timeInc;
+    int xint;
+    xint=(int)x;
+    double resultx = runTime - timeInc * xint;
+    
+    if(resultx!=0)
      {
        System.out.println("Your run time is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
-     }*/
+     }
     System.out.println("Your chosen run time increment is: "+runTime);
     
     if(timeInc>=runTime)
@@ -197,13 +203,19 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-     /* else if(startSetPoint%timeInc!=0)
+      
+    double y = startSetPoint / timeInc;
+    int yint;
+    yint=(int)y;
+    double resulty = startSetPoint - timeInc * yint;
+    
+     if(resulty!=0)
      {
        System.out.println("Your start of set point change is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
      }
-         */ 
+         
       System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
       
       //ensure user does not enter a disturbance since they have selected a change in step point
@@ -350,15 +362,15 @@ public class MainWithTextInput
       
       //input disturbance values
       inputStream.nextLine();
-      disturbanceType=inputStream.next();
-      
-      while(!disturbanceType.equals("step")&&!disturbanceType.equals("ramp")&&!disturbanceType.equals("wave"))
+      //disturbanceType=inputStream.next();
+    
+    /*  while(!disturbanceType.equals("step")&&!disturbanceType.equals("ramp")&&!disturbanceType.equals("wave"))
     {
       System.out.println("You did enter a valid type of disturbance. Please go back into the text file and modify your choice.");
       inputStream.close();
       return;      
     }      
-      inputStream.nextLine();
+      inputStream.nextLine();*/
       while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an integer or a double type value for your disturbance magnitude. Plz modify the text file and try again.");
@@ -382,14 +394,19 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-     /* 
-      else if(disturbanceStart%timeInc!=0)
+    
+      double z = disturbanceStart / timeInc;
+    int zint;
+    zint=(int)z;
+    double resultz = disturbanceStart - timeInc * zint;
+    
+     if(resultz!=0)
      {
         System.out.println("Your start of disturbance is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
      } 
-      */
+      
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
@@ -405,12 +422,19 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-   /*  else if(disturbanceEnd%timeInc!=0)
+      
+    double a = disturbanceEnd / timeInc;
+    int aint;
+    aint=(int)a;
+    double resulta = disturbanceEnd - timeInc * aint;
+    
+     if(resulta!=0)
      {
         System.out.println("Your end of disturbance is not a multiple of your time increment...  Please modify the text file and try again.");
         inputStream.close();
         return;
-     } */
+     } 
+     
     }
     //if user enters an int but not one of the choices for input signal
     else
@@ -1111,11 +1135,11 @@ public class MainWithTextInput
     Results results=new Results();    
     if(systemSelection==1)
     {    
-      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, cstr, startSetPoint, iterations, timeInc, tauV, kV, disturbanceType, systemSelection);//disturbance start and end and tolerance
+      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, cstr, startSetPoint,  iterations, timeInc, tauV, kV, systemSelection);//disturbance start and end and tolerance
     }
     else if (systemSelection==2)
     {
-      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, column, startSetPoint, iterations, timeInc, tauV, kV, disturbanceType, systemSelection);//disturbance start and end and tolerance 
+      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, column, startSetPoint, iterations,timeInc, tauV, kV, systemSelection);//disturbance start and end and tolerance 
     }
       
     

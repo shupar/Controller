@@ -78,37 +78,42 @@ public class DistillationColumn extends Processes implements Function
     this.d = d;
   } //end of mutator
   
-  public double calculateValueOfODE(double x, double y)
+  double area = Math.PI*Math.pow(this.d, 2)*0.25;
+  
+  public double calculateValueOfODEDisturbance(double x, double y)
   {
-    double area = Math.PI*Math.pow(this.d, 2)*0.25;
-    return ((this.l - this.v)/(this.rho*area) - this.b/(this.rho*area));
+    
+    return ((this.l - this.v)/(this.rho*area) );
   } //end of method required for interface
   
-  public double calculateReponseOfProcess(double t1, double response, double delx, double fceOUT, double disturbance, String choice, double tDistStart)
-  {
-    double responseOfProcess = RungeKutta.integrate(t1, response, delx, this.clone()); //consider returning clone or passing original object
-    
-    b=fceOUT;                              //need to figure out how to make sure we don't get a negative height
-    this.distMethod(choice, disturbance, t1, tDistStart);
-    return responseOfProcess;    
-  }//end of method required to make class concrete 
-  
-   public void distMethod(String choice, double distMag, double t1, double tDistStart) //ensure start > stop and disturbance will not give strange values
+ 
+   public double calculateValueOfODEManipulated(double x, double y)
    {
-    if(choice.equals("step")) //step change of manipulated value
-      this.setL(this.l + distMag); 
+    return  (- this.b/(this.rho*area));
+   }//end of method
+  
+  
+  public double calculateReponseOfProcessDisturbance(double t1, double responseL, double delx, double fceOUT, double disturbance)
+   {
+     this.setL(disturbance + this.l);
+     
+     double responseinL=RungeKutta.integrate(t1,responseL, delx, this);
+   
+     return responseinL;
+   }//using the static method in RK function to solve it   
+  
+   
+   public double calculateReponseOfProcessManipulated(double t1, double responseB, double delx, double fceOUT, double disturbance)
+   {
+     b=fceOUT;
+     
+     double responseinB=RungeKutta2.integrate(t1,responseB, delx, this);
     
-    else if (choice.equals("ramp")) //ramp
-    {
-      double distCalc = distMag *(t1-tDistStart); 
-      this.setL(this.l + distCalc); //
-    } //end of ramp if/else
-    else if(choice.equals("wave")) //wave function
-    {
-      double distCalc = distMag * Math.sin(t1-tDistStart); 
-      this.setL(this.l + distCalc);      
-    } //end of wave if/else    
-    else{}
-   } //end of disturbance method  
+     return responseinB;
+   }//using the static method in RK function to solve it   
+  
+  
+
+  
    
 } //end of class
