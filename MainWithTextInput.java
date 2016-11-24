@@ -159,7 +159,6 @@ public class MainWithTextInput
     double disturbanceMag=0;
     double disturbanceStart=0;
     double disturbanceEnd=0;
-    String disturbanceType=null;
     
     //if user choses a step change, scan for step and start time of step
     if (inputSignal==1)
@@ -219,16 +218,6 @@ public class MainWithTextInput
       System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
       
       //ensure user does not enter a disturbance since they have selected a change in step point
-      //inputStream.nextLine();
-      
-      /*while(!disturbanceType.equals("none"))
-      {
-          System.out.println("You did not enter \"none\" for your disturbance type. Please modify the text file and try again.");
-          inputStream.close();
-          return;
-      }*/
-      disturbanceType=null;///////////////////////////////////////////////////////
-      
       inputStream.nextLine();
       Boolean pass=false;
       while(!pass)
@@ -1135,11 +1124,11 @@ public class MainWithTextInput
     Results results=new Results();    
     if(systemSelection==1)
     {    
-      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, cstr, startSetPoint,  iterations, timeInc, tauV, kV, systemSelection);//disturbance start and end and tolerance
+      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, cstr, startSetPoint,  iterations, timeInc, tauV, kV, systemSelection);
     }
     else if (systemSelection==2)
     {
-      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, column, startSetPoint, iterations,timeInc, tauV, kV, systemSelection);//disturbance start and end and tolerance 
+      results.calculations(setPoint, disturbanceMag, disturbanceStart, disturbanceEnd, proportional, integral, derivative, column, startSetPoint, iterations,timeInc, tauV, kV, systemSelection);
     }
       
     

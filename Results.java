@@ -17,7 +17,6 @@ public class Results
     double [] signal=new double [size];
     double [] setPoint=new double [size];
     double [] fceOut=new double [size];
-    double tempDisturbance = 0;
     
     time[0]=-delx;
     responseDisturbance[0]=0;
@@ -58,7 +57,7 @@ public class Results
       if (error[i]==0)
         responseFinal[i]=responseFinal[0];//verify this!!
       
-  //Le probleme ici c'est que le disturbance part de 0 genre
+  //Le probleme ici c'est que le disturbance part de 0 genre///////////////////////////////////////////////////////////////////////////////////////////////////////
       if ((tDistStart<=0)&&(error[i]==0))
         responseDisturbance[i]=responseDisturbance[0];
        else if (time[i]<tDistStart||time[i]>tDistEnd)

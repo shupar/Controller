@@ -9,7 +9,7 @@ public static double integrate(double x_0, double y_0, double delx, Function f)/
     //communicate with the Function object, asking it for the right-hand-side value of the ode, given the current
     //values of x and y. This is accomplished through the Function object's calculateValueOfProcess method
        
-    double k1, k2, k3, k4;
+    double k1; /*, k2, k3, k4;*/
           
      k1 = f.calculateValueOfODEDisturbance(x,y);
     
