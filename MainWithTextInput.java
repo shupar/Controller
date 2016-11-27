@@ -351,15 +351,6 @@ public class MainWithTextInput
       
       //input disturbance values
       inputStream.nextLine();
-      //disturbanceType=inputStream.next();
-    
-    /*  while(!disturbanceType.equals("step")&&!disturbanceType.equals("ramp")&&!disturbanceType.equals("wave"))
-    {
-      System.out.println("You did enter a valid type of disturbance. Please go back into the text file and modify your choice.");
-      inputStream.close();
-      return;      
-    }      
-      inputStream.nextLine();*/
       while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an integer or a double type value for your disturbance magnitude. Plz modify the text file and try again.");
@@ -367,6 +358,13 @@ public class MainWithTextInput
       return;
       }
       disturbanceMag=inputStream.nextDouble();
+      
+      if(disturbanceMag>0)
+     {
+        System.out.println("This is a heating system! you therefore need to COOL your system (enter a negative disturbance magnitude) with your chosen disturbance...  Please modify the text file and try again.");
+        inputStream.close();
+        return;
+     }
       
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
@@ -479,7 +477,7 @@ public class MainWithTextInput
       //what to do next as a function of user controller choice
     double kC=0;
     double kCP=0;
-    double tauI=1000000000;//large number to cancel out term
+    double tauI=Math.pow(10, 100);//large number to cancel out term
     double tauD=0;
     
     //for P only type controller
@@ -966,7 +964,7 @@ public class MainWithTextInput
      }
       else if(inputSignal==2&&(disturbanceMag+initialT)<0)
       {
-        System.out.println("Your chosen disturbance magnitude will result in a temperature below absolute 0K...  Please modify the text file and try again.");
+        System.out.println("Your chosen disturbance magnitude will result in a temperature below absolute zero...  Please modify the text file and try again.");
         inputStream.close();
         return;
       }
@@ -1046,7 +1044,6 @@ public class MainWithTextInput
         return;
      } 
       System.out.println("The vapour flow rate of your process is: "+vFlow+ "kg/s.");
-      ////////////////////////////////////////////////////////vflow vs lflow??????????????????????????????????????????????????
        
       inputStream.nextLine();
       Boolean passing=false;
@@ -1118,7 +1115,7 @@ public class MainWithTextInput
     
     //creating process objects
     CSTRHeatingSystem cstr=new CSTRHeatingSystem(initialT, rho, vol, flow, cP);
-    DistillationColumn column=new DistillationColumn(d, rho, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve hstar
+    DistillationColumn column=new DistillationColumn(d, rho, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve the last parameter
    
         //call results depending on program
     Results results=new Results();    
