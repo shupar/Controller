@@ -95,7 +95,7 @@ public class DistillationColumn extends Processes implements Function
   
   public double calculateReponseOfProcessDisturbance(double t1, double responseL, double delx, double fceOUT, double disturbance)
    {
-     this.setL(disturbance + this.l);
+     //this.setL(disturbance + this.l);
      
      double responseinL=RungeKutta.integrate(t1,responseL, delx, this);
    
@@ -111,6 +111,26 @@ public class DistillationColumn extends Processes implements Function
     
      return responseinB;
    }//using the static method in RK function to solve it   
+   
+   public double intialiseControlledVariable()
+   {
+    return ((this.l - this.v - this.b)/((Math.pow(this.d, 2)*Math.PI*0.25))); 
+   } //end of method
+  
+   public double intialiseDisturbanceArray()
+   {
+    return 0; //for the time being
+   } //end of method
+   
+    public void turnOnDisturbance(double magnitude)
+    {
+      this.setL(this.l + magnitude);
+    } //end of method
+    
+    public void turnOffDisturbance(double magnitude)
+    {
+      this.setL(this.l - magnitude);
+    } //end of method
   
   
 

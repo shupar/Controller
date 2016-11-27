@@ -19,15 +19,18 @@ public class Results
     double [] fceOut=new double [size];
     
     time[0]=-delx;
-    responseDisturbance[0]=0;
+    responseDisturbance[0]= process.intialiseControlledVariable();
     responseManipulated[0]=0;
-    responseFinal[0]=0;
+    responseFinal[0]= process.intialiseControlledVariable(); 
     error[0]=0;
     propError[0]=0;
     intError[0]=0;
     derError[0]=0;
     signal[0]=1;
-    setPoint[0]=0;
+    setPoint[0] = process.intialiseControlledVariable();
+    
+    int iStart = (int)(tDistStart/delx +1);
+    int iEnd = (int)(tDistEnd/delx +1);
     
     if (tauv==0)
       fceOut[0]=kv*signal[0];
@@ -36,12 +39,26 @@ public class Results
       
     for(int i=1; i<size; i++)
     {
-      if (time[i]<tChangeSP)
-        setPoint[i]=setPoint[0];
-      else 
-        setPoint[i]=setPointChange;  
-          
-      time[i]=time[i-1]+delx;
+      time[i] = time[i-1] + delx;
+      
+       if (time[i] < tChangeSP)
+      {
+        setPoint[i]=setPoint[0]; //before set point change
+        //System.out.println("No change in SP "+time[i]+ " i is equal to: " + i);
+      }
+      else if(tChangeSP == 0 && disturbanceChange != 0)
+      {
+        setPoint[i] = responseFinal[0];
+        //System.out.println("It's a disturbance, same set point as T_I");
+      } //if its a disturbance
+      else if(time[i] >= tChangeSP)
+      {
+        setPoint[i]=setPointChange;
+        //System.out.println("HIT" + time[i] +"/////" + setPoint[i]);
+      }
+      else
+        System.out.println("this should'nt print");
+      
       error[i]=setPoint[i]-responseFinal[i-1];
       propError[i]=proportional.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
       intError[i]=intError[i-1]+integral.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
@@ -57,20 +74,38 @@ public class Results
       if (error[i]==0)
         responseFinal[i]=responseFinal[0];//verify this!!
       
+      if(i == iStart && disturbanceChange != 0) //only hit during disturbance simulation
+       {
+         process.turnOnDisturbance(disturbanceChange);
+         System.out.println("The disturbance is on at time " + time[i] + "i is : " + i);
+       }
+       else if (i == iEnd  && disturbanceChange != 0) //will only hit during disturbance simulation
+       {
+         process.turnOffDisturbance(disturbanceChange);
+         System.out.println("The disturbance is off at time" + time[i]);
+       } 
+      
   //Le probleme ici c'est que le disturbance part de 0 genre///////////////////////////////////////////////////////////////////////////////////////////////////////
-      if ((tDistStart<=0)&&(error[i]==0))
-        responseDisturbance[i]=responseDisturbance[0];
-       else if (time[i]<tDistStart||time[i]>tDistEnd)
+      if ((tDistStart<=0)&&(error[i]==0) && setPointChange == 0)
+      {
+        responseDisturbance[i]=responseDisturbance[0]; //gives a zero disturbance at less  0 times
+       System.out.println("If 0");
+      }
+             
+      if (time[i]<tDistStart||time[i]>tDistEnd) //outside of disturbance bounds
        {
          double disturbance=0;
+         //System.out.println("Outside of disturbance " +time[i]);
          responseDisturbance[i]=process.calculateReponseOfProcessDisturbance(time[i], responseDisturbance[i-1], delx, fceOut[i], disturbance);
        }
        else
-          responseDisturbance[i]=process.calculateReponseOfProcessDisturbance(time[i], responseDisturbance[i-1], delx, fceOut[i], disturbanceChange);
-          
-          responseManipulated[i]=process.calculateReponseOfProcessManipulated(time[i], responseManipulated[i-1], delx, fceOut[i], disturbanceChange);
-          
-          responseFinal[i]=responseDisturbance[i]+responseManipulated[i];
+       {
+        responseDisturbance[i]=process.calculateReponseOfProcessDisturbance(time[i], responseDisturbance[i-1], delx, fceOut[i], disturbanceChange);        
+        //System.out.println("last else");
+       }
+        responseManipulated[i]=process.calculateReponseOfProcessManipulated(time[i], responseManipulated[i-1], delx, fceOut[i], disturbanceChange);
+        responseFinal[i]=  responseDisturbance[i]+responseManipulated[i];
+       //System.out.println("i is "+ i+ "distChange is: " + disturbanceChange); 
     }
   
     //code for excel file output
@@ -89,7 +124,7 @@ public class Results
     //define output columns
     if (systemSelection==1)
     {
-      outputStream.println("t [s]\tSet point\t Error \t intError \tderError \tsignal \t Tout (K)");
+      outputStream.println("t [s]\tSet point\t Error \t intError \tderError \tsignal \tDisturbance \tManipulated \t Tout (K)");
     }
     else if(systemSelection==2)
     {
@@ -98,7 +133,7 @@ public class Results
     
     for (int i=0; i<responseFinal.length; i++)
     {
-      outputStream.println(time[i]+"\t"+setPoint[i]+"\t"+error[i]+"\t"+intError[i]+"\t"+derError[i]+"\t"+signal[i]+"\t"+responseFinal[i]);
+      outputStream.println(time[i]+"\t"+setPoint[i]+"\t"+error[i]+"\t"+intError[i]+"\t"+derError[i]+"\t"+signal[i]+"\t"+responseDisturbance[i]+"\t"+responseManipulated[i]+"\t"+responseFinal[i]);
     }
     
     outputStream.close();   

@@ -106,7 +106,7 @@ public class CSTRHeatingSystem extends Processes implements Function
      
    public double calculateReponseOfProcessDisturbance(double t1, double responseTi, double delx, double fceOUT, double disturbance)
    {
-     this.setT_I(disturbance + this.t_I);
+     //this.setT_I(disturbance + this.t_I);
      
      double responseinTi=RungeKutta.integrate(t1,responseTi, delx, this);
    
@@ -121,5 +121,25 @@ public class CSTRHeatingSystem extends Processes implements Function
     
      return responseinQ;
    }//using the static method in RK function to solve it   
+   
+   public double intialiseControlledVariable()
+   {
+    return this.getT_I(); 
+   } //end of method
+   
+    public double intialiseDisturbanceArray()
+   {
+    return this.getT_I(); 
+   } //end of method
+    
+    public void turnOnDisturbance(double magnitude)
+    {
+      this.setT_I(this.t_I + magnitude);
+    } //end of method
+    
+    public void turnOffDisturbance(double magnitude)
+    {
+      this.setT_I(this.t_I - magnitude);
+    } //end of method
    
 }//end of heating model
