@@ -78,24 +78,25 @@ public class DistillationColumn extends Processes implements Function
     this.d = d;
   } //end of mutator
   
-  double area = Math.PI*Math.pow(this.d, 2)*0.25;
+  //double area = Math.PI*Math.pow(this.d, 2)*0.25;
   
   public double calculateValueOfODEDisturbance(double x, double y)
   {
-    
+    double area = Math.PI*Math.pow(this.d, 2)*0.25;
     return ((this.l - this.v)/(this.rho*area) );
   } //end of method required for interface
   
  
    public double calculateValueOfODEManipulated(double x, double y)
    {
-    return  (- this.b/(this.rho*area));
+     double area = Math.PI*Math.pow(this.d, 2)*0.25;
+     return  (- this.b/(this.rho*area));
    }//end of method
   
   
   public double calculateReponseOfProcessDisturbance(double t1, double responseL, double delx, double fceOUT, double disturbance)
    {
-     this.setL(disturbance + this.l);
+     //this.setL(disturbance + this.l);
      
      double responseinL=RungeKutta.integrate(t1,responseL, delx, this);
    
@@ -111,6 +112,26 @@ public class DistillationColumn extends Processes implements Function
     
      return responseinB;
    }//using the static method in RK function to solve it   
+   
+   public double intialiseControlledVariable()
+   {
+    return 0; 
+   } //end of method
+  
+   public double intialiseDisturbanceArray()
+   {
+    return 0; //for the time being
+   } //end of method
+   
+    public void turnOnDisturbance(double magnitude)
+    {
+      this.setL(this.l + magnitude);
+    } //end of method
+    
+    public void turnOffDisturbance(double magnitude)
+    {
+      this.setL(this.l - magnitude);
+    } //end of method
   
   
 

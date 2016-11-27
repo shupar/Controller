@@ -106,7 +106,7 @@ public class DistillationColumn extends Processes implements Function
    
    public double calculateReponseOfProcessManipulated(double t1, double responseB, double delx, double fceOUT, double disturbance)
    {
-     b=fceOUT;
+     b=-fceOUT;
      
      double responseinB=RungeKutta2.integrate(t1,responseB, delx, this);
     
@@ -132,6 +132,12 @@ public class DistillationColumn extends Processes implements Function
     {
       this.setL(this.l - magnitude);
     } //end of method
+    
+    public double intialiseManipulatedVariable()
+    {
+     double area = Math.PI*Math.pow(this.d, 2)*0.25; 
+     return -((this.l-this.v)/(this.rho*area));
+    }
   
   
 
