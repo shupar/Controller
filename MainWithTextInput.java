@@ -865,6 +865,7 @@ public class MainWithTextInput
       //input parameters for the distillation column
      double d=0;
      double areaForColumn=0;
+     double initialLHeight=0;
      double rho2=0;
      double lFlow=0;
      double vFlow=0;
@@ -1018,6 +1019,9 @@ public class MainWithTextInput
       areaForColumn=(Math.PI*Math.pow(d, 2))/4;      
       System.out.println("The area for your column of d= "+d+"m is: "+areaForColumn+"m2.");
       
+      initialLHeight=(lFlow/rho2)/areaForColumn;
+      System.out.println("The initial liquid height inside your column is: "+initialLHeight+"m.");
+      
       //density of the fluid in the system {kg/m3}
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
@@ -1148,7 +1152,7 @@ public class MainWithTextInput
     
     //creating process objects
     CSTRHeatingSystem cstr=new CSTRHeatingSystem(initialT, rho, vol, flow, cP);
-    DistillationColumn column=new DistillationColumn(areaForColumn, rho2, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve the last parameter
+    DistillationColumn column=new DistillationColumn(areaForColumn, rho2, lFlow, vFlow, initialLHeight);//dont actually need to send blank cuz dont need to recieve the last parameter
    
     //call results depending on program
     Results results=new Results();    
