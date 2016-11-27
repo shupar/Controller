@@ -151,9 +151,5 @@ public class CSTRHeatingSystem extends Processes implements Function
       this.setT_I(this.t_I - magnitude);
     } //end of method
     
-     public double intialiseManipulatedVariable()
-    {
-     return 0;
-    }
-   
+  
 }//end of heating model

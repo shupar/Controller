@@ -1019,9 +1019,6 @@ public class MainWithTextInput
       areaForColumn=(Math.PI*Math.pow(d, 2))/4;      
       System.out.println("The area for your column of d= "+d+"m is: "+areaForColumn+"m2.");
       
-      initialLHeight=(lFlow/rho2)/areaForColumn;
-      System.out.println("The initial liquid height inside your column is: "+initialLHeight+"m.");
-      
       //density of the fluid in the system {kg/m3}
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
@@ -1057,6 +1054,12 @@ public class MainWithTextInput
         return;
      }  
       System.out.println("The liquid flow of the fluid in your tank is: "+lFlow+"kg/s.");
+      
+      double volume = lFlow/rho2;
+      System.out.println("this is vol: "+volume +" " +lFlow + " " + rho2);
+      initialLHeight=volume/areaForColumn;
+      
+      System.out.println("The initial liquid height inside your column is: "+initialLHeight+"m.");
           
       //vapour flow rate [kg/s]
       inputStream.nextLine();

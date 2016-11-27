@@ -23,7 +23,7 @@ public class Results
     
     //the first space in each array is set manually
     time[0]=-delx;
-    responseDisturbance[0]= process.intialiseControlledVariable();
+    responseDisturbance[0]= process.intialiseDisturbanceArray();
     responseManipulated[0]=0;
     responseFinal[0]= process.intialiseControlledVariable(); 
     error[0]=0;
@@ -75,8 +75,7 @@ public class Results
          fceOut[i]=fceOut[i-1]+delx*(kv*signal[i]-fceOut[i-1])/tauv;
      
       
-      if (error[i]==0)
-        responseFinal[i]=responseFinal[0];//verify this!!
+     
       
       if(i == iStart && disturbanceChange != 0) //only hit during disturbance simulation
        {
@@ -108,7 +107,10 @@ public class Results
         //System.out.println("last else");
        }
         responseManipulated[i]=process.calculateReponseOfProcessManipulated(time[i], responseManipulated[i-1], delx, fceOut[i], disturbanceChange);
-        responseFinal[i]=  responseDisturbance[i]+responseManipulated[i];
+        if (error[i]==0)
+          responseFinal[i]=responseFinal[0];//verify this!!
+        else 
+          responseFinal[i]=  responseDisturbance[i]+responseManipulated[i];
        //System.out.println("i is "+ i+ "distChange is: " + disturbanceChange); 
     }
   
@@ -132,7 +134,7 @@ public class Results
     }
     else if(systemSelection==2)
     {
-      outputStream.println("t [s]\tH(t) [m]");
+      outputStream.println("t [s]\tSet point\t Error \t intError \tderError \tsignal \tDisturbance \tManipulated \t Tout (K)");
     }
     
     for (int i=0; i<responseFinal.length; i++)
