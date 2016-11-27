@@ -78,18 +78,19 @@ public class DistillationColumn extends Processes implements Function
     this.d = d;
   } //end of mutator
   
-  double area = Math.PI*Math.pow(this.d, 2)*0.25;
+  //double area = Math.PI*Math.pow(this.d, 2)*0.25;
   
   public double calculateValueOfODEDisturbance(double x, double y)
   {
-    
+    double area = Math.PI*Math.pow(this.d, 2)*0.25;
     return ((this.l - this.v)/(this.rho*area) );
   } //end of method required for interface
   
  
    public double calculateValueOfODEManipulated(double x, double y)
    {
-    return  (- this.b/(this.rho*area));
+     double area = Math.PI*Math.pow(this.d, 2)*0.25;
+     return  (- this.b/(this.rho*area));
    }//end of method
   
   
@@ -114,7 +115,7 @@ public class DistillationColumn extends Processes implements Function
    
    public double intialiseControlledVariable()
    {
-    return ((this.l - this.v - this.b)/((Math.pow(this.d, 2)*Math.PI*0.25))); 
+    return 0; 
    } //end of method
   
    public double intialiseDisturbanceArray()
