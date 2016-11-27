@@ -114,20 +114,20 @@ public class CSTRHeatingSystem extends Processes implements Function
    //concrete implementation for the response of the process' disturbance
    public double calculateReponseOfProcessDisturbance(double t1, double responseTi, double delx, double fceOUT, double disturbance)
    {
-     double responseinTi=RungeKutta.integrate(t1,responseTi, delx, this);
+     double responseinTi=Euler.integrate(t1,responseTi, delx, this);
    
      return responseinTi;
-   }//using the static method in RK function to solve it   
+   }//using the static method in Euler function to solve it   
    
    //concrete implementation for the response of the process with respects to the manipulated variable
    public double calculateReponseOfProcessManipulated(double t1, double responseQ, double delx, double fceOUT, double disturbance)
    {
      q=fceOUT;
      
-     double responseinQ=RungeKutta2.integrate(t1,responseQ, delx, this);
+     double responseinQ=Euler2.integrate(t1,responseQ, delx, this);
     
      return responseinQ;
-   }//using the static method in RK2 function to solve it   
+   }//using the static method in Euler2 function to solve it   
    
    public double intialiseControlledVariable()
    {

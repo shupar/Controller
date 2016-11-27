@@ -48,20 +48,19 @@ public class Results
        if (time[i] < tChangeSP)
       {
         setPoint[i]=setPoint[0]; //before set point change
-        //System.out.println("No change in SP "+time[i]+ " i is equal to: " + i);
+
       }
       else if(tChangeSP == 0 && disturbanceChange != 0)
       {
         setPoint[i] = responseFinal[0];
-        //System.out.println("It's a disturbance, same set point as T_I");
+
       } //if its a disturbance
       else if(time[i] >= tChangeSP)
       {
         setPoint[i]=setPointChange;
-        //System.out.println("HIT" + time[i] +"/////" + setPoint[i]);
+
       }
-      else
-        System.out.println("this should'nt print");
+
       
       error[i]=setPoint[i]-responseFinal[i-1];
       propError[i]=proportional.calculateSignal(delx, error[i], error[i-1]);//see how to send the 2 values of error
@@ -80,19 +79,19 @@ public class Results
       if(i == iStart && disturbanceChange != 0) //only hit during disturbance simulation
        {
          process.turnOnDisturbance(disturbanceChange);
-         System.out.println("The disturbance is on at time " + time[i] + "i is : " + i);
+      
        }
        else if (i == iEnd  && disturbanceChange != 0) //will only hit during disturbance simulation
        {
          process.turnOffDisturbance(disturbanceChange);
-         System.out.println("The disturbance is off at time" + time[i]);
+     
        } 
       
-  //Le probleme ici c'est que le disturbance part de 0 genre///////////////////////////////////////////////////////////////////////////////////////////////////////
+
       if ((tDistStart<=0)&&(error[i]==0) && setPointChange == 0)
       {
         responseDisturbance[i]=responseDisturbance[0]; //gives a zero disturbance at less  0 times
-       System.out.println("If 0");
+       
       }
              
       if (time[i]<tDistStart||time[i]>tDistEnd) //outside of disturbance bounds

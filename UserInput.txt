@@ -1,5 +1,5 @@
 1		:Insert the number one to simulate the CSTR heating system OR the number two to simulate the distillation column.
-0,05		:Enter your desired time increment in seconds.
+1		:Enter your desired time increment in seconds.
 800		:Enter your desired runtime in seconds.
 1		:Enter the number one to simulate a change in set point OR the number two to simulate a disturbance to your selected process.
 300		:If you chose a setpoint, please insert your desired setpoint (For CSTR heating system, the change is on Q and for the distillation column, the change is on the flow out the valve (B)). Enter the number zero here if you chose a disturbance.

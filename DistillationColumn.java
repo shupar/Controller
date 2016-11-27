@@ -101,20 +101,20 @@ public class DistillationColumn extends Processes implements Function
    {
      //this.setL(disturbance + this.l);
      
-     double responseinL=RungeKutta.integrate(t1,responseL, delx, this);
+     double responseinL=Euler.integrate(t1,responseL, delx, this);
    
      return responseinL;
-   }//using the static method in RK function to solve it   
+   }//using the static method in Euler function to solve it   
   
    
    public double calculateReponseOfProcessManipulated(double t1, double responseB, double delx, double fceOUT, double disturbance)
    {
      b=-fceOUT;
      
-     double responseinB=RungeKutta2.integrate(t1,responseB, delx, this);
+     double responseinB=Euler2.integrate(t1,responseB, delx, this);
     
      return responseinB;
-   }//using the static method in RK function to solve it   
+   }//using the static method in Euler2 function to solve it   
    
    public double intialiseControlledVariable()
    {

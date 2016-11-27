@@ -3,7 +3,8 @@ public class DistillationColumn extends Processes implements Function
   private double l;//disturbance
   private double v; //kept constant
   private double rho;
-  private double d; //for the area
+  private double area; //for the area
+  private double initialHeight;
 
   public double b;
   //private final double MINIMUM = 0; //In results if the height of the water is less than MINIMUM then we need to only give 0!!!
@@ -13,15 +14,16 @@ public class DistillationColumn extends Processes implements Function
     this.l = 0;
     this.v = 0;
     this.rho = 0;
-    this.d = 0;
+    this.area = 0;
   } //end of default constructor
   
-  public DistillationColumn(double d, double rho, double l, double v)
+  public DistillationColumn(double area, double rho, double l, double v, double initialHeight)
   {
     this.l = l;
     this.v = v;
     this.rho = rho;
-    this.d = d; 
+    this.area = area;
+    this.initialHeight = initialHeight;
   } //end of constructor
   
   public DistillationColumn(DistillationColumn copy)
@@ -29,7 +31,8 @@ public class DistillationColumn extends Processes implements Function
     this.l = copy.l;
     this.v = copy.v;
     this.rho = copy.rho;
-    this.d = copy.d; 
+    this.initialHeight = initialHeight;
+    this.area = copy.area;
     
   } //end of copy constructor
   
@@ -53,9 +56,9 @@ public class DistillationColumn extends Processes implements Function
     return this.rho;
   } //end of accessor
   
-  public double getD()
+  public double getArea()
   {
-    return this.d;
+    return this.area;
   } //end of accessor
   
   public void setL(double l)
@@ -73,24 +76,24 @@ public class DistillationColumn extends Processes implements Function
     this.rho = rho;
   } //end of mutator
   
-  public void setD(double d)
+  public void setArea(double area)
   {
-    this.d = d;
+    this.area = area;
   } //end of mutator
   
-  //double area = Math.PI*Math.pow(this.d, 2)*0.25;
+
   
   public double calculateValueOfODEDisturbance(double x, double y)
   {
-    double area = Math.PI*Math.pow(this.d, 2)*0.25;
-    return ((this.l - this.v)/(this.rho*area) );
+  
+    return ((this.l)/(this.rho*this.area) );
   } //end of method required for interface
   
  
    public double calculateValueOfODEManipulated(double x, double y)
    {
-     double area = Math.PI*Math.pow(this.d, 2)*0.25;
-     return  (- this.b/(this.rho*area));
+     
+     return  (- this.b/(this.rho*this.area)-(this.v)/(this.rho*this.area));
    }//end of method
   
   
@@ -106,7 +109,7 @@ public class DistillationColumn extends Processes implements Function
    
    public double calculateReponseOfProcessManipulated(double t1, double responseB, double delx, double fceOUT, double disturbance)
    {
-     b=fceOUT;
+     b=-fceOUT;
      
      double responseinB=RungeKutta2.integrate(t1,responseB, delx, this);
     
@@ -115,7 +118,7 @@ public class DistillationColumn extends Processes implements Function
    
    public double intialiseControlledVariable()
    {
-    return 0; 
+    return this.initialHeight; 
    } //end of method
   
    public double intialiseDisturbanceArray()
@@ -132,6 +135,8 @@ public class DistillationColumn extends Processes implements Function
     {
       this.setL(this.l - magnitude);
     } //end of method
+    
+   
   
   
 
