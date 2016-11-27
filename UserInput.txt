@@ -4,7 +4,7 @@
 1		:Enter the number one to simulate a change in set point OR the number two to simulate a disturbance to your selected process.
 300		:If you chose a setpoint, please insert your desired setpoint (For CSTR heating system, the change is on Q and for the distillation column, the change is on the flow out the valve (B)). Enter the number zero here if you chose a disturbance.
 0		:Please enter the time you would like to start your change in setpoint in s. Enter the number zero here if you chose a disturbance.
-0		:Please insert disturbance magnitude (value of the step or the slope of the ramp or the amplitude of the sinus function).(For the CSTR system, you are varying inlet temperature and for the distillation column, you are varying the liquid flow in the column).Enter the number zero here if you chose a change in setpoint.
+0		:Please insert disturbance magnitude.(For the CSTR system, you are varying inlet temperature and for the distillation column, you are varying the liquid flow in the column).Enter the number zero here if you chose a change in setpoint.
 0 		:Please enter the start time of your disturbance in s. Enter the number zero here if you chose a change in setpoint.
 0		:Please enter the end time of your disturbance in s. Enter the number zero here if you chose a change in setpoint.
 1		:Please enter the gain of the valve you are using.
@@ -16,7 +16,7 @@ PID		:In the order of Proportional (P), Integral (I) and Derivative (D) controll
 250		:For process one, enter the initial temperature [K]. For process two, enter the diameter of your tank [m].
 1000		:For process one or two, enter the density of the fluid you are using [kg/m3]. 
 1		:For process one, the volume of the tank [m3]. For process two, enter the liquid flow of your process [kg/s].
-100		:For process one, enter the mass flow rate of the fluid entering the system [kg/s]the volume of the tank [m3]. For process two, enter the vapour flow of your process [kg/s].
+100		:For process one, enter the mass flow rate of the fluid entering the system [kg/s]. For process two, enter the vapour flow of your process [kg/s].
 4,202		:For process one, enter the heat capacity of the fluid in the system [kJ/kg*K]. For process two, enter the number zero.
 
 
