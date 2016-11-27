@@ -21,9 +21,13 @@ public class Integral extends Controller
   public Integral (Integral copy)
   {
     this.kC=copy.kC;
-    this.tauI=copy.tauI;
-    
+    this.tauI=copy.tauI;    
   }//end copy constructor
+  
+  public Integral clone()
+  {
+    return new Integral(this);
+  }//end clone method
   
   //mutator/accessor methods
   public void setKC (double kC)

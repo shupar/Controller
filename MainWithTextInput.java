@@ -1,3 +1,4 @@
+//main class
 import java.util.*;
 import java.io.*;
 
@@ -79,7 +80,8 @@ public class MainWithTextInput
       inputStream.close();
       return;
     }
-     
+    
+    //ensure runtime is a multiple of time increment
     double x = runTime / timeInc;
     int xint;
     xint=(int)x;
@@ -93,12 +95,14 @@ public class MainWithTextInput
      }
     System.out.println("Your chosen run time is: "+runTime);
     
+    //ensure time increment is not longer than runtime
     if(timeInc>=runTime)
     {
       System.out.println("Your time increment is larger than or equal to your simulation runtime. You should reconsider how often you would like to iterate.");
       inputStream.close();
       return;
     }
+    //ourput to java compiler to confirm number of iterations
     else 
     {
       Scanner reader=new Scanner(System.in);
@@ -108,6 +112,7 @@ public class MainWithTextInput
       
       System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+"steps in time.");
      
+      //force user to chose either option 1 to continue or 2 to reconsider
       do
     {
       exit=false;
@@ -153,7 +158,7 @@ public class MainWithTextInput
     int inputSignal=inputStream.nextInt();
     
     inputStream.nextLine();
-        
+    //declaring varibales for set point change and disturbance    
     double setPoint=0;
     double startSetPoint=0;
     double disturbanceMag=0;
@@ -164,7 +169,7 @@ public class MainWithTextInput
     if (inputSignal==1)
     {
       System.out.println("You have chosen to invoke a change in setpoint on your selected process.");
-      
+      //read the chnage in setpoint
       while(!inputStream.hasNextDouble())
       {
       System.out.println("You did not enter an interger or double type value for your desired setpoint. Plz modify the text file and try again.");
@@ -172,14 +177,14 @@ public class MainWithTextInput
       return;
       }
       setPoint=inputStream.nextDouble();
-      
-      if(setPoint<0)
+      //ensure setpoint makes sense for the CSTR system
+      if(systemSelection==1&&setPoint<0)
      {
-        System.out.println("Your set point change is below 0K if you chose the CSTR of below Om if you chose the distillation column...  Please modify the text file and try again.");
+        System.out.println("Your set point change is below 0K...  Please modify the text file and try again.");
         inputStream.close();
         return;
      }
-      
+      //read start set point change time
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
@@ -189,7 +194,7 @@ public class MainWithTextInput
       }
       startSetPoint=inputStream.nextDouble();
       
-      //ask user to try again is set point start is after the runtime and is setpoint start is not a multiple of timeInc
+      //ask user to try again is set point start is after the runtime or before time 0
       if(startSetPoint>runTime)
       {
         System.out.println("Your start of set point change is after your process run time...  Please reconsider the timing of your input signal and try again.");
@@ -202,7 +207,7 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-      
+    //ask user to change start set point if it is not a multiple of the time increment  
     double y = startSetPoint / timeInc;
     int yint;
     yint=(int)y;
@@ -217,7 +222,7 @@ public class MainWithTextInput
          
       System.out.println("The step change you have chosen is "+setPoint+"and will commence at t = "+startSetPoint+"s.");
       
-      //ensure user does not enter a disturbance since they have selected a change in step point
+      //ensure user does not enter a disturbance magnitude since they have selected a change in step point
       inputStream.nextLine();
       Boolean pass=false;
       while(!pass)
@@ -242,7 +247,7 @@ public class MainWithTextInput
           pass=true;  
         }
       }
-      
+      //ensure no disturbance start time is entered
       inputStream.nextLine();
       Boolean pass1=false;
       while(!pass1)
@@ -267,7 +272,7 @@ public class MainWithTextInput
           pass1=true;
         }
       }
-      
+      //ensure no disturbance end time is entered
       inputStream.nextLine();
       Boolean pass2=false;
       while(!pass2)
@@ -323,7 +328,7 @@ public class MainWithTextInput
           pass3=true;  
         }
       }
-      
+      //ensure nothing is entered for the start time of the set point
       inputStream.nextLine();
       Boolean pass4=false;
       while(!pass4)
@@ -349,7 +354,7 @@ public class MainWithTextInput
         }
       }
       
-      //input disturbance values
+      //input disturbance values magnitude
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
@@ -358,14 +363,14 @@ public class MainWithTextInput
       return;
       }
       disturbanceMag=inputStream.nextDouble();
-      
+      //make sure the disturbance will produce heat to raise the temperature of the solution and not cool (this is not a cooling system)
       if(systemSelection==1&&disturbanceMag>0)
      {
         System.out.println("This is a heating system! you therefore need to COOL your system (enter a negative disturbance magnitude) with your chosen disturbance...  Please modify the text file and try again.");
         inputStream.close();
         return;
      }
-      
+      //input disturbance start time
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
@@ -375,6 +380,7 @@ public class MainWithTextInput
       }
       disturbanceStart=inputStream.nextDouble();
       
+      //make sure disturbance start is after time 0 and is a multiple of the time increment
       if(disturbanceStart<0)
      {
         System.out.println("Your start of disturbance is below 0...  Please modify the text file and try again.");
@@ -382,7 +388,7 @@ public class MainWithTextInput
         return;
      }
     
-      double z = disturbanceStart / timeInc;
+     double z = disturbanceStart / timeInc;
     int zint;
     zint=(int)z;
     double resultz = disturbanceStart - timeInc * zint;
@@ -393,7 +399,7 @@ public class MainWithTextInput
         inputStream.close();
         return;
      } 
-      
+      //input disturbance end time
       inputStream.nextLine();
       while(!inputStream.hasNextDouble())
       {
@@ -403,6 +409,7 @@ public class MainWithTextInput
       }
       disturbanceEnd=inputStream.nextDouble();
       
+      //make sure disturbance end is not before time 0 and is a multiple of the time increment
       if(disturbanceEnd<0)
      {
         System.out.println("Your end of disturbance is below 0...  Please modify the text file and try again.");
@@ -430,7 +437,7 @@ public class MainWithTextInput
       inputStream.close();
       return;
     }
-    
+    //make sure disturbance start and end times come in the right order
     if (disturbanceStart>disturbanceEnd)
     {
      System.out.println("Your disturbance start time must come before your disturbance end time!! Plz modify the text file and try again."); 
@@ -441,6 +448,7 @@ public class MainWithTextInput
 
     //code to read valve details
     inputStream.nextLine();
+    //valve gain
     double kV=0;
     while(!inputStream.hasNextDouble())
       {
@@ -452,6 +460,7 @@ public class MainWithTextInput
     System.out.println("The gain of the valve is: "+kV);
     
     inputStream.nextLine();
+    //valve time constant
     double tauV=0;
     while(!inputStream.hasNextDouble())
       {
@@ -465,7 +474,6 @@ public class MainWithTextInput
     //code to read what type of controller to simulate
     inputStream.nextLine();
     String controller=inputStream.next();
-    //System.out.println("The controller type you have chosen is: "+controller);
     
     while(!controller.equals("P")&&!controller.equals("I")&&!controller.equals("D")&&!controller.equals("PI")&&!controller.equals("PD")&&!controller.equals("ID")&&!controller.equals("PID"))
     {
@@ -473,6 +481,7 @@ public class MainWithTextInput
       inputStream.close();
       return;      
     }
+    System.out.println("The controller type you have chosen is: "+controller);
     
       //what to do next as a function of user controller choice
     double kC=0;
@@ -484,6 +493,7 @@ public class MainWithTextInput
     if (controller.equals("P"))
       {
         inputStream.nextLine();
+        //input kC
        while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
@@ -495,6 +505,7 @@ public class MainWithTextInput
         System.out.println("The gain of your controller is: "+kC);
         
        inputStream.nextLine();
+       //force zero for tauI
       Boolean pass1=false;
       while(!pass1)
       {
@@ -515,12 +526,13 @@ public class MainWithTextInput
         }
         else if(tauI==0)
         {
-          tauI=Math.pow(10, 100);
+          tauI=Math.pow(10, 100);//srt tauI to big number to cancel out the integral controller action
           System.out.println("Your integral time constant was set to a very large number of "+tauI+" in order to be able to cancel the integral term.");
           pass1=true;
         }
       }
       
+      //force tauD=0
       inputStream.nextLine();
       Boolean pass2=false;
       while(!pass2)
@@ -551,9 +563,10 @@ public class MainWithTextInput
       else if(controller.equals("I"))
       {
       inputStream.nextLine();
+      //input kC which is the "integral gain"
        while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -561,7 +574,7 @@ public class MainWithTextInput
         System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain.");
         
       inputStream.nextLine();
-        
+      //input tauI        
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
@@ -572,6 +585,7 @@ public class MainWithTextInput
         
         System.out.println("The integral time constant of your controller is: "+tauI);
         
+      //force 0 for tau D
       inputStream.nextLine();
       Boolean pass4=false;
       while(!pass4)
@@ -602,16 +616,17 @@ public class MainWithTextInput
       else if(controller.equals("D"))
       {
          inputStream.nextLine();
+         //input kC which is the "derivative gain"
          while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
         kC=inputStream.nextDouble();
 
         System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain.");
-           
+      //force 0 for tauI then set to large number     
       inputStream.nextLine();
       Boolean pass6=false;
       while(!pass6)
@@ -640,7 +655,7 @@ public class MainWithTextInput
       }
         
       inputStream.nextLine();
-        
+        //input tauD
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
@@ -657,7 +672,7 @@ public class MainWithTextInput
       else if(controller.equals("PI"))
       {
         inputStream.nextLine();
-        
+        //input kC
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
@@ -669,7 +684,7 @@ public class MainWithTextInput
         System.out.println("The gain of your controller is: "+kC);
         
         inputStream.nextLine();
-        
+        //input tauI
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
@@ -679,7 +694,8 @@ public class MainWithTextInput
         tauI=inputStream.nextDouble();
         
         System.out.println("The integral time constant of your controller is: "+tauI);
-        
+       
+       //force 0 for tauD
       inputStream.nextLine();
       Boolean pass7=false;
       while(!pass7)
@@ -709,7 +725,7 @@ public class MainWithTextInput
       else if(controller.equals("PD"))
       {
         inputStream.nextLine();
-        
+        //input kC
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
@@ -719,7 +735,7 @@ public class MainWithTextInput
         kC=inputStream.nextDouble();
         
         System.out.println("The gain of your controller is: "+kC);
-        
+       //force 0 for tauI 
       inputStream.nextLine();
       Boolean pass8=false;
       while(!pass8)
@@ -748,7 +764,7 @@ public class MainWithTextInput
       }
       
         inputStream.nextLine();
-        
+        //input tau D
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
@@ -764,9 +780,10 @@ public class MainWithTextInput
       else if(controller.equals("ID"))
       {
          inputStream.nextLine();
+         //input the "integral and derivative gain"
         while(!inputStream.hasNextDouble())
         {
-          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");//CHECK!!!!!!!!!!!!!
+          System.out.println("You did not enter an integer or double for your controller gain. Please modify the text file and try again.");
           inputStream.close();
           return;
         }
@@ -775,7 +792,7 @@ public class MainWithTextInput
         System.out.println("Your controller gain is "+kC+". Note: this is not a proportional gain."); 
         
         inputStream.nextLine();
-        
+        //input tauI
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
@@ -787,7 +804,7 @@ public class MainWithTextInput
         System.out.println("The integral time constant of your controller is: "+tauI); 
         
         inputStream.nextLine();
-        
+        //input tau D
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
@@ -802,7 +819,7 @@ public class MainWithTextInput
       else if(controller.equals("PID"))
       {
         inputStream.nextLine();
-        
+        //inpu kC
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the gain of your controller. Plz modify the text file and try again.");
@@ -814,7 +831,7 @@ public class MainWithTextInput
         System.out.println("The gain of your controller is: "+kC);
         
         inputStream.nextLine();
-        
+        //input tauI
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the integral time constant of your controller. Plz modify the text file and try again.");
@@ -826,7 +843,7 @@ public class MainWithTextInput
         System.out.println("The integral time constant of your controller is: "+tauI);
         
         inputStream.nextLine();
-        
+        //input tauD
         while(!inputStream.hasNextDouble())
         {
           System.out.println("You did not enter an integer or a double value for the derivative time constant of your controller. Plz modify the text file and try again.");
@@ -847,6 +864,7 @@ public class MainWithTextInput
       
       //input parameters for the distillation column
      double d=0;
+     double areaForColumn=0;
      double rho2=0;
      double lFlow=0;
      double vFlow=0;
@@ -864,7 +882,7 @@ public class MainWithTextInput
         return;
       }
       initialT=inputStream.nextDouble();
-      
+      //ensure value makes sense
       if(initialT<0)
      {
         System.out.println("Your temperature is below 0...  Please modify the text file and try again.");
@@ -886,7 +904,7 @@ public class MainWithTextInput
         return;
       }
       rho=inputStream.nextDouble();
-      
+      //ensure value makes sense
       if(rho<500)
      {
         System.out.println("Your fluid density is below 500kg/m3... You probably arent operating with a liquid, which is necessary for this system to function... Please modify the text file and try again.");
@@ -904,7 +922,7 @@ public class MainWithTextInput
         return;
       }
       vol=inputStream.nextDouble();
-      
+     //ensure value makes sense 
       if(vol<0)
      {
         System.out.println("Your volume is below 0...  Please modify the text file and try again.");
@@ -923,13 +941,14 @@ public class MainWithTextInput
         return;
       }
       flow=inputStream.nextDouble();
-      
+      //ensure value makes sense
       if(flow<0)
      {
         System.out.println("Your mass flow rate is below 0...  Please modify the text file and try again.");
         inputStream.close();
         return;
      }
+      //ensure CSTR does not overflow
       double volumeForFlow=flow/rho;
       if(volumeForFlow>vol)
       {
@@ -948,6 +967,7 @@ public class MainWithTextInput
         return;
       }
       cP=inputStream.nextDouble();
+      //ensure value makes sense
       if(cP<0)
      {
         System.out.println("Your heat capacity is below 0...  Please modify the text file and try again.");
@@ -956,6 +976,7 @@ public class MainWithTextInput
      }
       System.out.println("The heat capacity of your process is: "+cP+"kJ/kg*K.");
      
+      //ensure set point changes and disturbance vales are all good with the input process parameters
       if(inputSignal==1&&setPoint<initialT)
      {
         System.out.println("The CSTR process is a HEATING process not a REFRIGERATING system...  Please modify the text file and try again.");
@@ -984,6 +1005,7 @@ public class MainWithTextInput
         return;
       }
       d=inputStream.nextDouble();
+      //ensure value makes sense
       if(d<0)
      {
         System.out.println("Your diameter is below 0...  Please modify the text file and try again.");
@@ -991,6 +1013,10 @@ public class MainWithTextInput
         return;
      }
       System.out.println("The diameter of your column is: "+d+"m.");
+      
+      //calculate area of distillation column
+      areaForColumn=(Math.PI*Math.pow(d, 2))/4;      
+      System.out.println("The area for your column of d= "+d+"m is: "+areaForColumn+"m2.");
       
       //density of the fluid in the system {kg/m3}
       inputStream.nextLine();
@@ -1001,7 +1027,7 @@ public class MainWithTextInput
         return;
       }
       rho2=inputStream.nextDouble();
-      
+      //ensure value makes sense
       if(rho2<0)
      {
         System.out.println("Your fluid density is below 0... Please modify the text file and try again.");
@@ -1019,6 +1045,7 @@ public class MainWithTextInput
         return;
       }
       lFlow=inputStream.nextDouble();
+      //ensure value makes sense
       if(lFlow<0)
      {
         System.out.println("Your liquid flow is below 0...  Please modify the text file and try again.");
@@ -1036,7 +1063,7 @@ public class MainWithTextInput
         return;
       }
       vFlow=inputStream.nextDouble();
-      
+      //ensure value makes sense
       if(vFlow<0)
      {
         System.out.println("Your vapour flow is below 0...  Please modify the text file and try again.");
@@ -1045,6 +1072,7 @@ public class MainWithTextInput
      } 
       System.out.println("The vapour flow rate of your process is: "+vFlow+ "kg/s.");
        
+      //input empty parameter because the distillation column has one less variable than the CSTR heating system
       inputStream.nextLine();
       Boolean passing=false;
       while(!passing)
@@ -1068,6 +1096,7 @@ public class MainWithTextInput
           passing=true;
         }
       }  
+      //check disturbance and lflow dont result in a negative flow of the system
       if(inputSignal==2&&(disturbanceMag+lFlow)<0)
       {
         System.out.println("Your chosen disturbance magnitude will result in a negative flow...  Please modify the text file and try again.");
@@ -1076,7 +1105,7 @@ public class MainWithTextInput
       }
      }
 
-     
+     //ask user if java has properly entered everything and if they want to proceed
       Scanner reader2=new Scanner(System.in);
       boolean exit=false;
       int choice2=0;
@@ -1104,7 +1133,7 @@ public class MainWithTextInput
     //end catch for user's selection of how to proceed
     
     //inform user of their poor controller choice
-    if(controller.equals("I")||controller.equals("D")||controller.equals("ID")||controller.equals("PD"))
+    if(controller.equals("I")||controller.equals("D")||controller.equals("ID"))
     System.out.println("WARNING: the controller type you have chosen is not very competent... prepare yourself for an abnormal output :P");
 
     //creating controller objects
@@ -1119,7 +1148,7 @@ public class MainWithTextInput
     
     //creating process objects
     CSTRHeatingSystem cstr=new CSTRHeatingSystem(initialT, rho, vol, flow, cP);
-    DistillationColumn column=new DistillationColumn(d, rho2, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve the last parameter
+    DistillationColumn column=new DistillationColumn(areaForColumn, rho2, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve the last parameter
    
     //call results depending on program
     Results results=new Results();    
