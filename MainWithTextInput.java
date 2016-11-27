@@ -35,7 +35,7 @@ public class MainWithTextInput
     }
     else if(systemSelection==2)
     {
-      System.out.println("The system you have selected is the level control system.");
+      System.out.println("The system you have selected is the distillation column.");
     }
     else 
     {
@@ -91,7 +91,7 @@ public class MainWithTextInput
         inputStream.close();
         return;
      }
-    System.out.println("Your chosen run time increment is: "+runTime);
+    System.out.println("Your chosen run time is: "+runTime);
     
     if(timeInc>=runTime)
     {
@@ -106,7 +106,7 @@ public class MainWithTextInput
       int choice=0;
       iterations=(int)(runTime/timeInc);
       
-      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+".");
+      System.out.println("For your set run time of "+runTime+"s and time increment of "+timeInc+"s for each iteration, the program will compute "+iterations+"steps in time.");
      
       do
     {
@@ -359,7 +359,7 @@ public class MainWithTextInput
       }
       disturbanceMag=inputStream.nextDouble();
       
-      if(disturbanceMag>0)
+      if(systemSelection==1&&disturbanceMag>0)
      {
         System.out.println("This is a heating system! you therefore need to COOL your system (enter a negative disturbance magnitude) with your chosen disturbance...  Please modify the text file and try again.");
         inputStream.close();
@@ -1102,6 +1102,10 @@ public class MainWithTextInput
     }while(choice2!=1&&choice2!=2);
     reader2.close();
     //end catch for user's selection of how to proceed
+    
+    //inform user of their poor controller choice
+    if(controller.equals("I")||controller.equals("D")||controller.equals("ID")||controller.equals("PD"))
+    System.out.println("WARNING: the controller type you have chosen is not very competent... prepare yourself for an abnormal output :P");
 
     //creating controller objects
     Proportional proportional;
@@ -1115,9 +1119,9 @@ public class MainWithTextInput
     
     //creating process objects
     CSTRHeatingSystem cstr=new CSTRHeatingSystem(initialT, rho, vol, flow, cP);
-    DistillationColumn column=new DistillationColumn(d, rho, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve the last parameter
+    DistillationColumn column=new DistillationColumn(d, rho2, lFlow, vFlow);//dont actually need to send blank cuz dont need to recieve the last parameter
    
-        //call results depending on program
+    //call results depending on program
     Results results=new Results();    
     if(systemSelection==1)
     {    
