@@ -1,10 +1,13 @@
+//this is the class that connects everything together to then ouput a response vs. time
 import java.io.*;
 
 public class Results 
 {
+  //method inputs parameters from the main that are necessary to cary out the ODE solver and the control loop
   public void calculations(double setPointChange, double disturbanceChange, double tDistStart, double tDistEnd, Proportional proportional, Integral integral, Derivative derivative,
                              Processes process, double tChangeSP, int iterations, double delx, double tauv, double kv, int systemSelection)
   {
+    //size the whole code works in a huge for loop, create arrays of length run time (plus one block for the time=-timeInc) store all method outputs in an array
     int size=iterations+2;
     double [] time=new double [size];
     double [] responseDisturbance=new double [size];
@@ -18,6 +21,7 @@ public class Results
     double [] setPoint=new double [size];
     double [] fceOut=new double [size];
     
+    //the first space in each array is set manually
     time[0]=-delx;
     responseDisturbance[0]= process.intialiseControlledVariable();
     responseManipulated[0]=0;
