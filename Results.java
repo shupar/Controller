@@ -129,16 +129,16 @@ public class Results
     //define output columns
     if (systemSelection==1)
     {
-      outputStream.println("t [s]\tSet point\t Error \t intError \tderError \tsignal \tDisturbance \tManipulated \t Tout (K)");
+      outputStream.println("t [s]\t T(t) [K]");
     }
     else if(systemSelection==2)
     {
-      outputStream.println("t [s]\tSet point\t Error \t intError \tderError \tsignal \tDisturbance \tManipulated \t Tout (K)");
+      outputStream.println("t [s]\t H(t) [m]");
     }
     
     for (int i=0; i<responseFinal.length; i++)
     {
-      outputStream.println(time[i]+"\t"+setPoint[i]+"\t"+error[i]+"\t"+intError[i]+"\t"+derError[i]+"\t"+signal[i]+"\t"+responseDisturbance[i]+"\t"+responseManipulated[i]+"\t"+responseFinal[i]);
+      outputStream.println(time[i]+"\t"+responseFinal[i]);
     }
     
     outputStream.close();   
