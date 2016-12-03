@@ -22,7 +22,7 @@ public class TestModulusFct
       System.out.println("Your set point time is not a multiple of you time increment. Plz try again.");
       startSetPoint=reader.nextDouble();      
     }
-    
+    reader.close();
   }//end main
   
 }//end class
